@@ -1,29 +1,34 @@
 import { useState } from "react";
 import api from "../services/api";
 
-function Contact() {
+function Demo() {
 
   const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
+    company: "",
     message: ""
   });
 
   const handleChange = (e) => {
+
     setForm({
       ...form,
       [e.target.name]: e.target.value
     });
+
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
 
-      const response = await api.post(
-        "/contact",
+      const response =
+      await api.post(
+        "/demo",
         form
       );
 
@@ -31,16 +36,20 @@ function Contact() {
 
     } catch (error) {
 
-      alert("Error submitting form");
+      console.log(error);
+
+      alert("Error submitting demo request");
 
     }
+
   };
 
   return (
+
     <div className="max-w-3xl mx-auto py-20">
 
       <h1 className="text-4xl font-bold mb-8">
-        Contact Us
+        Request Demo
       </h1>
 
       <form
@@ -72,6 +81,14 @@ function Contact() {
           className="w-full border p-3"
         />
 
+        <input
+          type="text"
+          name="company"
+          placeholder="Company"
+          onChange={handleChange}
+          className="w-full border p-3"
+        />
+
         <textarea
           name="message"
           placeholder="Message"
@@ -83,13 +100,15 @@ function Contact() {
           type="submit"
           className="bg-blue-600 text-white px-6 py-3 rounded"
         >
-          Submit
+          Request Demo
         </button>
 
       </form>
 
     </div>
+
   );
+
 }
 
-export default Contact;
+export default Demo;
