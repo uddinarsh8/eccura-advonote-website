@@ -1,29 +1,140 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
-  return (
-    <nav className="bg-white shadow-md">
 
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between">
+    const [menuOpen, setMenuOpen] =
+        useState(false);
 
-        <h1 className="text-2xl font-bold text-blue-700">
-          Advonote
-        </h1>
+    return (
 
-        <div className="space-x-6">
+        <nav className="bg-white shadow-md sticky top-0 z-50">
 
-          <Link to="/">Home</Link>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
 
-          <Link to="/contact">Contact</Link>
+                <div className="flex justify-between items-center">
 
-          <Link to="/demo">Request Demo</Link>
+                    {/* Logo */}
 
-        </div>
+                    <Link
+                        to="/"
+                        className="text-2xl sm:text-3xl font-bold text-blue-700"
+                    >
+                        Advonote
+                    </Link>
 
-      </div>
+                    {/* Desktop Menu */}
 
-    </nav>
-  );
+                    <div className="hidden md:flex items-center gap-6">
+
+                        <Link
+                            to="/"
+                            className="text-gray-700 hover:text-blue-600 font-medium transition"
+                        >
+                            Home
+                        </Link>
+
+                        <Link
+                            to="/contact"
+                            className="text-gray-700 hover:text-blue-600 font-medium transition"
+                        >
+                            Contact
+                        </Link>
+
+                        <Link
+                            to="/advocate/login"
+                            className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transition"
+                        >
+                            Login
+                        </Link>
+
+
+                        <Link
+                            to="/demo"
+                            className="bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition"
+                        >
+                            Request Demo
+                        </Link>
+                        <Link
+                            to="/admin/login"
+                            className="text-gray-700 hover:text-blue-600 font-medium transition"
+                        >
+                            Admin Login
+                        </Link>
+
+                    </div>
+
+                    {/* Mobile Hamburger */}
+
+                    <button
+                        className="md:hidden text-3xl"
+                        onClick={() =>
+                            setMenuOpen(
+                                !menuOpen
+                            )
+                        }
+                    >
+                        {menuOpen ? "✕" : "☰"}
+                    </button>
+
+                </div>
+
+                {/* Mobile Menu */}
+
+                {menuOpen && (
+
+                    <div className="md:hidden mt-4 flex flex-col gap-3 border-t pt-4">
+
+                        <Link
+                            to="/"
+                            onClick={() =>
+                                setMenuOpen(false)
+                            }
+                            className="text-gray-700 hover:text-blue-600"
+                        >
+                            Home
+                        </Link>
+
+                        <Link
+                            to="/contact"
+                            onClick={() =>
+                                setMenuOpen(false)
+                            }
+                            className="text-gray-700 hover:text-blue-600"
+                        >
+                            Contact
+                        </Link>
+
+                        <Link
+                            to="/advocate/login"
+                            onClick={() =>
+                                setMenuOpen(false)
+                            }
+                            className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg text-center"
+                        >
+                            Advocate Login
+                        </Link>
+
+                        <Link
+                            to="/demo"
+                            onClick={() =>
+                                setMenuOpen(false)
+                            }
+                            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-center"
+                        >
+                            Request Demo
+                        </Link>
+
+                    </div>
+
+                )}
+
+            </div>
+
+        </nav>
+
+    );
+
 }
 
 export default Navbar;

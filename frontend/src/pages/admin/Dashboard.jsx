@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import AdminLayout from "../../components/AdminLayout";
+import {
+    Users,
+    Phone,
+    MonitorPlay
+} from "lucide-react";
 
 function Dashboard() {
 
@@ -15,6 +20,9 @@ function Dashboard() {
         recentLeads: []
     });
 
+    const [loading, setLoading] =
+        useState(true);
+
     useEffect(() => {
 
         const fetchDashboard = async () => {
@@ -22,13 +30,21 @@ function Dashboard() {
             try {
 
                 const response =
-                    await api.get("/admin/dashboard");
+                    await api.get(
+                        "/admin/dashboard"
+                    );
 
-                setStats(response.data);
+                setStats(
+                    response.data
+                );
 
             } catch (error) {
 
                 console.log(error);
+
+            } finally {
+
+                setLoading(false);
 
             }
 
@@ -42,100 +58,280 @@ function Dashboard() {
 
         <AdminLayout>
 
-            <h1 className="text-4xl font-bold mb-4">
-                Dashboard
-            </h1>
+            <div className="space-y-8">
 
-            <h2 className="text-2xl mb-8">
-                Welcome, {admin?.name}
-            </h2>
+                {/* Welcome Banner */}
 
-            <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl text-white p-8 shadow-xl">
 
-                <div className="shadow-lg p-6 rounded-lg">
-                    <h2>Total Leads</h2>
+                    <h1 className="text-3xl sm:text-4xl font-bold">
 
-                    <p className="text-3xl font-bold">
-                        {stats.totalLeads}
+                        Welcome back,
+                        {" "}
+                        {admin?.name}
+
+                        👋
+
+                    </h1>
+
+                    <p className="mt-3 text-blue-100">
+
+                        Here's an overview of
+                        your Advonote platform.
+
                     </p>
+
                 </div>
 
-                <div className="shadow-lg p-6 rounded-lg">
-                    <h2>Contact Requests</h2>
+                {/* Stats */}
 
-                    <p className="text-3xl font-bold">
-                        {stats.contactRequests}
-                    </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+
+                    <div className="bg-white rounded-3xl shadow-lg p-6">
+
+                        <div className="flex justify-between items-center">
+
+                            <div>
+
+                                <p className="text-gray-500">
+
+                                    Total Leads
+
+                                </p>
+
+                                <h2 className="text-4xl font-bold mt-2">
+
+                                    {stats.totalLeads}
+
+                                </h2>
+
+                            </div>
+
+                            <div className="bg-blue-100 p-4 rounded-2xl">
+
+                                <Users
+                                    size={32}
+                                    className="text-blue-600"
+                                />
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div className="bg-white rounded-3xl shadow-lg p-6">
+
+                        <div className="flex justify-between items-center">
+
+                            <div>
+
+                                <p className="text-gray-500">
+
+                                    Contact Requests
+
+                                </p>
+
+                                <h2 className="text-4xl font-bold mt-2">
+
+                                    {stats.contactRequests}
+
+                                </h2>
+
+                            </div>
+
+                            <div className="bg-green-100 p-4 rounded-2xl">
+
+                                <Phone
+                                    size={32}
+                                    className="text-green-600"
+                                />
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div className="bg-white rounded-3xl shadow-lg p-6">
+
+                        <div className="flex justify-between items-center">
+
+                            <div>
+
+                                <p className="text-gray-500">
+
+                                    Demo Requests
+
+                                </p>
+
+                                <h2 className="text-4xl font-bold mt-2">
+
+                                    {stats.demoRequests}
+
+                                </h2>
+
+                            </div>
+
+                            <div className="bg-purple-100 p-4 rounded-2xl">
+
+                                <MonitorPlay
+                                    size={32}
+                                    className="text-purple-600"
+                                />
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <div className="shadow-lg p-6 rounded-lg">
-                    <h2>Demo Requests</h2>
+                {/* Recent Leads */}
 
-                    <p className="text-3xl font-bold">
-                        {stats.demoRequests}
-                    </p>
-                </div>
-                <div className="mt-10">
+                <div className="bg-white rounded-3xl shadow-lg p-6">
 
-                    <h2 className="text-2xl font-bold mb-4">
-                        Recent Leads
-                    </h2>
+                    <div className="flex justify-between items-center mb-6">
 
-                    <table className="w-full border">
+                        <h2 className="text-2xl font-bold">
 
-                        <thead>
+                            Recent Leads
 
-                            <tr className="bg-gray-200">
+                        </h2>
 
-                                <th className="border p-2">
-                                    Name
-                                </th>
+                        <span className="text-gray-500">
 
-                                <th className="border p-2">
-                                    Email
-                                </th>
+                            Latest enquiries
 
-                                <th className="border p-2">
-                                    Phone
-                                </th>
+                        </span>
 
-                                <th className="border p-2">
-                                    Status
-                                </th>
+                    </div>
 
-                            </tr>
+                    {loading ? (
 
-                        </thead>
+                        <div className="text-center py-12">
 
-                        <tbody>
+                            Loading...
 
-                            {stats.recentLeads.map((lead) => (
+                        </div>
 
-                                <tr key={lead.id}>
+                    ) : stats.recentLeads.length === 0 ? (
 
-                                    <td className="border p-2">
-                                        {lead.name}
-                                    </td>
+                        <div className="text-center py-12">
 
-                                    <td className="border p-2">
-                                        {lead.email}
-                                    </td>
+                            <div className="text-6xl mb-4">
 
-                                    <td className="border p-2">
-                                        {lead.phone}
-                                    </td>
+                                📭
 
-                                    <td className="border p-2">
-                                        {lead.status}
-                                    </td>
+                            </div>
 
-                                </tr>
+                            <h3 className="text-xl font-semibold">
 
-                            ))}
+                                No Leads Found
 
-                        </tbody>
+                            </h3>
 
-                    </table>
+                            <p className="text-gray-500 mt-2">
+
+                                Leads will appear here.
+
+                            </p>
+
+                        </div>
+
+                    ) : (
+
+                        <div className="overflow-x-auto">
+
+                            <table className="w-full">
+
+                                <thead>
+
+                                    <tr className="border-b bg-gray-50">
+
+                                        <th className="text-left p-4">
+
+                                            Name
+
+                                        </th>
+
+                                        <th className="text-left p-4">
+
+                                            Email
+
+                                        </th>
+
+                                        <th className="text-left p-4">
+
+                                            Phone
+
+                                        </th>
+
+                                        <th className="text-left p-4">
+
+                                            Status
+
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    {stats.recentLeads.map((lead) => (
+
+                                        <tr
+                                            key={lead.id}
+                                            className="border-b hover:bg-gray-50"
+                                        >
+
+                                            <td className="p-4">
+
+                                                {lead.name}
+
+                                            </td>
+
+                                            <td className="p-4">
+
+                                                {lead.email}
+
+                                            </td>
+
+                                            <td className="p-4">
+
+                                                {lead.phone}
+
+                                            </td>
+
+                                            <td className="p-4">
+
+                                                <span
+                                                    className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                                        lead.status === "New"
+                                                            ? "bg-green-100 text-green-700"
+                                                            : "bg-gray-100 text-gray-700"
+                                                    }`}
+                                                >
+
+                                                    {lead.status}
+
+                                                </span>
+
+                                            </td>
+
+                                        </tr>
+
+                                    ))}
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    )}
 
                 </div>
 

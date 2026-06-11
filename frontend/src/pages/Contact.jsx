@@ -3,93 +3,258 @@ import api from "../services/api";
 
 function Contact() {
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: ""
-  });
+    const [form, setForm] = useState({
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
+        name: "",
+        email: "",
+        phone: "",
+        message: ""
+
     });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const [loading, setLoading] =
+        useState(false);
 
-    try {
+    const handleChange = (e) => {
 
-      const response = await api.post(
-        "/contact",
-        form
-      );
+        setForm({
 
-      alert(response.data.message);
+            ...form,
+            [e.target.name]:
+                e.target.value
 
-    } catch (error) {
+        });
 
-      alert("Error submitting form");
+    };
 
-    }
-  };
+    const handleSubmit = async (e) => {
 
-  return (
-    <div className="max-w-3xl mx-auto py-20">
+        e.preventDefault();
 
-      <h1 className="text-4xl font-bold mb-8">
-        Contact Us
-      </h1>
+        try {
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4"
-      >
+            setLoading(true);
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          onChange={handleChange}
-          className="w-full border p-3"
-        />
+            const response =
+                await api.post(
+                    "/contact",
+                    form
+                );
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          className="w-full border p-3"
-        />
+            alert(
+                response.data.message
+            );
 
-        <input
-          type="text"
-          name="phone"
-          placeholder="Phone"
-          onChange={handleChange}
-          className="w-full border p-3"
-        />
+            setForm({
 
-        <textarea
-          name="message"
-          placeholder="Message"
-          onChange={handleChange}
-          className="w-full border p-3"
-        />
+                name: "",
+                email: "",
+                phone: "",
+                message: ""
 
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-6 py-3 rounded"
-        >
-          Submit
-        </button>
+            });
 
-      </form>
+        } catch (error) {
 
-    </div>
-  );
+            alert(
+                "Error submitting form"
+            );
+
+        } finally {
+
+            setLoading(false);
+
+        }
+
+    };
+
+    return (
+
+        <div className="min-h-screen bg-gray-100">
+
+            {/* Hero */}
+
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20">
+
+                <div className="max-w-7xl mx-auto px-6 text-center">
+
+                    <h1 className="text-5xl font-bold">
+
+                        📞 Contact Advonote
+
+                    </h1>
+
+                    <p className="mt-4 text-xl text-blue-100">
+
+                        We'd love to hear from you.
+
+                        Reach out anytime.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div className="max-w-7xl mx-auto px-6 py-16">
+
+                {/* Contact Cards */}
+
+                <div className="grid md:grid-cols-3 gap-6 mb-12">
+
+                    <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+
+                        <div className="text-5xl mb-4">
+
+                            📧
+
+                        </div>
+
+                        <h3 className="text-xl font-bold">
+
+                            Email
+
+                        </h3>
+
+                        <p className="text-gray-500 mt-2">
+
+                            support@advonote.com
+
+                        </p>
+
+                    </div>
+
+                    <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+
+                        <div className="text-5xl mb-4">
+
+                            📱
+
+                        </div>
+
+                        <h3 className="text-xl font-bold">
+
+                            Phone
+
+                        </h3>
+
+                        <p className="text-gray-500 mt-2">
+
+                            +91 XXXXX XXXXX
+
+                        </p>
+
+                    </div>
+
+                    <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+
+                        <div className="text-5xl mb-4">
+
+                            📍
+
+                        </div>
+
+                        <h3 className="text-xl font-bold">
+
+                            Address
+
+                        </h3>
+
+                        <p className="text-gray-500 mt-2">
+
+                            India
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {/* Form */}
+
+                <div className="bg-white rounded-3xl shadow-xl p-10 max-w-4xl mx-auto">
+
+                    <h2 className="text-3xl font-bold mb-8 text-center">
+
+                        Send Us a Message
+
+                    </h2>
+
+                    <form
+                        onSubmit={handleSubmit}
+                        className="space-y-6"
+                    >
+
+                        <div className="grid md:grid-cols-2 gap-6">
+
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="👤 Full Name"
+                                value={form.name}
+                                onChange={handleChange}
+                                className="w-full border rounded-2xl p-4"
+                                required
+                            />
+
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="✉️ Email Address"
+                                value={form.email}
+                                onChange={handleChange}
+                                className="w-full border rounded-2xl p-4"
+                                required
+                            />
+
+                        </div>
+
+                        <input
+                            type="text"
+                            name="phone"
+                            placeholder="📱 Phone Number"
+                            value={form.phone}
+                            onChange={handleChange}
+                            className="w-full border rounded-2xl p-4"
+                            required
+                        />
+
+                        <textarea
+                            name="message"
+                            placeholder="💬 Your Message"
+                            value={form.message}
+                            onChange={handleChange}
+                            rows="6"
+                            className="w-full border rounded-2xl p-4"
+                            required
+                        />
+
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className={`w-full py-4 rounded-2xl text-white font-semibold transition ${
+                                loading
+                                    ? "bg-gray-400"
+                                    : "bg-blue-600 hover:bg-blue-700"
+                            }`}
+                        >
+
+                            {loading
+                                ? "Sending..."
+                                : "Send Message"}
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    );
+
 }
 
 export default Contact;
