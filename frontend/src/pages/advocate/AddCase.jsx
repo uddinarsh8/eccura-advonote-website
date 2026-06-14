@@ -1,7 +1,15 @@
 import { useState } from "react";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import {
+    ArrowLeft,
+    Scale,
+    Save
+} from "lucide-react";
 
 function AddCase() {
+
+    const navigate = useNavigate();
 
     const [loading, setLoading] =
         useState(false);
@@ -23,11 +31,9 @@ function AddCase() {
 
         }
 
-    } catch (error) {
+    } catch {
 
-        console.log(
-            "Invalid advocate data"
-        );
+        advocate = {};
 
     }
 
@@ -75,11 +81,13 @@ function AddCase() {
             }
 
             if (
+
                 !formData.courtName ||
                 !formData.caseNumber ||
                 !formData.petitioner ||
                 !formData.respondent ||
                 !formData.hearingDate
+
             ) {
 
                 alert(
@@ -108,16 +116,20 @@ function AddCase() {
                 "Case Added Successfully"
             );
 
-            window.location.href =
-                "/advocate/cases";
+            navigate(
+                "/advocate/cases"
+            );
 
         } catch (error) {
 
             console.log(error);
 
             alert(
+
                 error?.response?.data?.message ||
+
                 "Failed to add case"
+
             );
 
         } finally {
@@ -130,122 +142,240 @@ function AddCase() {
 
     return (
 
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="min-h-screen bg-[#F3F3F3]">
 
-            <div className="max-w-5xl mx-auto">
+            {/* Header */}
 
-                {/* Header */}
+            <div className="bg-[#F4C430] px-5 py-5 shadow">
 
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-3xl p-8 shadow-lg mb-8">
+                <div className="flex items-center gap-4">
 
-                    <h1 className="text-4xl font-bold">
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="
+                            w-14 h-14
+                            bg-white
+                            rounded-2xl
+                            shadow-md
+                            flex
+                            items-center
+                            justify-center
+                        "
+                    >
 
-                        ⚖️ Add New Case
+                        <ArrowLeft size={28} />
 
-                    </h1>
+                    </button>
 
-                    <p className="mt-2 opacity-90">
+                    <div>
 
-                        Organize and track every legal matter efficiently.
+                        <h1 className="text-3xl font-bold">
 
-                    </p>
+                            Add Case
+
+                        </h1>
+
+                        <p className="text-black/70">
+
+                            Create and manage legal matters
+
+                        </p>
+
+                    </div>
 
                 </div>
 
-                {/* Preview Card */}
+            </div>
 
-                <div className="bg-white rounded-3xl shadow-lg p-6 mb-8">
+            <div className="max-w-6xl mx-auto p-5">
 
-                    <h2 className="text-2xl font-bold mb-4">
+                {/* Preview */}
 
-                        Case Preview
+                <div className="
+                    bg-white
+                    rounded-3xl
+                    shadow-md
+                    p-6
+                    mb-6
+                ">
 
-                    </h2>
+                    <div className="flex items-center gap-4">
 
-                    <p className="text-xl font-semibold">
+                        <div className="
+                            w-16 h-16
+                            rounded-2xl
+                            bg-[#F4C430]
+                            flex
+                            items-center
+                            justify-center
+                        ">
 
-                        {formData.petitioner || "Petitioner"}
-                        {" vs "}
-                        {formData.respondent || "Respondent"}
+                            <Scale size={30} />
 
-                    </p>
+                        </div>
 
-                    <p className="text-gray-500 mt-2">
+                        <div>
 
-                        {formData.caseNumber || "Case Number"}
-                    </p>
+                            <h2 className="text-2xl font-bold">
+
+                                {
+
+                                    formData.petitioner ||
+
+                                    "Petitioner"
+
+                                }
+
+                                {" vs "}
+
+                                {
+
+                                    formData.respondent ||
+
+                                    "Respondent"
+
+                                }
+
+                            </h2>
+
+                            <p className="text-gray-500">
+
+                                {
+
+                                    formData.caseNumber ||
+
+                                    "Case Number"
+
+                                }
+
+                            </p>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
                 {/* Form */}
 
-                <div className="bg-white rounded-3xl shadow-lg p-8">
+                <div className="
+                    bg-white
+                    rounded-3xl
+                    shadow-md
+                    p-6
+                    md:p-8
+                ">
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="
+                        grid
+                        grid-cols-1
+                        md:grid-cols-2
+                        gap-5
+                    ">
 
                         <input
                             name="courtName"
-                            placeholder="🏛️ Court Name *"
+                            placeholder="Court Name *"
                             value={formData.courtName}
                             onChange={handleChange}
-                            className="border rounded-2xl p-4"
+                            className="
+                                p-4
+                                rounded-2xl
+                                border
+                                outline-none
+                            "
                         />
 
                         <input
                             name="caseNumber"
-                            placeholder="📂 Case Number *"
+                            placeholder="Case Number *"
                             value={formData.caseNumber}
                             onChange={handleChange}
-                            className="border rounded-2xl p-4"
+                            className="
+                                p-4
+                                rounded-2xl
+                                border
+                                outline-none
+                            "
                         />
 
                         <input
                             type="number"
                             name="caseYear"
-                            placeholder="📅 Case Year"
+                            placeholder="Case Year"
                             value={formData.caseYear}
                             onChange={handleChange}
-                            className="border rounded-2xl p-4"
+                            className="
+                                p-4
+                                rounded-2xl
+                                border
+                                outline-none
+                            "
                         />
 
                         <input
                             name="caseType"
-                            placeholder="📚 Case Type"
+                            placeholder="Case Type"
                             value={formData.caseType}
                             onChange={handleChange}
-                            className="border rounded-2xl p-4"
+                            className="
+                                p-4
+                                rounded-2xl
+                                border
+                                outline-none
+                            "
                         />
 
                         <input
                             name="petitioner"
-                            placeholder="👤 Petitioner *"
+                            placeholder="Petitioner *"
                             value={formData.petitioner}
                             onChange={handleChange}
-                            className="border rounded-2xl p-4"
+                            className="
+                                p-4
+                                rounded-2xl
+                                border
+                                outline-none
+                            "
                         />
 
                         <input
                             name="respondent"
-                            placeholder="👥 Respondent *"
+                            placeholder="Respondent *"
                             value={formData.respondent}
                             onChange={handleChange}
-                            className="border rounded-2xl p-4"
+                            className="
+                                p-4
+                                rounded-2xl
+                                border
+                                outline-none
+                            "
                         />
 
                         <input
                             name="sectionName"
-                            placeholder="📜 Section"
+                            placeholder="Section"
                             value={formData.sectionName}
                             onChange={handleChange}
-                            className="border rounded-2xl p-4"
+                            className="
+                                p-4
+                                rounded-2xl
+                                border
+                                outline-none
+                            "
                         />
 
                         <input
                             name="counselFor"
-                            placeholder="⚖️ Counsel For"
+                            placeholder="Counsel For"
                             value={formData.counselFor}
                             onChange={handleChange}
-                            className="border rounded-2xl p-4"
+                            className="
+                                p-4
+                                rounded-2xl
+                                border
+                                outline-none
+                            "
                         />
 
                         <input
@@ -253,25 +383,35 @@ function AddCase() {
                             name="hearingDate"
                             value={formData.hearingDate}
                             onChange={handleChange}
-                            className="border rounded-2xl p-4"
+                            className="
+                                p-4
+                                rounded-2xl
+                                border
+                                outline-none
+                            "
                         />
 
                         <select
                             name="priority"
                             value={formData.priority}
                             onChange={handleChange}
-                            className="border rounded-2xl p-4"
+                            className="
+                                p-4
+                                rounded-2xl
+                                border
+                                outline-none
+                            "
                         >
 
                             <option value="Regular">
 
-                                🟢 Regular
+                                Regular
 
                             </option>
 
                             <option value="Urgent">
 
-                                🔴 Urgent
+                                Urgent
 
                             </option>
 
@@ -281,26 +421,53 @@ function AddCase() {
 
                     <textarea
                         name="additionalInfo"
-                        placeholder="📝 Additional Information"
+                        placeholder="Additional Information"
                         value={formData.additionalInfo}
                         onChange={handleChange}
                         rows="5"
-                        className="w-full border rounded-2xl p-4 mt-6"
+                        className="
+                            w-full
+                            border
+                            rounded-2xl
+                            p-4
+                            mt-5
+                            outline-none
+                        "
                     />
 
                     <button
                         onClick={handleSubmit}
                         disabled={loading}
-                        className={`w-full mt-8 py-4 rounded-2xl text-white font-semibold transition ${
-                            loading
-                                ? "bg-gray-400"
-                                : "bg-blue-600 hover:bg-blue-700"
-                        }`}
+                        className={`
+                            w-full
+                            mt-8
+                            py-4
+                            rounded-2xl
+                            font-bold
+                            flex
+                            items-center
+                            justify-center
+                            gap-3
+                            transition
+                            ${
+                                loading
+                                    ? "bg-gray-400 text-white"
+                                    : "bg-[#F4C430] hover:bg-[#E7B500]"
+                            }
+                        `}
                     >
 
-                        {loading
-                            ? "Saving Case..."
-                            : "💾 Save Case"}
+                        <Save size={22} />
+
+                        {
+
+                            loading
+
+                                ? "Saving Case..."
+
+                                : "Save Case"
+
+                        }
 
                     </button>
 

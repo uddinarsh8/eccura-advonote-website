@@ -1,234 +1,174 @@
 import { Link } from "react-router-dom";
+import {
+    Download,
+    CalendarDays,
+    Phone
+} from "lucide-react";
+
+import heroPhones from "../assets/hero-phones.png";
 
 function Hero() {
-
     return (
+        <section id="hero" className="bg-[#FFFDF7] overflow-hidden">
+            <div className="max-w-[1500px] mx-auto px-6 lg:px-10 py-12 lg:py-20">
 
-        <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-14 sm:py-20 lg:py-24">
+                <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-12 items-center">
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                    {/* LEFT CONTENT */}
+                    <div className="relative z-10">
 
-                <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+                        <div className="inline-flex items-center gap-2 text-sm font-medium text-[#2D1B14]">
+                            <span className="text-[#F4C430]">
+                                ⭐
+                            </span>
 
-                    {/* Left Side */}
+                            Smart Legal Practice Management
+                        </div>
 
-                    <div>
+                        <h1 className="mt-6 text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
 
-                        <span className="inline-block bg-blue-100 text-blue-700 px-3 py-2 rounded-full text-xs sm:text-sm font-semibold">
-
-                            ⚖️ Trusted Legal Practice Management Platform
-
-                        </span>
-
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mt-6 leading-tight text-gray-900">
-
-                            Transform Your
-
-                            <span className="text-blue-700">
-
-                                {" "}Legal Practice
-
+                            <span className="text-[#2D1B14]">
+                                Manage Your Cases.
                             </span>
 
                             <br />
 
-                            With Advonote
+                            <span className="text-[#2D1B14]">
+                                Serve Your Clients.
+                            </span>
+
+                            <br />
+
+                            <span className="text-[#F4C430]">
+                                Grow Your Practice.
+                            </span>
 
                         </h1>
 
-                        <p className="text-base sm:text-lg lg:text-xl text-gray-600 mt-6 leading-relaxed">
+                        <p className="mt-8 text-lg text-[#6B7280] max-w-xl leading-relaxed">
 
-                            Manage cases, clients, hearings,
-                            notifications, and daily tasks from one
-                            secure platform designed specifically
-                            for modern advocates.
+                            Advonote is the all-in-one legal practice
+                            management platform designed for advocates
+                            and law firms to manage cases, clients,
+                            hearings, documents, tasks and daily
+                            activities from anywhere.
 
                         </p>
 
-                        {/* Buttons */}
+                        {/* BUTTONS */}
+                        <div className="mt-10 flex flex-wrap gap-4">
 
-                        <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                            <button
+                                className="
+                                    bg-[#F4C430]
+                                    text-[#2D1B14]
+                                    px-7 py-4
+                                    rounded-xl
+                                    font-semibold
+                                    flex items-center gap-2
+                                    shadow-md
+                                    hover:bg-[#E8B923]
+                                    transition-all
+                                "
+                            >
+                                <Download size={20} />
+
+                                Download App
+                            </button>
 
                             <Link
                                 to="/demo"
-                                className="bg-blue-600 text-white px-6 py-4 rounded-xl font-semibold hover:bg-blue-700 transition shadow-lg text-center"
+                                className="
+                                    border border-[#E5E7EB]
+                                    px-7 py-4
+                                    rounded-xl
+                                    font-semibold
+                                    text-[#2D1B14]
+                                    flex items-center gap-2
+                                    shadow-sm
+                                    hover:bg-white
+                                    transition-all
+                                "
                             >
-                                Book Demo
+                                <CalendarDays size={20} />
+
+                                Request Demo
                             </Link>
 
                             <Link
-                                to="/advocate/login"
-                                className="border-2 border-blue-600 text-blue-600 px-6 py-4 rounded-xl font-semibold hover:bg-blue-50 transition text-center"
+                                to="/contact"
+                                className="
+                                    border border-[#E5E7EB]
+                                    px-7 py-4
+                                    rounded-xl
+                                    font-semibold
+                                    text-[#2D1B14]
+                                    flex items-center gap-2
+                                    shadow-sm
+                                    hover:bg-white
+                                    transition-all
+                                "
                             >
-                                Advocate Login
+                                <Phone size={20} />
+
+                                Contact Us
                             </Link>
 
                         </div>
 
-                        {/* Statistics */}
-
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-10">
-
-                            <div>
-
-                                <h3 className="text-2xl sm:text-3xl font-bold text-blue-700">
-
-                                    500+
-
-                                </h3>
-
-                                <p className="text-sm sm:text-base text-gray-600">
-
-                                    Cases Managed
-
-                                </p>
-
-                            </div>
-
-                            <div>
-
-                                <h3 className="text-2xl sm:text-3xl font-bold text-blue-700">
-
-                                    100+
-
-                                </h3>
-
-                                <p className="text-sm sm:text-base text-gray-600">
-
-                                    Advocates
-
-                                </p>
-
-                            </div>
-
-                            <div>
-
-                                <h3 className="text-2xl sm:text-3xl font-bold text-blue-700">
-
-                                    99%
-
-                                </h3>
-
-                                <p className="text-sm sm:text-base text-gray-600">
-
-                                    Satisfaction
-
-                                </p>
-
-                            </div>
-
-                            <div>
-
-                                <h3 className="text-2xl sm:text-3xl font-bold text-blue-700">
-
-                                    24/7
-
-                                </h3>
-
-                                <p className="text-sm sm:text-base text-gray-600">
-
-                                    Secure Access
-
-                                </p>
-
-                            </div>
-
+                        {/* GOOGLE PLAY */}
+                        <div className="mt-8">
+                            <img
+                                src="/images/google-play.png"
+                                alt="Google Play"
+                                className="h-14"
+                            />
                         </div>
 
                     </div>
 
-                    {/* Right Side */}
+                    {/* RIGHT CONTENT */}
+                    <div className="relative flex justify-center items-end h-[450px] lg:h-[650px] overflow-hidden">
 
-                    <div className="relative">
+                        {/* Yellow Curved Shape */}
+                        <div
+                            className="
+                                absolute
+                                bottom-0
+                                right-[-10%]
+                                w-[120%]
+                                h-[180px]
+                                lg:h-[230px]
+                                bg-[#F4C430]
+                                rounded-tl-[220px]
+                                rounded-tr-[220px]
+                                z-0
+                            "
+                        />
 
-                        <div className="bg-white rounded-3xl shadow-2xl p-5 sm:p-8">
-
-                            <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-800">
-
-                                Dashboard Preview
-
-                            </h2>
-
-                            <div className="space-y-4">
-
-                                <div className="bg-blue-50 rounded-xl p-4 flex justify-between">
-
-                                    <span className="text-sm sm:text-base">
-
-                                        Today's Hearings
-
-                                    </span>
-
-                                    <span className="font-bold text-blue-700">
-
-                                        5
-
-                                    </span>
-
-                                </div>
-
-                                <div className="bg-green-50 rounded-xl p-4 flex justify-between">
-
-                                    <span className="text-sm sm:text-base">
-
-                                        Active Clients
-
-                                    </span>
-
-                                    <span className="font-bold text-green-700">
-
-                                        42
-
-                                    </span>
-
-                                </div>
-
-                                <div className="bg-yellow-50 rounded-xl p-4 flex justify-between">
-
-                                    <span className="text-sm sm:text-base">
-
-                                        Pending Tasks
-
-                                    </span>
-
-                                    <span className="font-bold text-yellow-700">
-
-                                        7
-
-                                    </span>
-
-                                </div>
-
-                                <div className="bg-red-50 rounded-xl p-4 flex justify-between">
-
-                                    <span className="text-sm sm:text-base">
-
-                                        Notifications
-
-                                    </span>
-
-                                    <span className="font-bold text-red-700">
-
-                                        3
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
+                        {/* Phones */}
+                        <img
+                            src={heroPhones}
+                            alt="Advonote App Preview"
+                            className="
+                                relative
+                                z-10
+                                w-full
+                                max-w-[520px]
+                                lg:max-w-[820px]
+                                xl:max-w-[900px]
+                                object-contain
+                                drop-shadow-[0_30px_40px_rgba(0,0,0,0.15)]
+                            "
+                        />
 
                     </div>
 
                 </div>
 
             </div>
-
         </section>
-
     );
-
 }
 
 export default Hero;

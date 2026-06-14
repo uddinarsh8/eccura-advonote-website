@@ -20,7 +20,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 // Advocate
 import AdvocateLogin from "./pages/advocate/Login";
 import AdvocateRegister
-    from "./pages/advocate/Register";
+  from "./pages/advocate/Register";
 import AdvocateDashboard from "./pages/advocate/Dashboard";
 import AddCase from "./pages/advocate/AddCase";
 import MyCases from "./pages/advocate/MyCases";
@@ -31,9 +31,12 @@ import Clients from "./pages/advocate/Clients";
 import AddClient from "./pages/advocate/AddClient";
 import Todos from "./pages/advocate/Todos";
 import Notifications from "./pages/advocate/Notifications";
-
+import ViewProfile from "./pages/advocate/ViewProfile";
 import AdvocateProtectedRoute from "./components/AdvocateProtectedRoute";
-
+import CourtManagement from "./pages/advocate/CourtManagement";
+import ReferFriends from "./pages/advocate/ReferFriends";
+import Tutorials from "./pages/advocate/Tutorials";
+import PrivacyPolicy from "./pages/advocate/Policy";
 function App() {
 
   return (
@@ -211,6 +214,56 @@ function App() {
             <AdvocateProtectedRoute>
               <AdvocateLayout>
                 <Notifications />
+              </AdvocateLayout>
+            </AdvocateProtectedRoute>
+          }
+        />
+        <Route
+          path="/advocate/view-profile"
+          element={
+            <AdvocateProtectedRoute>
+              <AdvocateLayout>
+                <ViewProfile />
+              </AdvocateLayout>
+            </AdvocateProtectedRoute>
+          }
+        />
+        <Route
+          path="/advocate/court-management"
+          element={
+            <AdvocateProtectedRoute>
+              <AdvocateLayout>
+                <CourtManagement />
+              </AdvocateLayout>
+            </AdvocateProtectedRoute>
+          }
+        />
+        <Route
+          path="/advocate/refer-friends"
+          element={
+            <AdvocateProtectedRoute>
+              <AdvocateLayout>
+                <ReferFriends />
+              </AdvocateLayout>
+            </AdvocateProtectedRoute>
+          }
+        />
+        <Route
+          path="/advocate/tutorials"
+          element={
+            <AdvocateProtectedRoute>
+              <AdvocateLayout>
+                <Tutorials />
+              </AdvocateLayout>
+            </AdvocateProtectedRoute>
+          }
+        />
+        <Route
+          path="/advocate/policy"
+          element={
+            <AdvocateProtectedRoute>
+              <AdvocateLayout>
+                <PrivacyPolicy />
               </AdvocateLayout>
             </AdvocateProtectedRoute>
           }

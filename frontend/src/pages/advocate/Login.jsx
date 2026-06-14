@@ -1,54 +1,43 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
+import logo from "../../assets/advonote-logo.png";
 
 function Login() {
-
     const [mobile, setMobile] = useState("");
     const [otp, setOtp] = useState("");
     const [otpSent, setOtpSent] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const sendOTP = async () => {
-
         try {
-
             setLoading(true);
 
-            await api.post(
-                "/advocates/send-otp",
-                { mobile }
-            );
+            await api.post("/advocates/send-otp", {
+                mobile
+            });
 
-            alert("OTP Sent");
-
+            alert("OTP Sent Successfully");
             setOtpSent(true);
-
         } catch (error) {
-
-            alert("Failed to send OTP");
-
+            alert(
+                error?.response?.data?.message ||
+                "Failed to send OTP"
+            );
         } finally {
-
             setLoading(false);
-
         }
-
     };
 
-    // Demo Login
     const verifyOTP = async () => {
-
         try {
-
-            const response =
-                await api.post(
-                    "/advocates/verify-otp",
-                    {
-                        mobile,
-                        otp
-                    }
-                );
+            const response = await api.post(
+                "/advocates/verify-otp",
+                {
+                    mobile,
+                    otp
+                }
+            );
 
             localStorage.setItem(
                 "advocateToken",
@@ -57,142 +46,253 @@ function Login() {
 
             localStorage.setItem(
                 "advocate",
-                JSON.stringify(
-                    response.data.advocate
-                )
+                JSON.stringify(response.data.advocate)
             );
 
             window.location.href =
                 "/advocate/dashboard";
-
         } catch (error) {
-
             alert(
                 error?.response?.data?.message ||
                 "Invalid OTP"
             );
-
         }
-
     };
 
     return (
+        <div className="min-h-screen bg-[#F4C430] flex justify-center items-center px-4 py-10">
 
-        <div className="min-h-screen bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 flex items-center justify-center p-6">
+            <div className="w-full max-w-md">
 
-            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8">
+                {/* Logo Section */}
+                <div className="text-center mb-6">
 
-                {/* Logo */}
+                    <img
+                        src={logo}
+                        alt="Advonote Logo"
+                        className="w-40 mx-auto"
+                    />
 
-                <div className="text-center mb-8">
-
-                    <div className="text-6xl mb-4">
-
-                        ⚖️
-
-                    </div>
-
-                    <h1 className="text-4xl font-bold text-blue-600">
-
+                    <h1 className="text-5xl font-black text-black mt-2">
                         ADVONOTE
-
                     </h1>
 
-                    <p className="text-gray-500 mt-2">
-
-                        Legal Practice Simplified
-
+                    <p className="text-gray-700 text-xl mt-1">
+                        Lawyer's Case Diary
                     </p>
 
                 </div>
 
-                {/* Login */}
+                {/* Card */}
+                <div className="bg-white rounded-[40px] px-8 py-10 shadow-xl">
 
-                <div>
+                    <h2 className="text-5xl font-bold text-center text-black">
+                        Login
+                    </h2>
 
-                    <input
-                        type="text"
-                        placeholder="📱 Mobile Number"
-                        value={mobile}
-                        onChange={(e) =>
-                            setMobile(
-                                e.target.value
-                            )
-                        }
-                        className="w-full border rounded-2xl p-4 mb-4 focus:ring-2 focus:ring-blue-500"
-                    />
+                    <p className="text-center text-gray-500 mt-3 text-xl">
+                        Sign in to continue.
+                    </p>
+
+                    {/* Mobile Number */}
+                    <div className="mt-10">
+
+                        <label className="block text-gray-500 font-semibold mb-3 uppercase">
+                            Mobile Number
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="Enter Your Mobile No."
+                            value={mobile}
+                            onChange={(e) =>
+                                setMobile(e.target.value)
+                            }
+                            className="
+                                w-full
+                                bg-gray-100
+                                rounded-2xl
+                                px-6
+                                py-5
+                                text-xl
+                                outline-none
+                            "
+                        />
+
+                    </div>
 
                     {!otpSent ? (
-
                         <button
                             onClick={sendOTP}
                             disabled={loading}
-                            className={`w-full py-4 rounded-2xl text-white font-semibold transition ${loading
-                                    ? "bg-gray-400"
-                                    : "bg-blue-600 hover:bg-blue-700"
-                                }`}
+                            className="
+                                w-full
+                                mt-10
+                                bg-[#F4C430]
+                                hover:bg-[#E8B923]
+                                text-black
+                                font-bold
+                                py-5
+                                rounded-2xl
+                                text-2xl
+                                transition
+                            "
                         >
-
                             {loading
                                 ? "Sending OTP..."
-                                : "Send OTP"}
-
+                                : "Login"}
                         </button>
-
                     ) : (
-
                         <>
+                            <div className="mt-8">
 
-                            <input
-                                type="text"
-                                placeholder="🔐 Enter OTP"
-                                value={otp}
-                                onChange={(e) =>
-                                    setOtp(
-                                        e.target.value
-                                    )
-                                }
-                                className="w-full border rounded-2xl p-4 mb-4 mt-4 focus:ring-2 focus:ring-green-500"
-                            />
+                                <label className="block text-gray-500 font-semibold mb-3 uppercase">
+                                    OTP
+                                </label>
+
+                                <input
+                                    type="text"
+                                    placeholder="Enter OTP"
+                                    value={otp}
+                                    onChange={(e) =>
+                                        setOtp(e.target.value)
+                                    }
+                                    className="
+                                        w-full
+                                        bg-gray-100
+                                        rounded-2xl
+                                        px-6
+                                        py-5
+                                        text-xl
+                                        outline-none
+                                    "
+                                />
+
+                            </div>
 
                             <button
                                 onClick={verifyOTP}
-                                className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-semibold"
+                                className="
+                                    w-full
+                                    mt-8
+                                    bg-[#F4C430]
+                                    hover:bg-[#E8B923]
+                                    text-black
+                                    font-bold
+                                    py-5
+                                    rounded-2xl
+                                    text-2xl
+                                    transition
+                                "
                             >
-
                                 Verify OTP
-
                             </button>
-
                         </>
-
                     )}
 
+                    {/* Extra Buttons */}
+                    {!otpSent && (
+                        <div className="mt-8 space-y-5">
+
+                            <Link
+                                to="/admin/login"
+                                className="
+        block
+        w-full
+        bg-green-500
+        hover:bg-green-600
+        text-black
+        text-center
+        font-bold
+        py-5
+        rounded-2xl
+        text-2xl
+        transition
+    "
+                            >
+                                Member Login
+                            </Link>
+
+                            <Link
+                                to="/advocate/register"
+                                className="
+                                    block
+                                    w-full
+                                    bg-cyan-400
+                                    hover:bg-cyan-500
+                                    text-black
+                                    text-center
+                                    font-bold
+                                    py-5
+                                    rounded-2xl
+                                    text-2xl
+                                    transition
+                                "
+                            >
+                                Register
+                            </Link>
+
+                            <Link
+                                to="/demo/login"
+                                className="
+                                    block
+                                    w-full
+                                    bg-sky-400
+                                    hover:bg-sky-500
+                                    text-black
+                                    text-center
+                                    font-bold
+                                    py-5
+                                    rounded-2xl
+                                    text-2xl
+                                    transition
+                                "
+                            >
+                                Demo Login
+                            </Link>
+
+                        </div>
+                    )}
+
+                    {/* Footer */}
+                    <div className="text-center mt-12">
+
+                        <p className="text-gray-500 text-lg">
+                            Powered By
+                        </p>
+
+                        <h3 className="font-bold text-2xl mt-2">
+                            Eccura Technologies Pvt. Ltd.
+                        </h3>
+
+                        <div className="mt-6 flex justify-center flex-wrap gap-4 text-blue-600 font-medium">
+
+                            <Link to="/privacy-policy">
+                                Privacy Policy
+                            </Link>
+
+                            <span>|</span>
+
+                            <Link to="/terms">
+                                Terms & Conditions
+                            </Link>
+
+                            <span>|</span>
+
+                            <Link to="/refund-policy">
+                                Return & Refund
+                            </Link>
+
+                        </div>
+
+                    </div>
+
                 </div>
-
-                {/* Register */}
-
-                <p className="mt-6 text-center text-gray-600">
-
-                    Don't have an account?
-
-                    <Link
-                        to="/advocate/register"
-                        className="text-blue-600 font-semibold ml-1 hover:underline"
-                    >
-
-                        Register
-
-                    </Link>
-
-                </p>
 
             </div>
 
         </div>
-
     );
-
 }
 
 export default Login;

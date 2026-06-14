@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import {
+    ArrowLeft,
+    Search,
+    Plus,
+    Pencil,
+    Trash2,
+    Scale
+} from "lucide-react";
 
 function MyCases() {
 
@@ -23,36 +31,27 @@ function MyCases() {
 
         }
 
-    } catch (error) {
+    } catch {
 
-        console.log(
-            "Invalid advocate data"
-        );
+        advocate = {};
 
     }
 
     const [cases, setCases] = useState([]);
-    const [search, setSearch] =
-        useState("");
+    const [search, setSearch] = useState("");
 
     const fetchCases = async () => {
 
         try {
 
-            if (!advocate.id) {
-
-                return;
-
-            }
+            if (!advocate.id) return;
 
             const response =
                 await api.get(
                     `/cases/${advocate.id}`
                 );
 
-            setCases(
-                response.data
-            );
+            setCases(response.data);
 
         } catch (error) {
 
@@ -75,11 +74,7 @@ function MyCases() {
                 "Delete this case?"
             );
 
-        if (!confirmDelete) {
-
-            return;
-
-        }
+        if (!confirmDelete) return;
 
         try {
 
@@ -135,27 +130,140 @@ function MyCases() {
 
     return (
 
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="min-h-screen bg-[#F3F3F3]">
 
             {/* Header */}
 
-            <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+            <div className="bg-[#F4C430] px-5 py-5 shadow">
 
-                <div>
+                <div className="flex items-center gap-4">
 
-                    <h1 className="text-4xl font-bold">
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="
+                            w-14 h-14
+                            bg-white
+                            rounded-2xl
+                            shadow-md
+                            flex
+                            items-center
+                            justify-center
+                        "
+                    >
 
-                        ⚖️ My Cases
+                        <ArrowLeft size={28} />
 
-                    </h1>
+                    </button>
 
-                    <p className="text-gray-500 mt-2">
+                    <div>
 
-                        Manage and track all your cases.
+                        <h1 className="text-3xl font-bold">
 
-                    </p>
+                            My Cases
+
+                        </h1>
+
+                        <p className="text-black/70">
+
+                            Manage your legal matters
+
+                        </p>
+
+                    </div>
 
                 </div>
+
+            </div>
+
+            <div className="max-w-6xl mx-auto p-5">
+
+                {/* Statistics */}
+
+                <div className="grid grid-cols-2 gap-4 mb-6">
+
+                    <div className="
+                        bg-white
+                        rounded-3xl
+                        shadow
+                        p-5
+                    ">
+
+                        <p className="text-gray-500">
+
+                            Total Cases
+
+                        </p>
+
+                        <h2 className="text-4xl font-bold">
+
+                            {cases.length}
+
+                        </h2>
+
+                    </div>
+
+                    <div className="
+                        bg-green-100
+                        rounded-3xl
+                        shadow
+                        p-5
+                    ">
+
+                        <p className="text-green-700">
+
+                            Search Results
+
+                        </p>
+
+                        <h2 className="text-4xl font-bold text-green-700">
+
+                            {filteredCases.length}
+
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                {/* Search */}
+
+                <div className="relative mb-6">
+
+                    <Search
+                        size={20}
+                        className="
+                            absolute
+                            left-4
+                            top-1/2
+                            -translate-y-1/2
+                            text-gray-400
+                        "
+                    />
+
+                    <input
+                        type="text"
+                        placeholder="Search cases..."
+                        value={search}
+                        onChange={(e) =>
+                            setSearch(
+                                e.target.value
+                            )
+                        }
+                        className="
+                            w-full
+                            bg-white
+                            rounded-2xl
+                            shadow
+                            py-4
+                            pl-12
+                            pr-4
+                            outline-none
+                        "
+                    />
+
+                </div>
+
+                {/* Add Case */}
 
                 <button
                     onClick={() =>
@@ -163,206 +271,234 @@ function MyCases() {
                             "/advocate/add-case"
                         )
                     }
-                    className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow"
+                    className="
+                        w-full
+                        mb-6
+                        bg-[#F4C430]
+                        py-4
+                        rounded-2xl
+                        font-bold
+                        shadow-md
+                        flex
+                        items-center
+                        justify-center
+                        gap-2
+                    "
                 >
 
-                    + Add Case
+                    <Plus size={22} />
+
+                    Add New Case
 
                 </button>
 
-            </div>
+                {/* Empty State */}
 
-            {/* Stats */}
+                {filteredCases.length === 0 ? (
 
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
+                    <div className="
+                        bg-white
+                        rounded-3xl
+                        shadow
+                        p-16
+                        text-center
+                    ">
 
-                <div className="bg-blue-600 text-white rounded-2xl shadow p-6">
+                        <Scale
+                            size={70}
+                            className="
+                                mx-auto
+                                text-[#F4C430]
+                                mb-5
+                            "
+                        />
 
-                    <p>
+                        <h2 className="text-2xl font-bold">
 
-                        Total Cases
+                            No Cases Found
 
-                    </p>
+                        </h2>
 
-                    <h2 className="text-4xl font-bold mt-2">
+                        <p className="text-gray-500 mt-2">
 
-                        {cases.length}
+                            Start by adding your first case.
 
-                    </h2>
-
-                </div>
-
-                <div className="bg-green-600 text-white rounded-2xl shadow p-6">
-
-                    <p>
-
-                        Search Results
-
-                    </p>
-
-                    <h2 className="text-4xl font-bold mt-2">
-
-                        {filteredCases.length}
-
-                    </h2>
-
-                </div>
-
-            </div>
-
-            {/* Search */}
-
-            <div className="mb-8">
-
-                <input
-                    type="text"
-                    placeholder="🔍 Search by petitioner, respondent or case number..."
-                    value={search}
-                    onChange={(e) =>
-                        setSearch(
-                            e.target.value
-                        )
-                    }
-                    className="w-full border rounded-2xl p-4 shadow-sm"
-                />
-
-            </div>
-
-            {/* Cases */}
-
-            {filteredCases.length === 0 ? (
-
-                <div className="bg-white rounded-2xl shadow p-12 text-center">
-
-                    <div className="text-6xl mb-4">
-
-                        ⚖️
+                        </p>
 
                     </div>
 
-                    <h2 className="text-2xl font-bold">
+                ) : (
 
-                        No Cases Found
+                    <div className="space-y-5">
 
-                    </h2>
+                        {filteredCases.map((item) => (
 
-                    <p className="text-gray-500 mt-2">
+                            <div
+                                key={item.id}
+                                className="
+                                    bg-white
+                                    rounded-3xl
+                                    shadow-md
+                                    p-6
+                                "
+                            >
 
-                        Start by adding your first case.
+                                <div className="
+                                    flex
+                                    flex-wrap
+                                    justify-between
+                                    gap-4
+                                ">
 
-                    </p>
+                                    <div>
 
-                </div>
+                                        <h2 className="
+                                            text-xl
+                                            font-bold
+                                        ">
 
-            ) : (
+                                            {item.petitioner}
+                                            {" vs "}
+                                            {item.respondent}
 
-                <div className="grid md:grid-cols-2 gap-6">
+                                        </h2>
 
-                    {filteredCases.map((item) => (
+                                        <p className="
+                                            text-gray-500
+                                            mt-1
+                                        ">
 
-                        <div
-                            key={item.id}
-                            className="bg-white rounded-2xl shadow hover:shadow-xl transition p-6"
-                        >
+                                            Case No:
+                                            {" "}
+                                            {item.caseNumber}
 
-                            <div className="flex justify-between items-start mb-4">
+                                        </p>
 
-                                <div>
+                                    </div>
 
-                                    <h2 className="text-xl font-bold">
+                                    <span className="
+                                        bg-blue-100
+                                        text-blue-700
+                                        px-4
+                                        py-2
+                                        rounded-full
+                                        text-sm
+                                        font-semibold
+                                        h-fit
+                                    ">
 
-                                        {item.petitioner}
-                                        {" vs "}
-                                        {item.respondent}
+                                        {item.priority ||
+                                            "Regular"}
 
-                                    </h2>
+                                    </span>
 
-                                    <p className="text-gray-500">
+                                </div>
 
-                                        Case No:
+                                <div className="
+                                    mt-5
+                                    space-y-2
+                                    text-gray-700
+                                ">
+
+                                    <p>
+
+                                        🏛️
                                         {" "}
-                                        {item.caseNumber}
+                                        {item.courtName}
+
+                                    </p>
+
+                                    <p>
+
+                                        📅
+                                        {" "}
+                                        {item.hearingDate
+                                            ?.split("T")[0]}
+
+                                    </p>
+
+                                    <p>
+
+                                        📚
+                                        {" "}
+                                        {item.caseType ||
+                                            "General"}
 
                                     </p>
 
                                 </div>
 
-                                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                                <div className="
+                                    flex
+                                    flex-col
+                                    sm:flex-row
+                                    gap-3
+                                    mt-6
+                                ">
 
-                                    {item.priority ||
-                                        "Regular"}
+                                    <button
+                                        onClick={() =>
+                                            navigate(
+                                                `/advocate/edit-case/${item.id}`
+                                            )
+                                        }
+                                        className="
+                                            flex-1
+                                            bg-blue-600
+                                            text-white
+                                            py-3
+                                            rounded-2xl
+                                            font-semibold
+                                            flex
+                                            items-center
+                                            justify-center
+                                            gap-2
+                                        "
+                                    >
 
-                                </span>
+                                        <Pencil size={18} />
 
-                            </div>
+                                        Edit
 
-                            <div className="space-y-2 text-gray-700">
+                                    </button>
 
-                                <p>
+                                    <button
+                                        onClick={() =>
+                                            handleDelete(
+                                                item.id
+                                            )
+                                        }
+                                        className="
+                                            flex-1
+                                            bg-red-600
+                                            text-white
+                                            py-3
+                                            rounded-2xl
+                                            font-semibold
+                                            flex
+                                            items-center
+                                            justify-center
+                                            gap-2
+                                        "
+                                    >
 
-                                    🏛️
-                                    {" "}
-                                    {item.courtName}
+                                        <Trash2 size={18} />
 
-                                </p>
+                                        Delete
 
-                                <p>
+                                    </button>
 
-                                    📅
-                                    {" "}
-                                    {item.hearingDate
-                                        ?.split("T")[0]}
-
-                                </p>
-
-                                <p>
-
-                                    📚
-                                    {" "}
-                                    {item.caseType ||
-                                        "General"}
-
-                                </p>
-
-                            </div>
-
-                            <div className="flex gap-3 mt-6">
-
-                                <button
-                                    onClick={() =>
-                                        navigate(
-                                            `/advocate/edit-case/${item.id}`
-                                        )
-                                    }
-                                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold"
-                                >
-
-                                    ✏️ Edit
-
-                                </button>
-
-                                <button
-                                    onClick={() =>
-                                        handleDelete(
-                                            item.id
-                                        )
-                                    }
-                                    className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-semibold"
-                                >
-
-                                    🗑️ Delete
-
-                                </button>
+                                </div>
 
                             </div>
 
-                        </div>
+                        ))}
 
-                    ))}
+                    </div>
 
-                </div>
+                )}
 
-            )}
+            </div>
 
         </div>
 

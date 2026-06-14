@@ -1,17 +1,27 @@
 import { useState } from "react";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import {
+    ArrowLeft,
+    User,
+    Save
+} from "lucide-react";
 
 function AddClient() {
+
+    const navigate = useNavigate();
 
     const [loading, setLoading] =
         useState(false);
 
     const [formData, setFormData] =
         useState({
+
             name: "",
             mobile: "",
             email: "",
             address: ""
+
         });
 
     let advocate = {};
@@ -31,9 +41,9 @@ function AddClient() {
 
         }
 
-    } catch (error) {
+    } catch {
 
-        console.log(error);
+        advocate = {};
 
     }
 
@@ -70,9 +80,11 @@ function AddClient() {
             await api.post(
                 "/clients",
                 {
+
                     ...formData,
                     advocateId:
                         advocate.id
+
                 }
             );
 
@@ -80,16 +92,20 @@ function AddClient() {
                 "Client Added Successfully"
             );
 
-            window.location.href =
-                "/advocate/clients";
+            navigate(
+                "/advocate/clients"
+            );
 
         } catch (error) {
 
             console.log(error);
 
             alert(
+
                 error?.response?.data?.message ||
+
                 "Failed to add client"
+
             );
 
         } finally {
@@ -102,57 +118,117 @@ function AddClient() {
 
     return (
 
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="min-h-screen bg-[#F3F3F3]">
 
-            <div className="max-w-2xl mx-auto">
+            {/* Header */}
 
-                {/* Header */}
+            <div className="bg-[#F4C430] px-5 py-5 shadow">
 
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-3xl p-8 shadow-lg mb-8">
+                <div className="flex items-center gap-4">
 
-                    <h1 className="text-4xl font-bold">
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="
+                            w-14 h-14
+                            bg-white
+                            rounded-2xl
+                            shadow-md
+                            flex
+                            items-center
+                            justify-center
+                        "
+                    >
 
-                        👥 Add New Client
+                        <ArrowLeft size={28} />
 
-                    </h1>
-
-                    <p className="mt-2 opacity-90">
-
-                        Build and manage your client relationships efficiently.
-
-                    </p>
-
-                </div>
-
-                {/* Client Preview */}
-
-                <div className="bg-white rounded-3xl shadow-lg p-6 mb-8 flex items-center">
-
-                    <div className="w-20 h-20 rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold mr-6">
-
-                        {formData.name
-                            ? formData.name
-                                .charAt(0)
-                                .toUpperCase()
-                            : "?"}
-
-                    </div>
+                    </button>
 
                     <div>
 
-                        <h2 className="text-2xl font-bold">
+                        <h1 className="text-3xl font-bold">
 
-                            {formData.name ||
-                                "Client Name"}
+                            Add Client
 
-                        </h2>
+                        </h1>
 
-                        <p className="text-gray-500">
+                        <p className="text-black/70">
 
-                            {formData.email ||
-                                "client@example.com"}
+                            Build and manage client relationships
 
                         </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div className="max-w-3xl mx-auto p-5">
+
+                {/* Client Preview */}
+
+                <div className="
+                    bg-white
+                    rounded-3xl
+                    shadow-md
+                    p-6
+                    mb-6
+                ">
+
+                    <div className="flex items-center gap-5">
+
+                        <div className="
+                            w-20 h-20
+                            rounded-full
+                            bg-[#F4C430]
+                            flex
+                            items-center
+                            justify-center
+                            text-3xl
+                            font-bold
+                        ">
+
+                            {
+
+                                formData.name
+
+                                    ? formData.name
+                                        .charAt(0)
+                                        .toUpperCase()
+
+                                    : <User size={36} />
+
+                            }
+
+                        </div>
+
+                        <div>
+
+                            <h2 className="text-2xl font-bold">
+
+                                {
+
+                                    formData.name ||
+
+                                    "Client Name"
+
+                                }
+
+                            </h2>
+
+                            <p className="text-gray-500">
+
+                                {
+
+                                    formData.email ||
+
+                                    "client@example.com"
+
+                                }
+
+                            </p>
+
+                        </div>
 
                     </div>
 
@@ -162,14 +238,24 @@ function AddClient() {
 
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-white rounded-3xl shadow-lg p-8"
+                    className="
+                        bg-white
+                        rounded-3xl
+                        shadow-md
+                        p-6
+                        md:p-8
+                    "
                 >
 
-                    <div className="space-y-6">
+                    <div className="space-y-5">
 
                         <div>
 
-                            <label className="block font-semibold mb-2">
+                            <label className="
+                                block
+                                font-semibold
+                                mb-2
+                            ">
 
                                 Full Name
 
@@ -178,18 +264,28 @@ function AddClient() {
                             <input
                                 type="text"
                                 name="name"
-                                placeholder="Enter client name"
                                 value={formData.name}
                                 onChange={handleChange}
-                                className="w-full border rounded-2xl p-4 focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter client name"
                                 required
+                                className="
+                                    w-full
+                                    border
+                                    rounded-2xl
+                                    p-4
+                                    outline-none
+                                "
                             />
 
                         </div>
 
                         <div>
 
-                            <label className="block font-semibold mb-2">
+                            <label className="
+                                block
+                                font-semibold
+                                mb-2
+                            ">
 
                                 Mobile Number
 
@@ -198,18 +294,28 @@ function AddClient() {
                             <input
                                 type="tel"
                                 name="mobile"
-                                placeholder="Enter mobile number"
                                 value={formData.mobile}
                                 onChange={handleChange}
-                                className="w-full border rounded-2xl p-4 focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter mobile number"
                                 required
+                                className="
+                                    w-full
+                                    border
+                                    rounded-2xl
+                                    p-4
+                                    outline-none
+                                "
                             />
 
                         </div>
 
                         <div>
 
-                            <label className="block font-semibold mb-2">
+                            <label className="
+                                block
+                                font-semibold
+                                mb-2
+                            ">
 
                                 Email Address
 
@@ -218,17 +324,27 @@ function AddClient() {
                             <input
                                 type="email"
                                 name="email"
-                                placeholder="Enter email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full border rounded-2xl p-4 focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter email"
+                                className="
+                                    w-full
+                                    border
+                                    rounded-2xl
+                                    p-4
+                                    outline-none
+                                "
                             />
 
                         </div>
 
                         <div>
 
-                            <label className="block font-semibold mb-2">
+                            <label className="
+                                block
+                                font-semibold
+                                mb-2
+                            ">
 
                                 Address
 
@@ -236,11 +352,17 @@ function AddClient() {
 
                             <textarea
                                 name="address"
-                                placeholder="Enter address"
                                 value={formData.address}
                                 onChange={handleChange}
                                 rows="4"
-                                className="w-full border rounded-2xl p-4 focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter address"
+                                className="
+                                    w-full
+                                    border
+                                    rounded-2xl
+                                    p-4
+                                    outline-none
+                                "
                             />
 
                         </div>
@@ -248,16 +370,36 @@ function AddClient() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full py-4 rounded-2xl font-semibold text-white transition ${
-                                loading
-                                    ? "bg-gray-400 cursor-not-allowed"
-                                    : "bg-blue-600 hover:bg-blue-700"
-                            }`}
+                            className={`
+                                w-full
+                                mt-4
+                                py-4
+                                rounded-2xl
+                                font-bold
+                                flex
+                                items-center
+                                justify-center
+                                gap-3
+                                transition
+                                ${
+                                    loading
+                                        ? "bg-gray-400 text-white"
+                                        : "bg-[#F4C430] hover:bg-[#E7B500]"
+                                }
+                            `}
                         >
 
-                            {loading
-                                ? "Saving Client..."
-                                : "💾 Save Client"}
+                            <Save size={22} />
+
+                            {
+
+                                loading
+
+                                    ? "Saving Client..."
+
+                                    : "Save Client"
+
+                            }
 
                         </button>
 

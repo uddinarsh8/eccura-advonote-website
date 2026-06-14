@@ -1,65 +1,58 @@
 import {
-    Briefcase,
-    Users,
-    FolderOpen,
-    Calendar,
-    CheckSquare,
-    BarChart3
+    ShieldCheck,
+    Scale,
+    MonitorSmartphone,
+    Clock3,
+    RefreshCcw,
+    Headphones
 } from "lucide-react";
 
-function Features() {
+function WhyChoose() {
 
-    const features = [
-
+    const reasons = [
         {
-            icon: Briefcase,
-            title: "Case Management",
+            icon: ShieldCheck,
+            title: "Secure Cloud-Based Platform",
             description:
-                "Organize and manage your cases with ease and efficiency."
+                "Your legal data is protected with enterprise-grade security and cloud backups."
         },
-
         {
-            icon: Users,
-            title: "Client Management",
+            icon: Scale,
+            title: "Built for Advocates",
             description:
-                "Store client details and improve communication."
+                "Designed specifically to meet the daily needs of advocates and law firms."
         },
-
         {
-            icon: FolderOpen,
-            title: "Document Storage",
+            icon: MonitorSmartphone,
+            title: "Easy-to-Use Interface",
             description:
-                "Securely upload, store and access your documents."
+                "A simple and intuitive experience that requires minimal learning."
         },
-
         {
-            icon: Calendar,
-            title: "Calendar & Reminders",
+            icon: Clock3,
+            title: "24/7 Accessibility",
             description:
-                "Never miss a hearing or deadline with reminders."
+                "Access your cases, clients and documents anytime, anywhere."
         },
-
         {
-            icon: CheckSquare,
-            title: "Task Management",
+            icon: RefreshCcw,
+            title: "Regular Updates",
             description:
-                "Assign tasks and track daily activities."
+                "Continuously improved with new features and enhancements."
         },
-
         {
-            icon: BarChart3,
-            title: "Reports & Analytics",
+            icon: Headphones,
+            title: "Dedicated Support",
             description:
-                "Generate reports and gain insights into your practice."
+                "Our support team is always ready to assist your practice."
         }
-
     ];
 
     return (
 
         <section
-            id="features"
-            className="bg-[#FAF7F0] py-20"
+            id="why-choose"
+            className="bg-[#FFFDF7] py-20"
         >
 
             <div className="max-w-7xl mx-auto px-6">
@@ -68,33 +61,47 @@ function Features() {
 
                 <div className="text-center mb-16">
 
-                    <h2 className="text-4xl lg:text-5xl font-bold text-[#1F1F1F]">
+                    <h2
+                        className="
+                            text-4xl
+                            lg:text-5xl
+                            font-bold
+                            text-[#1F1F1F]
+                        "
+                    >
 
-                        Powerful Features for{" "}
+                        Why Choose
 
                         <span className="text-[#F4C430]">
 
-                            Modern Advocates
+                            {" "}Advonote?
 
                         </span>
 
                     </h2>
 
-                    <p className="mt-4 text-[#6B7280] max-w-2xl mx-auto">
+                    <p
+                        className="
+                            mt-4
+                            text-[#6B7280]
+                            max-w-2xl
+                            mx-auto
+                        "
+                    >
 
-                        Everything you need to manage your legal practice efficiently from one secure platform.
+                        Built to simplify, secure and modernize legal practice management.
 
                     </p>
 
                 </div>
 
-                {/* Features Grid */}
+                {/* Cards */}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                    {features.map((feature, index) => {
+                    {reasons.map((reason, index) => {
 
-                        const Icon = feature.icon;
+                        const Icon = reason.icon;
 
                         return (
 
@@ -117,10 +124,13 @@ function Features() {
 
                                 <div
                                     className="
-                                        w-16 h-16
+                                        w-16
+                                        h-16
                                         rounded-2xl
                                         bg-[#FFF4CC]
-                                        flex items-center justify-center
+                                        flex
+                                        items-center
+                                        justify-center
                                         mb-6
                                     "
                                 >
@@ -137,13 +147,13 @@ function Features() {
                                 <h3
                                     className="
                                         text-xl
-                                        font-semibold
+                                        font-bold
                                         text-[#1F1F1F]
                                         mb-4
                                     "
                                 >
 
-                                    {feature.title}
+                                    {reason.title}
 
                                 </h3>
 
@@ -156,7 +166,7 @@ function Features() {
                                     "
                                 >
 
-                                    {feature.description}
+                                    {reason.description}
 
                                 </p>
 
@@ -176,4 +186,4 @@ function Features() {
 
 }
 
-export default Features;
+export default WhyChoose;

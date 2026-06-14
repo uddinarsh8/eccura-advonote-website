@@ -1,164 +1,179 @@
-import { Link } from "react-router-dom";
+import { Mail, Download } from "lucide-react";
+import logo from "../assets/advonote-logo.png";
 
 function Footer() {
-
     return (
+        <footer className="bg-[#2B1A12] text-white">
 
-        <footer className="bg-gray-900 text-white pt-14 sm:pt-16 pb-8">
+            <div className="max-w-7xl mx-auto px-6 py-12">
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-10">
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+                    {/* Logo */}
+                    <div>
+                        <div className="flex items-center gap-3 mb-4">
+                            <img
+                                src={logo}
+                                alt="Advonote Logo"
+                                className="w-14 h-14 object-contain"
+                            />
 
-                    {/* Company */}
+                            <div>
+                                <h3 className="text-2xl font-bold">
+                                    ADVONOTE
+                                </h3>
 
-                    <div className="text-center md:text-left">
+                                <p className="text-sm text-[#D4B483]">
+                                    Lawyer's Best Diary
+                                </p>
+                            </div>
+                        </div>
 
-                        <h2 className="text-2xl sm:text-3xl font-bold text-blue-400 mb-4">
-
-                            Advonote
-
-                        </h2>
-
-                        <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
-
-                            Smart Legal Practice Management Platform
-                            designed for modern advocates to manage
-                            cases, clients, hearings, tasks and
-                            notifications effortlessly.
-
+                        <p className="text-gray-300 text-sm leading-relaxed">
+                            The complete legal practice management
+                            solution designed for advocates and law firms.
                         </p>
-
                     </div>
 
                     {/* Quick Links */}
-
-                    <div className="text-center md:text-left">
-
-                        <h3 className="text-lg sm:text-xl font-semibold mb-4">
-
+                    <div>
+                        <h4 className="font-semibold text-lg mb-4">
                             Quick Links
+                        </h4>
 
-                        </h3>
-
-                        <ul className="space-y-3">
-
+                        <ul className="space-y-3 text-gray-300 text-sm">
                             <li>
-                                <Link
-                                    to="/"
-                                    className="text-gray-400 hover:text-white transition"
-                                >
-                                    Home
-                                </Link>
+                                <a href="#about" className="hover:text-[#F4C430]">
+                                    About
+                                </a>
                             </li>
 
                             <li>
-                                <Link
-                                    to="/contact"
-                                    className="text-gray-400 hover:text-white transition"
-                                >
-                                    Contact
-                                </Link>
+                                <a href="#features" className="hover:text-[#F4C430]">
+                                    Features
+                                </a>
                             </li>
 
                             <li>
-                                <Link
-                                    to="/demo"
-                                    className="text-gray-400 hover:text-white transition"
-                                >
-                                    Request Demo
-                                </Link>
+                                <a href="#screenshots" className="hover:text-[#F4C430]">
+                                    Screenshots
+                                </a>
                             </li>
 
                             <li>
-                                <Link
-                                    to="/advocate/login"
-                                    className="text-gray-400 hover:text-white transition"
-                                >
-                                    Advocate Login
-                                </Link>
+                                <a href="#faq" className="hover:text-[#F4C430]">
+                                    FAQ
+                                </a>
                             </li>
-
                         </ul>
+                    </div>
 
+                    {/* Resources */}
+                    <div>
+                        <h4 className="font-semibold text-lg mb-4">
+                            Resources
+                        </h4>
+
+                        <ul className="space-y-3 text-gray-300 text-sm">
+                            <li>
+                                <a href="#" className="hover:text-[#F4C430]">
+                                    Blog
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="hover:text-[#F4C430]">
+                                    Privacy Policy
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" className="hover:text-[#F4C430]">
+                                    Terms & Conditions
+                                </a>
+                            </li>
+                        </ul>
                     </div>
 
                     {/* Contact */}
+                    <div>
+                        <h4 className="font-semibold text-lg mb-4">
+                            Contact Us
+                        </h4>
 
-                    <div className="text-center md:text-left">
+                        <div className="space-y-4 text-sm text-gray-300">
 
-                        <h3 className="text-lg sm:text-xl font-semibold mb-4">
+                            <div className="flex items-start gap-2">
+                                <span className="text-[#F4C430]">●</span>
 
-                            Contact
+                                <span>
+                                    ECCURA TECHNOLOGIES PVT. LTD.
+                                </span>
+                            </div>
 
-                        </h3>
+                            <div className="flex items-start gap-2">
+                                <Mail
+                                    size={16}
+                                    className="text-[#F4C430] mt-0.5"
+                                />
 
-                        <div className="space-y-3 text-gray-400 text-sm sm:text-base">
-
-                            <p>
-                                📧 support@advonote.com
-                            </p>
-
-                            <p>
-                                📞 +91 XXXXX XXXXX
-                            </p>
-
-                            <p>
-                                🇮🇳 India
-                            </p>
-
+                                <span>
+                                    support@eccuratech.com
+                                </span>
+                            </div>
                         </div>
+                    </div>
 
-                        {/* Socials */}
+                    {/* Download */}
+                    <div>
+                        <h4 className="font-semibold text-lg mb-4">
+                            Download Advonote
+                        </h4>
 
-                        <div className="flex justify-center md:justify-start gap-4 mt-6 text-2xl">
+                        <button
+                            className="
+                                flex items-center gap-3
+                                bg-black
+                                px-5 py-3
+                                rounded-xl
+                                hover:bg-[#111]
+                                transition
+                            "
+                        >
+                            <Download size={20} />
 
-                            <span className="cursor-pointer hover:scale-110 transition">
-                                🌐
-                            </span>
+                            <div className="text-left">
+                                <p className="text-xs text-gray-400">
+                                    GET IT ON
+                                </p>
 
-                            <span className="cursor-pointer hover:scale-110 transition">
-                                💼
-                            </span>
-
-                            <span className="cursor-pointer hover:scale-110 transition">
-                                📷
-                            </span>
-
-                            <span className="cursor-pointer hover:scale-110 transition">
-                                🐦
-                            </span>
-
-                        </div>
-
+                                <p className="font-semibold">
+                                    Google Play
+                                </p>
+                            </div>
+                        </button>
                     </div>
 
                 </div>
 
                 {/* Bottom */}
-
-                <div className="border-t border-gray-800 pt-6 text-center text-gray-500 text-sm sm:text-base">
-
-                    <p>
-
-                        © 2026 Advonote. All Rights Reserved.
-
-                    </p>
-
-                    <p className="mt-2">
-
-                        Made with ❤️ in India for Modern Advocates.
-
-                    </p>
-
+                <div
+                    className="
+                        border-t border-white/10
+                        mt-10
+                        pt-6
+                        text-center
+                        text-sm
+                        text-gray-400
+                    "
+                >
+                    © {new Date().getFullYear()} Advonote. All Rights Reserved.
                 </div>
 
             </div>
 
         </footer>
-
     );
-
 }
 
 export default Footer;

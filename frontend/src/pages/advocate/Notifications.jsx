@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
+import {
+    ArrowLeft,
+    Bell,
+    Trash2,
+    CheckCircle
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 
 function Notifications() {
 
-    const [notifications, setNotifications] =
-        useState([]);
+    const navigate = useNavigate();
+
+    const [notifications, setNotifications] = useState([]);
 
     let advocate = {};
 
@@ -23,9 +31,9 @@ function Notifications() {
 
         }
 
-    } catch (error) {
+    } catch {
 
-        console.log(error);
+        advocate = {};
 
     }
 
@@ -40,9 +48,7 @@ function Notifications() {
                     `/notifications/${advocate.id}`
                 );
 
-            setNotifications(
-                response.data
-            );
+            setNotifications(response.data);
 
         } catch (error) {
 
@@ -83,11 +89,7 @@ function Notifications() {
                 "Delete this notification?"
             );
 
-        if (!confirmDelete) {
-
-            return;
-
-        }
+        if (!confirmDelete) return;
 
         try {
 
@@ -116,154 +118,219 @@ function Notifications() {
 
     return (
 
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="min-h-screen bg-[#F3F3F3]">
 
             {/* Header */}
 
-            <div className="mb-8">
+            <div className="bg-[#F4C430] px-5 py-5 flex items-center gap-4 shadow">
 
-                <h1 className="text-4xl font-bold">
+                <button
+                    onClick={() => navigate(-1)}
+                    className="
+                        w-14 h-14
+                        bg-white
+                        rounded-2xl
+                        shadow-md
+                        flex
+                        items-center
+                        justify-center
+                    "
+                >
 
-                    🔔 Notifications
+                    <ArrowLeft size={30} />
 
-                </h1>
+                </button>
 
-                <p className="text-gray-500 mt-2">
+                <div>
 
-                    Stay updated with important activities.
+                    <h1 className="text-3xl font-bold">
 
-                </p>
+                        Notifications
 
-            </div>
+                    </h1>
 
-            {/* Statistics */}
+                    <p className="text-sm text-black/70">
 
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-
-                <div className="bg-blue-600 text-white rounded-2xl shadow p-6">
-
-                    <p>Total Notifications</p>
-
-                    <h2 className="text-4xl font-bold mt-2">
-
-                        {notifications.length}
-
-                    </h2>
-
-                </div>
-
-                <div className="bg-red-500 text-white rounded-2xl shadow p-6">
-
-                    <p>Unread</p>
-
-                    <h2 className="text-4xl font-bold mt-2">
-
-                        {unreadCount}
-
-                    </h2>
-
-                </div>
-
-                <div className="bg-green-600 text-white rounded-2xl shadow p-6">
-
-                    <p>Read</p>
-
-                    <h2 className="text-4xl font-bold mt-2">
-
-                        {readCount}
-
-                    </h2>
-
-                </div>
-
-            </div>
-
-            {/* Empty State */}
-
-            {notifications.length === 0 ? (
-
-                <div className="bg-white rounded-3xl shadow p-12 text-center">
-
-                    <div className="text-6xl mb-4">
-
-                        📭
-
-                    </div>
-
-                    <h2 className="text-2xl font-bold">
-
-                        No Notifications
-
-                    </h2>
-
-                    <p className="text-gray-500 mt-2">
-
-                        You're all caught up.
+                        Stay updated with important activities
 
                     </p>
 
                 </div>
 
-            ) : (
+            </div>
 
-                <div className="space-y-5">
+            <div className="max-w-5xl mx-auto p-5">
 
-                    {notifications.map((notification) => (
+                {/* Statistics */}
 
-                        <div
-                            key={notification.id}
-                            className={`rounded-3xl shadow-lg p-6 transition hover:shadow-xl ${
-                                notification.isRead
-                                    ? "bg-white"
-                                    : "bg-blue-50 border-l-4 border-blue-600"
-                            }`}
-                        >
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
 
-                            <div className="flex flex-col md:flex-row justify-between items-start gap-4">
+                    <div className="bg-white rounded-3xl shadow p-5">
 
-                                <div className="flex-1">
+                        <p className="text-gray-500">
 
-                                    <div className="flex items-center gap-3">
+                            Total
 
-                                        <h2 className="text-xl font-bold">
+                        </p>
 
-                                            {notification.title}
+                        <h2 className="text-4xl font-bold">
 
-                                        </h2>
+                            {notifications.length}
 
-                                        {!notification.isRead && (
+                        </h2>
 
-                                            <span className="bg-red-500 text-white text-xs px-3 py-1 rounded-full">
+                    </div>
 
-                                                NEW
+                    <div className="bg-red-100 rounded-3xl shadow p-5">
 
-                                            </span>
+                        <p className="text-red-600">
 
-                                        )}
+                            Unread
+
+                        </p>
+
+                        <h2 className="text-4xl font-bold text-red-600">
+
+                            {unreadCount}
+
+                        </h2>
+
+                    </div>
+
+                    <div className="bg-green-100 rounded-3xl shadow p-5">
+
+                        <p className="text-green-700">
+
+                            Read
+
+                        </p>
+
+                        <h2 className="text-4xl font-bold text-green-700">
+
+                            {readCount}
+
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                {/* Empty State */}
+
+                {notifications.length === 0 ? (
+
+                    <div className="
+                        bg-white
+                        rounded-3xl
+                        shadow
+                        py-20
+                        px-6
+                        text-center
+                    ">
+
+                        <Bell
+                            size={70}
+                            className="
+                                mx-auto
+                                text-[#F4C430]
+                                mb-5
+                            "
+                        />
+
+                        <h2 className="text-2xl font-bold">
+
+                            No Notifications
+
+                        </h2>
+
+                        <p className="text-gray-500 mt-2">
+
+                            You're all caught up.
+
+                        </p>
+
+                    </div>
+
+                ) : (
+
+                    <div className="space-y-5">
+
+                        {notifications.map((notification) => (
+
+                            <div
+                                key={notification.id}
+                                className={`
+                                    rounded-3xl
+                                    shadow-md
+                                    p-6
+                                    ${
+                                        notification.isRead
+                                            ? "bg-white"
+                                            : "bg-blue-50 border-l-4 border-blue-600"
+                                    }
+                                `}
+                            >
+
+                                <div className="flex justify-between items-start gap-4">
+
+                                    <div className="flex-1">
+
+                                        <div className="flex flex-wrap items-center gap-3">
+
+                                            <h2 className="text-xl font-bold">
+
+                                                {notification.title}
+
+                                            </h2>
+
+                                            {!notification.isRead && (
+
+                                                <span className="
+                                                    bg-red-500
+                                                    text-white
+                                                    text-xs
+                                                    px-3 py-1
+                                                    rounded-full
+                                                ">
+
+                                                    NEW
+
+                                                </span>
+
+                                            )}
+
+                                        </div>
+
+                                        <p className="text-gray-600 mt-3">
+
+                                            {notification.message}
+
+                                        </p>
+
+                                        <p className="text-sm text-gray-400 mt-4">
+
+                                            🕒 {
+
+                                                notification.createdAt
+                                                    ? new Date(
+                                                        notification.createdAt
+                                                    ).toLocaleString()
+                                                    : "Recently"
+
+                                            }
+
+                                        </p>
 
                                     </div>
 
-                                    <p className="text-gray-600 mt-3">
-
-                                        {notification.message}
-
-                                    </p>
-
-                                    <p className="text-sm text-gray-400 mt-4">
-
-                                        🕒 {
-                                            notification.createdAt
-                                                ? new Date(
-                                                    notification.createdAt
-                                                ).toLocaleString()
-                                                : "Recently"
-                                        }
-
-                                    </p>
-
                                 </div>
 
-                                <div className="flex gap-3">
+                                <div className="
+                                    flex
+                                    flex-wrap
+                                    gap-3
+                                    mt-5
+                                ">
 
                                     {!notification.isRead && (
 
@@ -273,10 +340,21 @@ function Notifications() {
                                                     notification.id
                                                 )
                                             }
-                                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl"
+                                            className="
+                                                flex
+                                                items-center
+                                                gap-2
+                                                bg-green-600
+                                                text-white
+                                                px-5 py-3
+                                                rounded-2xl
+                                                font-semibold
+                                            "
                                         >
 
-                                            ✓ Read
+                                            <CheckCircle size={20} />
+
+                                            Mark Read
 
                                         </button>
 
@@ -288,8 +366,19 @@ function Notifications() {
                                                 notification.id
                                             )
                                         }
-                                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl"
+                                        className="
+                                            flex
+                                            items-center
+                                            gap-2
+                                            bg-red-600
+                                            text-white
+                                            px-5 py-3
+                                            rounded-2xl
+                                            font-semibold
+                                        "
                                     >
+
+                                        <Trash2 size={20} />
 
                                         Delete
 
@@ -299,13 +388,13 @@ function Notifications() {
 
                             </div>
 
-                        </div>
+                        ))}
 
-                    ))}
+                    </div>
 
-                </div>
+                )}
 
-            )}
+            </div>
 
         </div>
 

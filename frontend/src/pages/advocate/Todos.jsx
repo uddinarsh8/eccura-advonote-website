@@ -1,12 +1,21 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
+import {
+    ArrowLeft,
+    Plus,
+    Trash2,
+    CheckCircle2,
+    ListTodo
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Todos() {
 
+    const navigate = useNavigate();
+
     const [todos, setTodos] = useState([]);
     const [task, setTask] = useState("");
-    const [loading, setLoading] =
-        useState(false);
+    const [loading, setLoading] = useState(false);
 
     let advocate = {};
 
@@ -25,9 +34,9 @@ function Todos() {
 
         }
 
-    } catch (error) {
+    } catch {
 
-        console.log(error);
+        advocate = {};
 
     }
 
@@ -42,9 +51,7 @@ function Todos() {
                     `/todos/${advocate.id}`
                 );
 
-            setTodos(
-                response.data
-            );
+            setTodos(response.data);
 
         } catch (error) {
 
@@ -164,255 +171,449 @@ function Todos() {
         todos.length === 0
             ? 0
             : Math.round(
-                  (
-                      completedTasks /
-                      todos.length
-                  ) * 100
-              );
+                (
+                    completedTasks /
+                    todos.length
+                ) * 100
+            );
 
     return (
 
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="min-h-screen bg-[#F3F3F3]">
 
             {/* Header */}
 
-            <div className="mb-8">
+            <div className="bg-[#F4C430] px-4 md:px-6 py-5 shadow">
 
-                <h1 className="text-4xl font-bold">
-
-                    ✅ To-Do Manager
-
-                </h1>
-
-                <p className="text-gray-500 mt-2">
-
-                    Stay productive and organized.
-
-                </p>
-
-            </div>
-
-            {/* Stats */}
-
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-
-                <div className="bg-blue-600 text-white rounded-2xl p-6 shadow">
-
-                    <p>Total Tasks</p>
-
-                    <h2 className="text-4xl font-bold mt-2">
-
-                        {todos.length}
-
-                    </h2>
-
-                </div>
-
-                <div className="bg-yellow-500 text-white rounded-2xl p-6 shadow">
-
-                    <p>Pending</p>
-
-                    <h2 className="text-4xl font-bold mt-2">
-
-                        {pendingTasks}
-
-                    </h2>
-
-                </div>
-
-                <div className="bg-green-600 text-white rounded-2xl p-6 shadow">
-
-                    <p>Completed</p>
-
-                    <h2 className="text-4xl font-bold mt-2">
-
-                        {completedTasks}
-
-                    </h2>
-
-                </div>
-
-            </div>
-
-            {/* Progress */}
-
-            <div className="bg-white rounded-2xl shadow p-6 mb-8">
-
-                <div className="flex justify-between mb-3">
-
-                    <span className="font-semibold">
-
-                        Productivity Score
-
-                    </span>
-
-                    <span>
-
-                        {completionPercentage}%
-
-                    </span>
-
-                </div>
-
-                <div className="w-full bg-gray-200 rounded-full h-4">
-
-                    <div
-                        className="bg-green-600 h-4 rounded-full transition-all"
-                        style={{
-                            width:
-                                `${completionPercentage}%`
-                        }}
-                    />
-
-                </div>
-
-            </div>
-
-            {/* Add Task */}
-
-            <div className="bg-white rounded-2xl shadow p-6 mb-8">
-
-                <h2 className="text-2xl font-bold mb-4">
-
-                    ➕ Add New Task
-
-                </h2>
-
-                <div className="flex flex-col md:flex-row gap-4">
-
-                    <input
-                        value={task}
-                        onChange={(e) =>
-                            setTask(
-                                e.target.value
-                            )
-                        }
-                        placeholder="Enter task..."
-                        className="border p-4 rounded-xl flex-1"
-                    />
+                <div className="flex items-center gap-4">
 
                     <button
-                        onClick={addTask}
-                        disabled={loading}
-                        className={`px-8 rounded-xl text-white font-semibold ${
-                            loading
-                                ? "bg-gray-400"
-                                : "bg-blue-600 hover:bg-blue-700"
-                        }`}
+                        onClick={() => navigate(-1)}
+                        className="
+                            w-12 h-12
+                            bg-white
+                            rounded-2xl
+                            shadow-md
+                            flex
+                            items-center
+                            justify-center
+                        "
                     >
 
-                        {loading
-                            ? "Adding..."
-                            : "Add"}
+                        <ArrowLeft size={24} />
 
                     </button>
 
+                    <h1 className="text-2xl md:text-3xl font-bold">
+
+                        To Do List
+
+                    </h1>
+
                 </div>
 
             </div>
 
-            {/* Tasks */}
+            <div className="max-w-6xl mx-auto p-4 md:p-6">
 
-            {todos.length === 0 ? (
+                {/* Stats */}
 
-                <div className="bg-white rounded-2xl shadow p-12 text-center">
+                <div className="
+                    grid
+                    grid-cols-1
+                    sm:grid-cols-3
+                    gap-4
+                    mb-6
+                ">
 
-                    <div className="text-6xl mb-4">
+                    <div className="
+                        bg-white
+                        rounded-3xl
+                        shadow
+                        p-6
+                    ">
 
-                        🎯
+                        <p className="text-gray-500">
+
+                            Total Tasks
+
+                        </p>
+
+                        <h2 className="
+                            text-4xl
+                            font-bold
+                        ">
+
+                            {todos.length}
+
+                        </h2>
 
                     </div>
 
-                    <h2 className="text-2xl font-bold">
+                    <div className="
+                        bg-[#F4C430]
+                        rounded-3xl
+                        shadow
+                        p-6
+                    ">
 
-                        No Tasks Yet
+                        <p>
+
+                            Pending
+
+                        </p>
+
+                        <h2 className="
+                            text-4xl
+                            font-bold
+                        ">
+
+                            {pendingTasks}
+
+                        </h2>
+
+                    </div>
+
+                    <div className="
+                        bg-[#4CAF50]
+                        text-white
+                        rounded-3xl
+                        shadow
+                        p-6
+                    ">
+
+                        <p>
+
+                            Completed
+
+                        </p>
+
+                        <h2 className="
+                            text-4xl
+                            font-bold
+                        ">
+
+                            {completedTasks}
+
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                {/* Progress */}
+
+                <div className="
+                    bg-white
+                    rounded-3xl
+                    shadow
+                    p-6
+                    mb-6
+                ">
+
+                    <div className="
+                        flex
+                        justify-between
+                        mb-3
+                    ">
+
+                        <span className="font-semibold">
+
+                            Productivity Score
+
+                        </span>
+
+                        <span>
+
+                            {completionPercentage}%
+
+                        </span>
+
+                    </div>
+
+                    <div className="
+                        w-full
+                        bg-gray-200
+                        rounded-full
+                        h-4
+                    ">
+
+                        <div
+                            className="
+                                bg-[#4CAF50]
+                                h-4
+                                rounded-full
+                                transition-all
+                            "
+                            style={{
+                                width:
+                                    `${completionPercentage}%`
+                            }}
+                        />
+
+                    </div>
+
+                </div>
+
+                {/* Add Task */}
+
+                <div className="
+                    bg-white
+                    rounded-3xl
+                    shadow
+                    p-6
+                    mb-6
+                ">
+
+                    <h2 className="
+                        text-2xl
+                        font-bold
+                        mb-5
+                    ">
+
+                        Add New Task
 
                     </h2>
 
-                    <p className="text-gray-500 mt-2">
+                    <div className="
+                        flex
+                        flex-col
+                        md:flex-row
+                        gap-4
+                    ">
 
-                        Add your first task to stay organized.
+                        <input
+                            value={task}
+                            onChange={(e) =>
+                                setTask(
+                                    e.target.value
+                                )
+                            }
+                            placeholder="Enter task..."
+                            className="
+                                flex-1
+                                border
+                                rounded-2xl
+                                p-4
+                                focus:outline-none
+                                focus:ring-2
+                                focus:ring-[#F4C430]
+                            "
+                        />
 
-                    </p>
+                        <button
+                            onClick={addTask}
+                            disabled={loading}
+                            className={`
+                                px-6 py-4
+                                rounded-2xl
+                                font-semibold
+                                flex
+                                items-center
+                                justify-center
+                                gap-2
+                                ${
+                                    loading
+                                        ? "bg-gray-400"
+                                        : "bg-[#F4C430] hover:bg-yellow-400"
+                                }
+                            `}
+                        >
+
+                            <Plus size={20} />
+
+                            {
+                                loading
+                                    ? "Adding..."
+                                    : "Add Task"
+                            }
+
+                        </button>
+
+                    </div>
 
                 </div>
 
-            ) : (
+                {/* Empty State */}
 
-                <div className="space-y-4">
+                {todos.length === 0 ? (
 
-                    {todos.map((todo) => (
+                    <div className="
+                        bg-white
+                        rounded-3xl
+                        shadow
+                        p-12
+                        text-center
+                    ">
 
-                        <div
-                            key={todo.id}
-                            className="bg-white rounded-2xl shadow p-5 flex flex-col md:flex-row justify-between items-center"
-                        >
+                        <ListTodo
+                            size={60}
+                            className="
+                                mx-auto
+                                text-gray-400
+                                mb-4
+                            "
+                        />
 
-                            <div className="flex items-center gap-4">
+                        <h2 className="
+                            text-2xl
+                            font-bold
+                        ">
 
-                                <div className="text-2xl">
+                            No Tasks Yet
 
-                                    {todo.completed
-                                        ? "✅"
-                                        : "📝"}
+                        </h2>
+
+                        <p className="
+                            text-gray-500
+                            mt-2
+                        ">
+
+                            Add your first task to stay productive.
+
+                        </p>
+
+                    </div>
+
+                ) : (
+
+                    <div className="space-y-4">
+
+                        {todos.map((todo) => (
+
+                            <div
+                                key={todo.id}
+                                className="
+                                    bg-white
+                                    rounded-3xl
+                                    shadow
+                                    p-5
+                                    flex
+                                    flex-col
+                                    md:flex-row
+                                    justify-between
+                                    md:items-center
+                                    gap-4
+                                "
+                            >
+
+                                <div className="
+                                    flex
+                                    items-center
+                                    gap-4
+                                ">
+
+                                    {
+
+                                        todo.completed ? (
+
+                                            <CheckCircle2
+                                                className="
+                                                    text-green-600
+                                                "
+                                                size={28}
+                                            />
+
+                                        ) : (
+
+                                            <ListTodo
+                                                className="
+                                                    text-[#F4C430]
+                                                "
+                                                size={28}
+                                            />
+
+                                        )
+
+                                    }
+
+                                    <p
+                                        className={`
+                                            text-lg
+                                            ${
+                                                todo.completed
+                                                    ? "line-through text-gray-400"
+                                                    : "font-medium"
+                                            }
+                                        `}
+                                    >
+
+                                        {todo.task}
+
+                                    </p>
 
                                 </div>
 
-                                <p
-                                    className={`text-lg ${
-                                        todo.completed
-                                            ? "line-through text-gray-400"
-                                            : "font-medium"
-                                    }`}
-                                >
+                                <div className="
+                                    flex
+                                    flex-wrap
+                                    gap-3
+                                ">
 
-                                    {todo.task}
+                                    {
 
-                                </p>
+                                        !todo.completed && (
 
-                            </div>
+                                            <button
+                                                onClick={() =>
+                                                    completeTask(
+                                                        todo.id
+                                                    )
+                                                }
+                                                className="
+                                                    bg-green-600
+                                                    hover:bg-green-700
+                                                    text-white
+                                                    px-5 py-2
+                                                    rounded-xl
+                                                    font-medium
+                                                "
+                                            >
 
-                            <div className="flex gap-3 mt-4 md:mt-0">
+                                                Complete
 
-                                {!todo.completed && (
+                                            </button>
+
+                                        )
+
+                                    }
 
                                     <button
                                         onClick={() =>
-                                            completeTask(
+                                            deleteTask(
                                                 todo.id
                                             )
                                         }
-                                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl"
+                                        className="
+                                            bg-red-600
+                                            hover:bg-red-700
+                                            text-white
+                                            px-5 py-2
+                                            rounded-xl
+                                            font-medium
+                                            flex
+                                            items-center
+                                            gap-2
+                                        "
                                     >
 
-                                        Complete
+                                        <Trash2 size={18} />
+
+                                        Delete
 
                                     </button>
 
-                                )}
-
-                                <button
-                                    onClick={() =>
-                                        deleteTask(
-                                            todo.id
-                                        )
-                                    }
-                                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl"
-                                >
-
-                                    Delete
-
-                                </button>
+                                </div>
 
                             </div>
 
-                        </div>
+                        ))}
 
-                    ))}
+                    </div>
 
-                </div>
+                )}
 
-            )}
+            </div>
 
         </div>
 

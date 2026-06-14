@@ -1,4 +1,32 @@
+import { useState } from "react";
+import {
+    ArrowLeft,
+    ArrowRight,
+    UserCog,
+    Building2,
+    Users,
+    Briefcase,
+    ClipboardList,
+    CircleCheck,
+    MessageCircle,
+    Share2,
+    Video,
+    Trash2,
+    FileText,
+    Receipt,
+    Tag,
+    LogOut
+} from "lucide-react";
+
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../assets/advonote-logo.png";
+
 function Profile() {
+
+    const navigate = useNavigate();
+
+    const [showDeleteModal, setShowDeleteModal] =
+        useState(false);
 
     let advocate = {};
 
@@ -17,11 +45,9 @@ function Profile() {
 
         }
 
-    } catch (error) {
+    } catch {
 
-        console.log(
-            "Invalid advocate data"
-        );
+        advocate = {};
 
     }
 
@@ -39,166 +65,478 @@ function Profile() {
 
     };
 
+    const handleDeleteAccount = async () => {
+
+        try {
+
+            /*
+            Uncomment when backend API is ready
+
+            await api.delete(
+                `/advocates/${advocate.id}`
+            );
+            */
+
+            localStorage.removeItem(
+                "advocate"
+            );
+
+            localStorage.removeItem(
+                "advocateToken"
+            );
+
+            alert(
+                "Account deleted successfully."
+            );
+
+            window.location.href = "/";
+
+        } catch (error) {
+
+            console.log(error);
+
+            alert(
+                "Failed to delete account."
+            );
+
+        }
+
+    };
+
+    const menuItems = [
+
+        {
+            icon: UserCog,
+            title: "View Profile",
+            path: "/advocate/view-profile"
+        },
+
+        {
+            icon: Building2,
+            title: "Court Management",
+            path: "/advocate/court-management"
+        },
+
+        {
+            icon: Users,
+            title: "My Team",
+            path: "#"
+        },
+
+        {
+            icon: Briefcase,
+            title: "My Cases",
+            path: "/advocate/cases"
+        },
+
+        {
+            icon: ClipboardList,
+            title: "Manage Clients",
+            path: "/advocate/clients"
+        },
+
+        {
+            icon: CircleCheck,
+            title: "To Do List",
+            path: "/advocate/todos"
+        },
+
+        {
+            icon: MessageCircle,
+            title: "Support",
+            path: "/contact"
+        }
+
+    ];
+
+    const otherItems = [
+
+        {
+            icon: Share2,
+            title: "Refer to Friends",
+            bg: "bg-green-100",
+            color: "text-green-700",
+            path: "/advocate/refer-friends"
+        },
+
+        {
+            icon: Video,
+            title: "Tutorials",
+            path: "/advocate/tutorials"
+        },
+
+        {
+            icon: FileText,
+            title: "Privacy Policy",
+            path: "/advocate/privacy-policy"
+        },
+
+        {
+            icon: FileText,
+            title: "Term & Conditions",
+            path: "#"
+        },
+
+        {
+            icon: FileText,
+            title: "Return & Refund",
+            path: "#"
+        },
+
+        {
+            icon: Receipt,
+            title: "Invoices",
+            bg: "bg-green-100",
+            color: "text-green-700",
+            path: "#"
+        },
+
+        {
+            icon: Tag,
+            title: "Subscriptions",
+            bg: "bg-yellow-200",
+            color: "text-green-700",
+            path: "#"
+        }
+
+    ];
+
     return (
 
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="min-h-screen bg-[#F3F3F3]">
 
-            <div className="max-w-4xl mx-auto">
+            {/* Header */}
 
-                {/* Header */}
+            <div className="bg-[#F4C430] px-4 md:px-6 py-5 flex items-center gap-4 shadow">
 
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-3xl p-8 shadow-lg mb-8">
+                <button
+                    onClick={() => navigate(-1)}
+                    className="
+                        w-14 h-14
+                        md:w-16 md:h-16
+                        bg-white
+                        rounded-2xl
+                        shadow-md
+                        flex
+                        items-center
+                        justify-center
+                    "
+                >
 
-                    <div className="flex flex-col md:flex-row items-center gap-6">
+                    <ArrowLeft size={28} />
 
-                        <div className="w-28 h-28 rounded-full bg-white text-blue-600 flex items-center justify-center text-5xl font-bold">
+                </button>
 
-                            {advocate?.name
-                                ?.charAt(0)
-                                ?.toUpperCase()}
+                <h1 className="
+                    text-2xl
+                    md:text-4xl
+                    font-bold
+                ">
 
-                        </div>
+                    Profile
 
-                        <div>
+                </h1>
 
-                            <h1 className="text-4xl font-bold">
+            </div>
 
-                                {advocate?.name}
+            <div className="
+                max-w-2xl
+                mx-auto
+                px-4 md:px-5
+                py-8
+            ">
 
-                            </h1>
+                {/* Profile */}
 
-                            <p className="text-blue-100 mt-2">
+                <div className="text-center mb-8">
 
-                                Advocate
+                    <img
+                        src={logo}
+                        alt="Advonote"
+                        className="
+                            w-28 h-28
+                            md:w-40 md:h-40
+                            mx-auto
+                            object-contain
+                        "
+                    />
 
-                            </p>
+                    <h2 className="
+                        text-2xl
+                        md:text-4xl
+                        font-bold
+                        mt-4
+                    ">
 
-                        </div>
-
-                    </div>
-
-                </div>
-
-                {/* Profile Details */}
-
-                <div className="bg-white rounded-3xl shadow-lg p-8">
-
-                    <h2 className="text-2xl font-bold mb-6">
-
-                        Profile Information
+                        {advocate?.name || "ADVOCATE"}
 
                     </h2>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                </div>
 
-                        <div>
+                <hr className="mb-6" />
 
-                            <p className="text-gray-500">
+                {/* Main Menu */}
 
-                                Full Name
+                <div className="space-y-5">
 
-                            </p>
+                    {menuItems.map((item, index) => {
 
-                            <p className="font-semibold text-lg">
+                        const Icon = item.icon;
 
-                                {advocate?.name || "-"}
+                        return (
 
-                            </p>
+                            <Link
+                                key={index}
+                                to={item.path}
+                                className="
+                                    bg-white
+                                    rounded-3xl
+                                    shadow-md
+                                    px-5 md:px-6
+                                    py-6
+                                    flex
+                                    items-center
+                                    justify-between
+                                "
+                            >
 
-                        </div>
+                                <div className="flex items-center gap-4">
 
-                        <div>
+                                    <Icon size={28} />
 
-                            <p className="text-gray-500">
+                                    <span className="
+                                        text-xl
+                                        md:text-3xl
+                                        font-bold
+                                    ">
 
-                                Mobile Number
+                                        {item.title}
 
-                            </p>
+                                    </span>
 
-                            <p className="font-semibold text-lg">
+                                </div>
 
-                                {advocate?.mobile || "-"}
+                                <ArrowRight size={28} />
 
-                            </p>
+                            </Link>
 
-                        </div>
+                        );
 
-                        <div>
-
-                            <p className="text-gray-500">
-
-                                Email Address
-
-                            </p>
-
-                            <p className="font-semibold text-lg">
-
-                                {advocate?.email || "-"}
-
-                            </p>
-
-                        </div>
-
-                        <div>
-
-                            <p className="text-gray-500">
-
-                                State
-
-                            </p>
-
-                            <p className="font-semibold text-lg">
-
-                                {advocate?.state || "-"}
-
-                            </p>
-
-                        </div>
-
-                        <div>
-
-                            <p className="text-gray-500">
-
-                                City
-
-                            </p>
-
-                            <p className="font-semibold text-lg">
-
-                                {advocate?.city || "-"}
-
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    {/* Actions */}
-
-                    <div className="flex flex-col md:flex-row gap-4 mt-10">
-
-                        <button
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl font-semibold"
-                        >
-
-                            Edit Profile
-
-                        </button>
-
-                        <button
-                            onClick={handleLogout}
-                            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-2xl font-semibold"
-                        >
-
-                            Logout
-
-                        </button>
-
-                    </div>
+                    })}
 
                 </div>
 
+                {/* Secondary Menu */}
+
+                <div className="space-y-5 mt-5">
+
+                    {otherItems.map((item, index) => {
+
+                        const Icon = item.icon;
+
+                        return (
+
+                            <Link
+                                key={index}
+                                to={item.path}
+                                className={`
+                                    rounded-3xl
+                                    shadow-md
+                                    px-5 md:px-6
+                                    py-6
+                                    flex
+                                    items-center
+                                    justify-between
+                                    ${item.bg || "bg-white"}
+                                    ${item.color || ""}
+                                `}
+                            >
+
+                                <div className="flex items-center gap-4">
+
+                                    <Icon size={28} />
+
+                                    <span className="
+                                        text-xl
+                                        md:text-3xl
+                                        font-bold
+                                    ">
+
+                                        {item.title}
+
+                                    </span>
+
+                                </div>
+
+                                <ArrowRight size={28} />
+
+                            </Link>
+
+                        );
+
+                    })}
+
+                </div>
+
+                {/* Delete Account */}
+
+                <button
+                    onClick={() =>
+                        setShowDeleteModal(true)
+                    }
+                    className="
+                        w-full
+                        mt-5
+                        bg-white
+                        rounded-3xl
+                        shadow-md
+                        px-5 md:px-6
+                        py-6
+                        flex
+                        items-center
+                        justify-between
+                    "
+                >
+
+                    <div className="flex items-center gap-4">
+
+                        <Trash2 size={28} />
+
+                        <span className="
+                            text-xl
+                            md:text-3xl
+                            font-bold
+                        ">
+
+                            Delete Account?
+
+                        </span>
+
+                    </div>
+
+                    <ArrowRight size={28} />
+
+                </button>
+
+                {/* Logout */}
+
+                <button
+                    onClick={handleLogout}
+                    className="
+                        w-full
+                        mt-8
+                        bg-[#F4C430]
+                        py-6
+                        rounded-3xl
+                        shadow-md
+                        flex
+                        items-center
+                        justify-center
+                        gap-4
+                        text-xl
+                        md:text-3xl
+                        font-bold
+                    "
+                >
+
+                    LOG OUT
+
+                    <LogOut size={30} />
+
+                </button>
+
             </div>
+
+            {/* Delete Modal */}
+
+            {
+                showDeleteModal && (
+
+                    <div className="
+                        fixed inset-0
+                        bg-black/50
+                        flex items-center justify-center
+                        z-50 px-5
+                    ">
+
+                        <div className="
+                            bg-white
+                            rounded-3xl
+                            shadow-xl
+                            w-full
+                            max-w-md
+                            p-8
+                        ">
+
+                            <h2 className="
+                                text-3xl
+                                font-bold
+                                mb-4
+                            ">
+
+                                Confirm Delete
+
+                            </h2>
+
+                            <p className="
+                                text-gray-600
+                                text-lg
+                                leading-relaxed
+                            ">
+
+                                Are you sure you want to
+                                delete your account?
+                                This action cannot be undone.
+
+                            </p>
+
+                            <div className="
+                                flex justify-end
+                                gap-4
+                                mt-10
+                            ">
+
+                                <button
+                                    onClick={() =>
+                                        setShowDeleteModal(false)
+                                    }
+                                    className="
+                                        bg-gray-200
+                                        px-6 py-3
+                                        rounded-xl
+                                        font-semibold
+                                    "
+                                >
+
+                                    Cancel
+
+                                </button>
+
+                                <button
+                                    onClick={handleDeleteAccount}
+                                    className="
+                                        bg-red-500
+                                        hover:bg-red-600
+                                        text-white
+                                        px-6 py-3
+                                        rounded-xl
+                                        font-semibold
+                                    "
+                                >
+
+                                    Yes, Delete
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                )
+            }
 
         </div>
 

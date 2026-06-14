@@ -1,7 +1,18 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import CalendarComponent from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+
+import {
+    ArrowLeft,
+    ChevronLeft,
+    ChevronRight
+} from "lucide-react";
 
 function Calendar() {
+
+    const navigate = useNavigate();
 
     let advocate = {};
 
@@ -20,19 +31,18 @@ function Calendar() {
 
         }
 
-    } catch (error) {
+    } catch {
 
-        console.log(
-            "Invalid advocate data"
-        );
+        advocate = {};
 
     }
 
-    const [cases, setCases] =
-        useState([]);
+    const [cases, setCases] = useState([]);
+    const [selectedDate, setSelectedDate] =
+        useState(new Date());
 
-    const [search, setSearch] =
-        useState("");
+    const [viewMode, setViewMode] =
+        useState("calendar");
 
     useEffect(() => {
 
@@ -40,14 +50,14 @@ function Calendar() {
 
             try {
 
+                if (!advocate.id) return;
+
                 const response =
                     await api.get(
                         `/cases/calendar/${advocate.id}`
                     );
 
-                setCases(
-                    response.data
-                );
+                setCases(response.data);
 
             } catch (error) {
 
@@ -57,267 +67,427 @@ function Calendar() {
 
         };
 
-        if (advocate.id) {
-
-            fetchCases();
-
-        }
+        fetchCases();
 
     }, []);
 
-    const today = new Date();
-
-    const upcomingHearings =
+    const hearings =
         cases.filter((item) => {
 
+            const hearing =
+                new Date(item.hearingDate);
+
             return (
-                new Date(
-                    item.hearingDate
-                ) >= today
+
+                hearing.toDateString() ===
+                selectedDate.toDateString()
+
             );
 
         });
 
-    const filteredCases =
-        cases.filter((item) => {
+    const hearingDates =
+        cases.map((item) =>
+            new Date(item.hearingDate)
+                .toDateString()
+        );
 
-            const query =
-                search.toLowerCase();
+    const changeDate = (days) => {
 
-            return (
+        const newDate =
+            new Date(selectedDate);
 
-                item.petitioner
-                    ?.toLowerCase()
-                    .includes(query)
+        newDate.setDate(
+            newDate.getDate() + days
+        );
 
-                ||
+        setSelectedDate(newDate);
 
-                item.respondent
-                    ?.toLowerCase()
-                    .includes(query)
-
-                ||
-
-                item.caseNumber
-                    ?.toLowerCase()
-                    .includes(query)
-
-            );
-
-        });
+    };
 
     return (
 
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="min-h-screen bg-[#F3F3F3]">
 
             {/* Header */}
 
-            <div className="mb-8">
+            <div className="bg-[#F4C430] px-4 md:px-6 py-5 shadow">
 
-                <h1 className="text-4xl font-bold">
+                <div className="flex items-center gap-4">
 
-                    📅 Hearing Calendar
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="
+                            w-12 h-12 md:w-14 md:h-14
+                            bg-white
+                            rounded-2xl
+                            shadow-md
+                            flex
+                            items-center
+                            justify-center
+                        "
+                    >
 
-                </h1>
+                        <ArrowLeft size={26} />
 
-                <p className="text-gray-500 mt-2">
+                    </button>
 
-                    Track all your upcoming hearings.
+                    <h1 className="text-2xl md:text-3xl font-bold">
 
-                </p>
+                        Calendar
 
-            </div>
-
-            {/* Statistics */}
-
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-
-                <div className="bg-blue-600 text-white rounded-2xl p-6 shadow">
-
-                    <p>Total Hearings</p>
-
-                    <h2 className="text-4xl font-bold mt-2">
-
-                        {cases.length}
-
-                    </h2>
-
-                </div>
-
-                <div className="bg-green-600 text-white rounded-2xl p-6 shadow">
-
-                    <p>Upcoming</p>
-
-                    <h2 className="text-4xl font-bold mt-2">
-
-                        {upcomingHearings.length}
-
-                    </h2>
-
-                </div>
-
-                <div className="bg-purple-600 text-white rounded-2xl p-6 shadow">
-
-                    <p>Today's Date</p>
-
-                    <h2 className="text-xl font-bold mt-2">
-
-                        {today.toLocaleDateString()}
-
-                    </h2>
+                    </h1>
 
                 </div>
 
             </div>
 
-            {/* Search */}
+            <div className="p-4 md:p-6 max-w-7xl mx-auto">
 
-            <div className="mb-8">
+                {/* Top Controls */}
 
-                <input
-                    type="text"
-                    placeholder="🔍 Search hearings..."
-                    value={search}
-                    onChange={(e) =>
-                        setSearch(
-                            e.target.value
-                        )
-                    }
-                    className="w-full border rounded-2xl p-4 shadow-sm"
-                />
+                <div className="
+                    flex
+                    flex-col
+                    md:flex-row
+                    md:justify-between
+                    md:items-center
+                    gap-4
+                    mb-6
+                ">
 
-            </div>
+                    {/* Month */}
 
-            {/* Empty State */}
+                    <div className="
+                        bg-black
+                        text-white
+                        px-6
+                        py-3
+                        rounded-2xl
+                        w-fit
+                    ">
 
-            {filteredCases.length === 0 ? (
+                        <p className="text-3xl font-bold">
 
-                <div className="bg-white rounded-2xl shadow p-12 text-center">
+                            {
 
-                    <div className="text-6xl mb-4">
+                                selectedDate.toLocaleString(
+                                    "default",
+                                    {
+                                        month: "short"
+                                    }
+                                )
 
-                        📅
+                            }
+
+                        </p>
+
+                        <p>
+
+                            {
+
+                                selectedDate.getFullYear()
+
+                            }
+
+                        </p>
 
                     </div>
 
-                    <h2 className="text-2xl font-bold">
+                    {/* View Toggle */}
 
-                        No Hearings Found
+                    <div className="
+                        flex
+                        rounded-full
+                        border-2
+                        border-[#2E7D32]
+                        overflow-hidden
+                        self-start
+                    ">
+
+                        <button
+                            onClick={() =>
+                                setViewMode("list")
+                            }
+                            className={`
+                                px-5 md:px-6
+                                py-3
+                                font-bold
+                                transition
+                                ${
+                                    viewMode === "list"
+                                        ? "bg-[#F4C430]"
+                                        : "bg-white"
+                                }
+                            `}
+                        >
+
+                            List View
+
+                        </button>
+
+                        <button
+                            onClick={() =>
+                                setViewMode("calendar")
+                            }
+                            className={`
+                                px-5 md:px-6
+                                py-3
+                                font-bold
+                                transition
+                                ${
+                                    viewMode === "calendar"
+                                        ? "bg-[#2E7D32] text-white"
+                                        : "bg-white"
+                                }
+                            `}
+                        >
+
+                            Calendar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                {/* Calendar */}
+
+                {viewMode === "calendar" && (
+
+                    <div className="
+                        bg-[#F4C430]
+                        rounded-3xl
+                        shadow-lg
+                        p-3 md:p-6
+                        mb-8
+                    ">
+
+                        <CalendarComponent
+
+                            className="w-full border-none"
+
+                            value={selectedDate}
+
+                            onChange={setSelectedDate}
+
+                            tileContent={({ date }) => {
+
+                                const count =
+                                    hearingDates.filter(
+
+                                        hearing =>
+
+                                            hearing ===
+                                            date.toDateString()
+
+                                    ).length;
+
+                                return count > 0 ? (
+
+                                    <div className="
+                                        flex
+                                        justify-center
+                                        mt-1
+                                    ">
+
+                                        <span className="
+                                            w-6 h-6
+                                            rounded-full
+                                            bg-blue-500
+                                            text-white
+                                            text-xs
+                                            flex
+                                            items-center
+                                            justify-center
+                                        ">
+
+                                            {count}
+
+                                        </span>
+
+                                    </div>
+
+                                ) : null;
+
+                            }}
+
+                        />
+
+                    </div>
+
+                )}
+
+                {/* Hearings Header */}
+
+                <div className="
+                    flex
+                    flex-col
+                    md:flex-row
+                    md:justify-between
+                    md:items-center
+                    gap-4
+                    mb-6
+                ">
+
+                    <h2 className="text-2xl md:text-3xl font-bold">
+
+                        Hearings: ({hearings.length})
 
                     </h2>
 
-                    <p className="text-gray-500 mt-2">
+                    <div className="
+                        flex
+                        items-center
+                        gap-4
+                    ">
 
-                        Add cases to view hearing schedules.
+                        <button
+                            onClick={() =>
+                                changeDate(-1)
+                            }
+                        >
 
-                    </p>
+                            <ChevronLeft />
+
+                        </button>
+
+                        <span className="
+                            text-lg md:text-2xl
+                            font-bold
+                        ">
+
+                            {
+
+                                selectedDate
+                                    .toLocaleDateString(
+                                        "en-GB",
+                                        {
+
+                                            day: "numeric",
+                                            month: "long",
+                                            year: "numeric"
+
+                                        }
+                                    )
+
+                            }
+
+                        </span>
+
+                        <button
+                            onClick={() =>
+                                changeDate(1)
+                            }
+                        >
+
+                            <ChevronRight />
+
+                        </button>
+
+                    </div>
 
                 </div>
 
-            ) : (
+                {/* Hearing Table */}
 
-                <div className="space-y-6">
+                <div className="
+                    bg-white
+                    rounded-3xl
+                    shadow-lg
+                    overflow-x-auto
+                ">
 
-                    {filteredCases.map((item) => {
+                    <div className="
+                        min-w-[700px]
+                        grid
+                        grid-cols-4
+                        font-bold
+                        p-4
+                        border-b
+                    ">
 
-                        const hearingDate =
-                            new Date(
-                                item.hearingDate
-                            );
+                        <p>Prev Date</p>
 
-                        const isUpcoming =
-                            hearingDate >= today;
+                        <p>Case No</p>
 
-                        return (
+                        <p>Court</p>
 
-                            <div
-                                key={item.id}
-                                className="bg-white rounded-2xl shadow hover:shadow-xl transition p-6"
-                            >
+                        <p>Case Title</p>
 
-                                <div className="flex flex-col md:flex-row justify-between items-start">
+                    </div>
 
-                                    <div>
+                    {
 
-                                        <div className="flex items-center gap-3 mb-3">
+                        hearings.length === 0 ? (
 
-                                            <h2 className="text-2xl font-bold">
+                            <div className="
+                                p-10
+                                text-center
+                                text-gray-500
+                            ">
 
-                                                {item.petitioner}
-                                                {" vs "}
-                                                {item.respondent}
-
-                                            </h2>
-
-                                            <span
-                                                className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                                                    isUpcoming
-                                                        ? "bg-green-100 text-green-700"
-                                                        : "bg-gray-100 text-gray-700"
-                                                }`}
-                                            >
-
-                                                {isUpcoming
-                                                    ? "Upcoming"
-                                                    : "Completed"}
-
-                                            </span>
-
-                                        </div>
-
-                                        <p className="text-gray-600 mb-2">
-
-                                            🏛️ {item.courtName}
-
-                                        </p>
-
-                                        <p className="text-gray-600 mb-2">
-
-                                            📂 Case No:
-                                            {" "}
-                                            {item.caseNumber}
-
-                                        </p>
-
-                                        <p className="text-gray-600">
-
-                                            📚 {item.caseType || "General"}
-
-                                        </p>
-
-                                    </div>
-
-                                    <div className="mt-4 md:mt-0">
-
-                                        <div className="bg-blue-50 text-blue-700 px-5 py-4 rounded-2xl text-center">
-
-                                            <p className="text-sm">
-
-                                                Hearing Date
-
-                                            </p>
-
-                                            <p className="font-bold text-lg">
-
-                                                {hearingDate.toLocaleDateString()}
-
-                                            </p>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
+                                There are no cases on this date.
 
                             </div>
 
-                        );
+                        ) : (
 
-                    })}
+                            hearings.map((item) => (
+
+                                <div
+                                    key={item.id}
+                                    className="
+                                        min-w-[700px]
+                                        grid
+                                        grid-cols-4
+                                        p-4
+                                        border-b
+                                    "
+                                >
+
+                                    <p>
+
+                                        {
+
+                                            item.hearingDate
+                                                ?.split("T")[0]
+
+                                        }
+
+                                    </p>
+
+                                    <p>
+
+                                        {item.caseNumber}
+
+                                    </p>
+
+                                    <p>
+
+                                        {item.courtName}
+
+                                    </p>
+
+                                    <p>
+
+                                        {item.petitioner}
+                                        {" vs "}
+                                        {item.respondent}
+
+                                    </p>
+
+                                </div>
+
+                            ))
+
+                        )
+
+                    }
 
                 </div>
 
-            )}
+            </div>
 
         </div>
 

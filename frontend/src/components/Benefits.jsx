@@ -1,65 +1,37 @@
 import {
-    Briefcase,
-    Users,
-    FolderOpen,
-    Calendar,
-    CheckSquare,
-    BarChart3
+    Scale,
+    Building2,
+    Briefcase
 } from "lucide-react";
 
-function Features() {
+function Benefits() {
 
-    const features = [
-
+    const benefits = [
+        {
+            icon: Scale,
+            title: "For Advocates",
+            description:
+                "Manage hearings, cases, clients, reminders and daily tasks efficiently from a single platform."
+        },
+        {
+            icon: Building2,
+            title: "For Law Firms",
+            description:
+                "Collaborate with your team, streamline operations and improve overall productivity."
+        },
         {
             icon: Briefcase,
-            title: "Case Management",
+            title: "For Legal Consultants",
             description:
-                "Organize and manage your cases with ease and efficiency."
-        },
-
-        {
-            icon: Users,
-            title: "Client Management",
-            description:
-                "Store client details and improve communication."
-        },
-
-        {
-            icon: FolderOpen,
-            title: "Document Storage",
-            description:
-                "Securely upload, store and access your documents."
-        },
-
-        {
-            icon: Calendar,
-            title: "Calendar & Reminders",
-            description:
-                "Never miss a hearing or deadline with reminders."
-        },
-
-        {
-            icon: CheckSquare,
-            title: "Task Management",
-            description:
-                "Assign tasks and track daily activities."
-        },
-
-        {
-            icon: BarChart3,
-            title: "Reports & Analytics",
-            description:
-                "Generate reports and gain insights into your practice."
+                "Access case information securely from anywhere and deliver better legal services."
         }
-
     ];
 
     return (
 
         <section
-            id="features"
-            className="bg-[#FAF7F0] py-20"
+            id="benefits"
+            className="py-20 bg-[#FAF7F0]"
         >
 
             <div className="max-w-7xl mx-auto px-6">
@@ -68,33 +40,47 @@ function Features() {
 
                 <div className="text-center mb-16">
 
-                    <h2 className="text-4xl lg:text-5xl font-bold text-[#1F1F1F]">
+                    <h2
+                        className="
+                            text-4xl
+                            lg:text-5xl
+                            font-bold
+                            text-[#1F1F1F]
+                        "
+                    >
 
-                        Powerful Features for{" "}
+                        Benefits of
 
                         <span className="text-[#F4C430]">
 
-                            Modern Advocates
+                            {" "}Advonote
 
                         </span>
 
                     </h2>
 
-                    <p className="mt-4 text-[#6B7280] max-w-2xl mx-auto">
+                    <p
+                        className="
+                            mt-4
+                            text-[#6B7280]
+                            max-w-2xl
+                            mx-auto
+                        "
+                    >
 
-                        Everything you need to manage your legal practice efficiently from one secure platform.
+                        Designed to empower advocates, law firms and legal professionals with smarter practice management.
 
                     </p>
 
                 </div>
 
-                {/* Features Grid */}
+                {/* Benefit Cards */}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-3 gap-8">
 
-                    {features.map((feature, index) => {
+                    {benefits.map((benefit, index) => {
 
-                        const Icon = feature.icon;
+                        const Icon = benefit.icon;
 
                         return (
 
@@ -104,8 +90,9 @@ function Features() {
                                     bg-white
                                     border border-[#E5E7EB]
                                     rounded-3xl
-                                    p-8
                                     shadow-[0_4px_20px_rgba(0,0,0,0.08)]
+                                    p-8
+                                    text-center
                                     transition-all
                                     duration-300
                                     hover:-translate-y-2
@@ -117,16 +104,20 @@ function Features() {
 
                                 <div
                                     className="
-                                        w-16 h-16
+                                        w-16
+                                        h-16
+                                        mx-auto
+                                        mb-6
                                         rounded-2xl
                                         bg-[#FFF4CC]
-                                        flex items-center justify-center
-                                        mb-6
+                                        flex
+                                        items-center
+                                        justify-center
                                     "
                                 >
 
                                     <Icon
-                                        size={30}
+                                        size={32}
                                         className="text-[#F5C542]"
                                     />
 
@@ -136,14 +127,14 @@ function Features() {
 
                                 <h3
                                     className="
-                                        text-xl
-                                        font-semibold
+                                        text-2xl
+                                        font-bold
                                         text-[#1F1F1F]
                                         mb-4
                                     "
                                 >
 
-                                    {feature.title}
+                                    {benefit.title}
 
                                 </h3>
 
@@ -156,7 +147,7 @@ function Features() {
                                     "
                                 >
 
-                                    {feature.description}
+                                    {benefit.description}
 
                                 </p>
 
@@ -176,4 +167,4 @@ function Features() {
 
 }
 
-export default Features;
+export default Benefits;

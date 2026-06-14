@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import {
+    ArrowLeft,
+    Search,
+    Plus,
+    User,
+    Phone,
+    Mail,
+    Users
+} from "lucide-react";
 
 function Clients() {
 
     const navigate = useNavigate();
 
-    const [clients, setClients] =
-        useState([]);
-
-    const [search, setSearch] =
-        useState("");
+    const [clients, setClients] = useState([]);
+    const [search, setSearch] = useState("");
 
     let advocate = {};
 
@@ -29,9 +35,9 @@ function Clients() {
 
         }
 
-    } catch (error) {
+    } catch {
 
-        console.log(error);
+        advocate = {};
 
     }
 
@@ -93,27 +99,144 @@ function Clients() {
 
     return (
 
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="min-h-screen bg-[#F3F3F3]">
 
             {/* Header */}
 
-            <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+            <div className="bg-[#F4C430] px-5 py-5 shadow">
 
-                <div>
+                <div className="flex items-center gap-4">
 
-                    <h1 className="text-4xl font-bold">
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="
+                            w-14 h-14
+                            bg-white
+                            rounded-2xl
+                            shadow-md
+                            flex
+                            items-center
+                            justify-center
+                        "
+                    >
 
-                        👥 Clients
+                        <ArrowLeft size={28} />
 
-                    </h1>
+                    </button>
 
-                    <p className="text-gray-500 mt-2">
+                    <div>
 
-                        Manage all your clients in one place.
+                        <h1 className="text-3xl font-bold">
 
-                    </p>
+                            Clients
+
+                        </h1>
+
+                        <p className="text-black/70">
+
+                            Manage your client relationships
+
+                        </p>
+
+                    </div>
 
                 </div>
+
+            </div>
+
+            <div className="max-w-6xl mx-auto p-5">
+
+                {/* Stats */}
+
+                <div className="grid grid-cols-2 gap-4 mb-6">
+
+                    <div className="
+                        bg-white
+                        rounded-3xl
+                        shadow-md
+                        p-5
+                    ">
+
+                        <p className="text-gray-500">
+
+                            Total Clients
+
+                        </p>
+
+                        <h2 className="text-4xl font-bold">
+
+                            {clients.length}
+
+                        </h2>
+
+                    </div>
+
+                    <div className="
+                        bg-green-100
+                        rounded-3xl
+                        shadow-md
+                        p-5
+                    ">
+
+                        <p className="text-green-700">
+
+                            Search Results
+
+                        </p>
+
+                        <h2 className="
+                            text-4xl
+                            font-bold
+                            text-green-700
+                        ">
+
+                            {filteredClients.length}
+
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                {/* Search */}
+
+                <div className="relative mb-6">
+
+                    <Search
+                        size={20}
+                        className="
+                            absolute
+                            left-4
+                            top-1/2
+                            -translate-y-1/2
+                            text-gray-400
+                        "
+                    />
+
+                    <input
+                        type="text"
+                        placeholder="Search clients..."
+                        value={search}
+                        onChange={(e) =>
+                            setSearch(
+                                e.target.value
+                            )
+                        }
+                        className="
+                            w-full
+                            bg-white
+                            rounded-2xl
+                            shadow-md
+                            py-4
+                            pl-12
+                            pr-4
+                            outline-none
+                        "
+                    />
+
+                </div>
+
+                {/* Add Client */}
 
                 <button
                     onClick={() =>
@@ -121,184 +244,259 @@ function Clients() {
                             "/advocate/add-client"
                         )
                     }
-                    className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow"
+                    className="
+                        w-full
+                        mb-6
+                        bg-[#F4C430]
+                        py-4
+                        rounded-2xl
+                        font-bold
+                        shadow-md
+                        flex
+                        items-center
+                        justify-center
+                        gap-2
+                    "
                 >
 
-                    + Add Client
+                    <Plus size={22} />
+
+                    Add New Client
 
                 </button>
 
-            </div>
+                {/* Empty State */}
 
-            {/* Stats */}
+                {filteredClients.length === 0 ? (
 
-            <div className="bg-blue-600 text-white rounded-2xl shadow p-6 mb-8">
+                    <div className="
+                        bg-white
+                        rounded-3xl
+                        shadow-md
+                        p-16
+                        text-center
+                    ">
 
-                <p>
+                        <Users
+                            size={70}
+                            className="
+                                mx-auto
+                                text-[#F4C430]
+                                mb-5
+                            "
+                        />
 
-                    Total Clients
+                        <h2 className="text-2xl font-bold">
 
-                </p>
+                            No Clients Found
 
-                <h2 className="text-4xl font-bold mt-2">
+                        </h2>
 
-                    {clients.length}
+                        <p className="text-gray-500 mt-2">
 
-                </h2>
+                            Start by adding your first client.
 
-            </div>
-
-            {/* Search */}
-
-            <div className="mb-8">
-
-                <input
-                    type="text"
-                    placeholder="🔍 Search by name, mobile or email..."
-                    value={search}
-                    onChange={(e) =>
-                        setSearch(
-                            e.target.value
-                        )
-                    }
-                    className="w-full border rounded-2xl p-4 shadow-sm"
-                />
-
-            </div>
-
-            {/* Clients */}
-
-            {filteredClients.length === 0 ? (
-
-                <div className="bg-white rounded-2xl shadow p-12 text-center">
-
-                    <div className="text-6xl mb-4">
-
-                        👥
+                        </p>
 
                     </div>
 
-                    <h2 className="text-2xl font-bold">
+                ) : (
 
-                        No Clients Found
+                    <div className="
+                        grid
+                        md:grid-cols-2
+                        lg:grid-cols-3
+                        gap-5
+                    ">
 
-                    </h2>
+                        {filteredClients.map((client) => (
 
-                    <p className="text-gray-500 mt-2">
+                            <div
+                                key={client.id}
+                                className="
+                                    bg-white
+                                    rounded-3xl
+                                    shadow-md
+                                    p-6
+                                "
+                            >
 
-                        Start by adding your first client.
+                                {/* Avatar */}
 
-                    </p>
+                                <div className="
+                                    flex
+                                    items-center
+                                    gap-4
+                                    mb-5
+                                ">
 
-                </div>
+                                    <div className="
+                                        w-16
+                                        h-16
+                                        rounded-full
+                                        bg-[#F4C430]
+                                        flex
+                                        items-center
+                                        justify-center
+                                        text-2xl
+                                        font-bold
+                                    ">
 
-            ) : (
+                                        {
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                            client.name
 
-                    {filteredClients.map((client) => (
+                                                ? client.name
+                                                    .charAt(0)
+                                                    .toUpperCase()
 
-                        <div
-                            key={client.id}
-                            className="bg-white rounded-2xl shadow hover:shadow-xl transition p-6"
-                        >
+                                                : <User size={28} />
 
-                            {/* Avatar */}
+                                        }
 
-                            <div className="flex items-center mb-4">
+                                    </div>
 
-                                <div className="w-14 h-14 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mr-4">
+                                    <div>
 
-                                    {client.name
-                                        ?.charAt(0)
-                                        ?.toUpperCase()}
+                                        <h2 className="
+                                            text-xl
+                                            font-bold
+                                        ">
+
+                                            {client.name}
+
+                                        </h2>
+
+                                        <p className="
+                                            text-sm
+                                            text-gray-500
+                                        ">
+
+                                            Client ID:
+                                            {" "}
+                                            {client.id}
+
+                                        </p>
+
+                                    </div>
 
                                 </div>
 
-                                <div>
+                                {/* Details */}
 
-                                    <h2 className="text-xl font-bold">
+                                <div className="
+                                    space-y-3
+                                    text-gray-700
+                                ">
 
-                                        {client.name}
+                                    <p className="
+                                        flex
+                                        items-center
+                                        gap-2
+                                    ">
 
-                                    </h2>
+                                        <Phone size={18} />
 
-                                    <p className="text-gray-500">
+                                        {
 
-                                        Client ID:
+                                            client.mobile ||
+
+                                            "N/A"
+
+                                        }
+
+                                    </p>
+
+                                    <p className="
+                                        flex
+                                        items-center
+                                        gap-2
+                                        break-all
+                                    ">
+
+                                        <Mail size={18} />
+
+                                        {
+
+                                            client.email ||
+
+                                            "N/A"
+
+                                        }
+
+                                    </p>
+
+                                    <p>
+
+                                        🏠
                                         {" "}
-                                        {client.id}
+                                        {
+
+                                            client.address ||
+
+                                            "No address provided"
+
+                                        }
 
                                     </p>
 
                                 </div>
 
-                            </div>
+                                {/* Actions */}
 
-                            {/* Details */}
+                                <div className="
+                                    flex
+                                    gap-3
+                                    mt-6
+                                ">
 
-                            <div className="space-y-3 text-gray-700">
+                                    <a
+                                        href={`tel:${client.mobile}`}
+                                        className="
+                                            flex-1
+                                            bg-green-600
+                                            hover:bg-green-700
+                                            text-white
+                                            py-3
+                                            rounded-2xl
+                                            text-center
+                                            font-semibold
+                                        "
+                                    >
 
-                                <p>
+                                        Call
 
-                                    📞
-                                    {" "}
-                                    {client.mobile ||
-                                        "N/A"}
+                                    </a>
 
-                                </p>
+                                    <a
+                                        href={`mailto:${client.email}`}
+                                        className="
+                                            flex-1
+                                            bg-blue-600
+                                            hover:bg-blue-700
+                                            text-white
+                                            py-3
+                                            rounded-2xl
+                                            text-center
+                                            font-semibold
+                                        "
+                                    >
 
-                                <p>
+                                        Email
 
-                                    ✉️
-                                    {" "}
-                                    {client.email ||
-                                        "N/A"}
+                                    </a>
 
-                                </p>
-
-                                <p>
-
-                                    🏠
-                                    {" "}
-                                    {client.address ||
-                                        "No address provided"}
-
-                                </p>
-
-                            </div>
-
-                            {/* Quick Actions */}
-
-                            <div className="mt-6 flex gap-3">
-
-                                <a
-                                    href={`tel:${client.mobile}`}
-                                    className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl text-center font-semibold"
-                                >
-
-                                    Call
-
-                                </a>
-
-                                <a
-                                    href={`mailto:${client.email}`}
-                                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl text-center font-semibold"
-                                >
-
-                                    Email
-
-                                </a>
+                                </div>
 
                             </div>
 
-                        </div>
+                        ))}
 
-                    ))}
+                    </div>
 
-                </div>
+                )}
 
-            )}
+            </div>
 
         </div>
 
