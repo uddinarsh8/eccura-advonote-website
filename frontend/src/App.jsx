@@ -249,6 +249,16 @@ function App() {
           }
         />
         <Route
+          path="/tutorials"
+          element={<Tutorials />}
+        />
+
+        <Route
+          path="/tutorials"
+          element={<Tutorials />}
+        />
+
+        <Route
           path="/advocate/tutorials"
           element={
             <AdvocateProtectedRoute>

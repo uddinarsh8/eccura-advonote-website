@@ -6,26 +6,55 @@ import {
 } from "lucide-react";
 
 import heroPhones from "../assets/hero-phones.png";
+import googlePlay from "../assets/google-play.png";
 
 function Hero() {
-    return (
-        <section id="hero" className="bg-[#FFFDF7] overflow-hidden">
-            <div className="max-w-[1500px] mx-auto px-6 lg:px-10 py-12 lg:py-20">
 
-                <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-12 items-center">
+    const playStoreLink =
+        "https://play.google.com/store/apps/details?id=com.aamni.AdvoNote&pcampaignid=web_share";
+
+    return (
+
+        <section
+            id="hero"
+            className="bg-[#FFFDF7] overflow-hidden"
+        >
+
+            <div className="max-w-[1500px] mx-auto px-5 sm:px-6 lg:px-10 py-12 lg:py-20">
+
+                <div className="grid lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-16 items-center">
 
                     {/* LEFT CONTENT */}
-                    <div className="relative z-10">
 
-                        <div className="inline-flex items-center gap-2 text-sm font-medium text-[#2D1B14]">
+                    <div className="relative z-10 text-center lg:text-left">
+
+                        <div className="
+                            inline-flex
+                            items-center
+                            gap-2
+                            text-sm
+                            sm:text-base
+                            font-medium
+                            text-[#2D1B14]
+                        ">
+
                             <span className="text-[#F4C430]">
                                 ⭐
                             </span>
 
                             Smart Legal Practice Management
+
                         </div>
 
-                        <h1 className="mt-6 text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                        <h1 className="
+                            mt-6
+                            font-bold
+                            leading-tight
+                            text-4xl
+                            sm:text-5xl
+                            md:text-6xl
+                            lg:text-7xl
+                        ">
 
                             <span className="text-[#2D1B14]">
                                 Manage Your Cases.
@@ -45,7 +74,16 @@ function Hero() {
 
                         </h1>
 
-                        <p className="mt-8 text-lg text-[#6B7280] max-w-xl leading-relaxed">
+                        <p className="
+                            mt-6
+                            text-base
+                            sm:text-lg
+                            text-[#6B7280]
+                            max-w-xl
+                            mx-auto
+                            lg:mx-0
+                            leading-relaxed
+                        ">
 
                             Advonote is the all-in-one legal practice
                             management platform designed for advocates
@@ -56,97 +94,161 @@ function Hero() {
                         </p>
 
                         {/* BUTTONS */}
-                        <div className="mt-10 flex flex-wrap gap-4">
 
-                            <button
+                        <div className="
+                            mt-10
+                            flex
+                            flex-col
+                            sm:flex-row
+                            flex-wrap
+                            gap-4
+                            justify-center
+                            lg:justify-start
+                        ">
+
+                            <a
+                                href={playStoreLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="
                                     bg-[#F4C430]
                                     text-[#2D1B14]
-                                    px-7 py-4
+                                    px-7
+                                    py-4
                                     rounded-xl
                                     font-semibold
-                                    flex items-center gap-2
+                                    flex
+                                    items-center
+                                    justify-center
+                                    gap-2
                                     shadow-md
                                     hover:bg-[#E8B923]
                                     transition-all
+                                    w-full
+                                    sm:w-auto
                                 "
                             >
+
                                 <Download size={20} />
 
                                 Download App
-                            </button>
+
+                            </a>
 
                             <Link
                                 to="/demo"
                                 className="
-                                    border border-[#E5E7EB]
-                                    px-7 py-4
+                                    border
+                                    border-[#E5E7EB]
+                                    px-7
+                                    py-4
                                     rounded-xl
                                     font-semibold
                                     text-[#2D1B14]
-                                    flex items-center gap-2
+                                    flex
+                                    items-center
+                                    justify-center
+                                    gap-2
                                     shadow-sm
                                     hover:bg-white
                                     transition-all
+                                    w-full
+                                    sm:w-auto
                                 "
                             >
+
                                 <CalendarDays size={20} />
 
                                 Request Demo
+
                             </Link>
 
                             <Link
                                 to="/contact"
                                 className="
-                                    border border-[#E5E7EB]
-                                    px-7 py-4
+                                    border
+                                    border-[#E5E7EB]
+                                    px-7
+                                    py-4
                                     rounded-xl
                                     font-semibold
                                     text-[#2D1B14]
-                                    flex items-center gap-2
+                                    flex
+                                    items-center
+                                    justify-center
+                                    gap-2
                                     shadow-sm
                                     hover:bg-white
                                     transition-all
+                                    w-full
+                                    sm:w-auto
                                 "
                             >
+
                                 <Phone size={20} />
 
                                 Contact Us
+
                             </Link>
 
                         </div>
 
-                        {/* GOOGLE PLAY */}
-                        <div className="mt-8">
-                            <img
-                                src="/images/google-play.png"
-                                alt="Google Play"
-                                className="h-14"
-                            />
+                        {/* GOOGLE PLAY BADGE */}
+
+                        <div className="
+                            mt-8
+                            flex
+                            justify-center
+                            lg:justify-start
+                        ">
+
+                            <a
+                                href={playStoreLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+
+                                <img
+                                    src={googlePlay}
+                                    alt="Get it on Google Play"
+                                    className="
+                                        h-12
+                                        sm:h-14
+                                        md:h-16
+                                        lg:h-20
+                                        w-auto
+                                        hover:scale-105
+                                        transition-transform
+                                        duration-300
+                                    "
+                                />
+
+                            </a>
+
                         </div>
 
                     </div>
 
                     {/* RIGHT CONTENT */}
-                    <div className="relative flex justify-center items-end h-[450px] lg:h-[650px] overflow-hidden">
+
+                    <div className="
+                        relative
+                        flex
+                        justify-center
+                        items-end
+                        h-[300px]
+                        sm:h-[400px]
+                        md:h-[500px]
+                        lg:h-[650px]
+                        overflow-hidden
+                    ">
 
                         {/* Yellow Curved Shape */}
-                        <div
-                            className="
-                                absolute
-                                bottom-0
-                                right-[-10%]
-                                w-[120%]
-                                h-[180px]
-                                lg:h-[230px]
-                                bg-[#F4C430]
-                                rounded-tl-[220px]
-                                rounded-tr-[220px]
-                                z-0
-                            "
-                        />
+
+                    
 
                         {/* Phones */}
+
                         <img
                             src={heroPhones}
                             alt="Advonote App Preview"
@@ -154,7 +256,9 @@ function Hero() {
                                 relative
                                 z-10
                                 w-full
-                                max-w-[520px]
+                                max-w-[320px]
+                                sm:max-w-[420px]
+                                md:max-w-[520px]
                                 lg:max-w-[820px]
                                 xl:max-w-[900px]
                                 object-contain
@@ -167,8 +271,11 @@ function Hero() {
                 </div>
 
             </div>
+
         </section>
+
     );
+
 }
 
 export default Hero;

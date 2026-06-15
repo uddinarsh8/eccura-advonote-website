@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
     Calendar,
-    LogIn
+    LogIn,
+    Menu,
+    X
 } from "lucide-react";
 
 import logo from "../assets/advonote-logo.png";
@@ -19,103 +21,130 @@ function Navbar() {
         { name: "How It Works", path: "#how-it-works" },
         { name: "Benefits", path: "#benefits" },
         { name: "FAQ", path: "#faq" },
-        { name: "Contact", path: "#contact-demo" },
+        { name: "Contact", path: "#contact-demo" }
     ];
 
     return (
 
-        <nav className="bg-white sticky top-0 z-50 border-b border-[#E5E7EB] shadow-sm">
+        <nav className="
+            sticky
+            top-0
+            z-50
+            bg-white
+            border-b
+            border-[#E5E7EB]
+            shadow-sm
+        ">
 
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div className="flex items-center justify-between h-24">
+                <div className="
+                    flex
+                    items-center
+                    justify-between
+                    h-20
+                    lg:h-24
+                    relative
+                ">
 
                     {/* Logo */}
 
                     <Link
                         to="/"
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-3 shrink-0"
                     >
 
                         <img
                             src={logo}
                             alt="Advonote Logo"
-                            className="w-25 h-25 object-contain"
+                            className="
+                                w-14
+                                h-14
+                                lg:w-16
+                                lg:h-16
+                                object-contain
+                            "
                         />
 
                         <div className="leading-tight">
 
-                            <h1 className="text-2xl font-bold text-[#2D1B14]">
+                            <h1 className="
+                                text-xl
+                                lg:text-2xl
+                                font-bold
+                                text-[#2D1B14]
+                            ">
+
                                 ADVONOTE
+
                             </h1>
 
-                            <p className="text-[11px] text-[#9A7B4F] -mt-1">
+                            <p className="
+                                text-[10px]
+                                lg:text-[11px]
+                                text-[#9A7B4F]
+                            ">
+
                                 Lawyer's Best Diary
+
                             </p>
 
                         </div>
 
                     </Link>
 
-                    {/* Desktop Menu */}
+                    {/* Desktop Navigation */}
 
-                    <div className="hidden lg:flex items-center gap-8">
+                    <div className="
+                        hidden
+                        xl:flex
+                        items-center
+                        gap-6
+                    ">
 
-                        {navLinks.map((item, index) => (
+                        {navLinks.map((item) => (
 
-                            item.path.startsWith("#") ? (
+                            <a
+                                key={item.name}
+                                href={item.path}
+                                className="
+                                    text-sm
+                                    font-medium
+                                    text-[#6B7280]
+                                    hover:text-[#2D1B14]
+                                    transition
+                                "
+                            >
 
-                                <a
-                                    key={index}
-                                    href={`/${item.path}`}
-                                    className="
-                                        text-sm
-                                        font-medium
-                                        text-[#6B7280]
-                                        hover:text-[#2D1B14]
-                                        transition
-                                    "
-                                >
+                                {item.name}
 
-                                    {item.name}
-
-                                </a>
-
-                            ) : (
-
-                                <Link
-                                    key={index}
-                                    to={item.path}
-                                    className="
-                                        text-sm
-                                        font-medium
-                                        text-[#2D1B14]
-                                        transition
-                                    "
-                                >
-
-                                    {item.name}
-
-                                </Link>
-
-                            )
+                            </a>
 
                         ))}
 
                     </div>
 
-                    {/* Buttons */}
+                    {/* Desktop Buttons */}
 
-                    <div className="hidden lg:flex items-center gap-3">
+                    <div className="
+                        hidden
+                        lg:flex
+                        items-center
+                        gap-3
+                    ">
 
                         <Link
                             to="/advocate/login"
                             className="
-                                flex items-center gap-2
-                                border border-[#D8CBB6]
+                                flex
+                                items-center
+                                gap-2
+                                border
+                                border-[#D8CBB6]
                                 text-[#4A2E1A]
-                                px-5 py-3
-                                rounded-lg
+                                px-5
+                                py-3
+                                rounded-xl
                                 font-semibold
                                 hover:bg-[#FFF8EA]
                                 transition
@@ -129,13 +158,16 @@ function Navbar() {
                         </Link>
 
                         <a
-                            href="/#contact-demo"
+                            href="#contact-demo"
                             className="
-                                flex items-center gap-2
+                                flex
+                                items-center
+                                gap-2
                                 bg-[#F4C430]
                                 text-[#2D1B14]
-                                px-5 py-3
-                                rounded-lg
+                                px-5
+                                py-3
+                                rounded-xl
                                 font-semibold
                                 shadow-sm
                                 hover:bg-[#E8B923]
@@ -154,35 +186,83 @@ function Navbar() {
                     {/* Mobile Menu Button */}
 
                     <button
-                        onClick={() => setMenuOpen(!menuOpen)}
-                        className="lg:hidden text-3xl text-[#2D1B14]"
+                        onClick={() =>
+                            setMenuOpen(!menuOpen)
+                        }
+                        className="
+                            lg:hidden
+                            p-2
+                            rounded-lg
+                            hover:bg-gray-100
+                            transition
+                        "
                     >
 
-                        {menuOpen ? "✕" : "☰"}
+                        {menuOpen ? (
+
+                            <X
+                                size={30}
+                                className="text-[#2D1B14]"
+                            />
+
+                        ) : (
+
+                            <Menu
+                                size={30}
+                                className="text-[#2D1B14]"
+                            />
+
+                        )}
 
                     </button>
 
-                </div>
+                    {/* Mobile Menu */}
 
-                {/* Mobile Menu */}
+                    <div
+                        className={`
+                            lg:hidden
+                            absolute
+                            top-full
+                            left-0
+                            w-full
+                            bg-white
+                            shadow-xl
+                            border-t
+                            border-[#E5E7EB]
+                            overflow-hidden
+                            transition-all
+                            duration-300
+                            ${
+                                menuOpen
+                                    ? "max-h-[700px] opacity-100"
+                                    : "max-h-0 opacity-0"
+                            }
+                        `}
+                    >
 
-                {menuOpen && (
+                        <div className="
+                            px-6
+                            py-5
+                            space-y-2
+                        ">
 
-                    <div className="lg:hidden pb-6 pt-4 space-y-4 border-t border-[#E5E7EB]">
-
-                        {navLinks.map((item, index) => (
-
-                            item.path.startsWith("#") ? (
+                            {navLinks.map((item) => (
 
                                 <a
-                                    key={index}
-                                    href={`/${item.path}`}
-                                    onClick={() => setMenuOpen(false)}
+                                    key={item.name}
+                                    href={item.path}
+                                    onClick={() =>
+                                        setMenuOpen(false)
+                                    }
                                     className="
                                         block
-                                        text-[#6B7280]
-                                        hover:text-[#2D1B14]
+                                        py-4
+                                        border-b
+                                        border-gray-100
+                                        text-[#2D1B14]
                                         font-medium
+                                        hover:text-[#F4C430]
+                                        transition
                                     "
                                 >
 
@@ -190,71 +270,73 @@ function Navbar() {
 
                                 </a>
 
-                            ) : (
+                            ))}
+
+                            <div className="
+                                pt-5
+                                space-y-3
+                            ">
 
                                 <Link
-                                    key={index}
-                                    to={item.path}
-                                    onClick={() => setMenuOpen(false)}
+                                    to="/advocate/login"
+                                    onClick={() =>
+                                        setMenuOpen(false)
+                                    }
                                     className="
-                                        block
-                                        text-[#6B7280]
-                                        hover:text-[#2D1B14]
-                                        font-medium
+                                        flex
+                                        items-center
+                                        justify-center
+                                        gap-2
+                                        w-full
+                                        border
+                                        border-[#D8CBB6]
+                                        text-[#4A2E1A]
+                                        py-4
+                                        rounded-xl
+                                        font-semibold
                                     "
                                 >
 
-                                    {item.name}
+                                    <LogIn size={18} />
+
+                                    Login
 
                                 </Link>
 
-                            )
+                                <a
+                                    href="#contact-demo"
+                                    onClick={() =>
+                                        setMenuOpen(false)
+                                    }
+                                    className="
+                                        flex
+                                        items-center
+                                        justify-center
+                                        gap-2
+                                        w-full
+                                        bg-[#F4C430]
+                                        text-[#2D1B14]
+                                        py-4
+                                        rounded-xl
+                                        font-semibold
+                                        hover:bg-[#E8B923]
+                                        transition
+                                    "
+                                >
 
-                        ))}
+                                    Request Demo
 
-                        <Link
-                            to="/advocate/login"
-                            onClick={() => setMenuOpen(false)}
-                            className="
-                                inline-flex
-                                items-center gap-2
-                                border border-[#D8CBB6]
-                                px-5 py-3
-                                rounded-lg
-                                font-semibold
-                                text-[#4A2E1A]
-                            "
-                        >
+                                    <Calendar size={18} />
 
-                            <LogIn size={18} />
+                                </a>
 
-                            Login
+                            </div>
 
-                        </Link>
-
-                        <a
-                            href="/#contact-demo"
-                            onClick={() => setMenuOpen(false)}
-                            className="
-                                inline-flex
-                                items-center gap-2
-                                bg-[#F4C430]
-                                px-5 py-3
-                                rounded-lg
-                                font-semibold
-                                text-[#2D1B14]
-                            "
-                        >
-
-                            Request Demo
-
-                            <Calendar size={18} />
-
-                        </a>
+                        </div>
 
                     </div>
 
-                )}
+                </div>
 
             </div>
 

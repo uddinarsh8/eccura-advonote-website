@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
 import {
     UserPlus,
     Users,
     FileText,
     CalendarDays,
-    BarChart3
+    BarChart3,
+    PlayCircle
 } from "lucide-react";
 
 function HowItWorks() {
@@ -51,21 +53,23 @@ function HowItWorks() {
 
         <section
             id="how-it-works"
-            className="bg-[#FFFDF7] py-20"
+            className="bg-[#FFFDF7] py-14 sm:py-16 lg:py-20"
         >
 
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
                 {/* Heading */}
 
-                <div className="text-center mb-16">
+                <div className="text-center mb-12 lg:mb-16">
 
                     <h2
                         className="
-                            text-4xl
+                            text-3xl
+                            sm:text-4xl
                             lg:text-5xl
                             font-bold
                             text-[#1F1F1F]
+                            leading-tight
                         "
                     >
 
@@ -84,9 +88,12 @@ function HowItWorks() {
                     <p
                         className="
                             mt-4
+                            text-sm
+                            sm:text-base
                             text-[#6B7280]
                             max-w-2xl
                             mx-auto
+                            leading-relaxed
                         "
                     >
 
@@ -95,11 +102,50 @@ function HowItWorks() {
 
                     </p>
 
+                    {/* Tutorial Button */}
+
+                    <div className="mt-6">
+
+                        <Link
+
+                            to="/tutorials"
+                            className="
+                                inline-flex
+                                items-center
+                                gap-2
+                                bg-[#F4C430]
+                                text-[#2D1B14]
+                                px-5
+                                py-3
+                                rounded-full
+                                font-semibold
+                                text-sm
+                                shadow-md
+                                hover:bg-[#E8B923]
+                                hover:scale-105
+                                transition-all
+                            "
+                        >
+
+                            <PlayCircle size={18} />
+
+                            Watch Tutorials
+
+                        </Link>
+
+                    </div>
+
                 </div>
 
                 {/* Steps */}
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
+                <div className="
+                    grid
+                    grid-cols-1
+                    sm:grid-cols-2
+                    xl:grid-cols-5
+                    gap-8
+                ">
 
                     {steps.map((step, index) => {
 
@@ -116,14 +162,14 @@ function HowItWorks() {
                                 "
                             >
 
-                                {/* Connecting Line */}
+                                {/* Desktop Connecting Line */}
 
                                 {index !== steps.length - 1 && (
 
                                     <div
                                         className="
                                             hidden
-                                            lg:block
+                                            xl:block
                                             absolute
                                             top-10
                                             left-[60%]
@@ -146,8 +192,8 @@ function HowItWorks() {
                                         -translate-x-1/2
                                         bg-[#F4C430]
                                         text-[#2D1B14]
-                                        w-9
-                                        h-9
+                                        w-10
+                                        h-10
                                         rounded-full
                                         flex
                                         items-center
@@ -170,7 +216,8 @@ function HowItWorks() {
                                         border-[#E5E7EB]
                                         rounded-3xl
                                         shadow-[0_4px_20px_rgba(0,0,0,0.08)]
-                                        p-8
+                                        p-6
+                                        sm:p-8
                                         pt-12
                                         h-full
                                         transition-all
@@ -198,7 +245,9 @@ function HowItWorks() {
 
                                         <Icon
                                             size={30}
-                                            className="text-[#F5C542]"
+                                            className="
+                                                text-[#F5C542]
+                                            "
                                         />
 
                                     </div>
@@ -207,7 +256,8 @@ function HowItWorks() {
 
                                     <h3
                                         className="
-                                            text-xl
+                                            text-lg
+                                            sm:text-xl
                                             font-bold
                                             text-[#1F1F1F]
                                             mb-3
