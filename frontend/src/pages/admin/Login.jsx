@@ -1,29 +1,60 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+    Eye,
+    EyeOff,
+    ShieldCheck,
+    BarChart3,
+    Users
+} from "lucide-react";
+
 import api from "../../services/api";
+import logo from "../../assets/advonote-logo.png";
 
 function Login() {
 
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [password, setPassword] =
+        useState("");
+
+    const [showPassword, setShowPassword] =
+        useState(false);
+
+    const [loading, setLoading] =
+        useState(false);
 
     const handleLogin = async () => {
+
+        if (
+            !email.trim() ||
+            !password.trim()
+        ) {
+
+            alert(
+                "Please enter email and password."
+            );
+
+            return;
+
+        }
 
         try {
 
             setLoading(true);
 
-            const response = await api.post(
-                "/auth/login",
-                {
-                    email,
-                    password
-                }
-            );
+            const response =
+                await api.post(
+                    "/auth/login",
+                    {
+                        email,
+                        password
+                    }
+                );
 
             localStorage.setItem(
-                "token",
+                "adminToken",
                 response.data.token
             );
 
@@ -34,16 +65,22 @@ function Login() {
                 )
             );
 
-            alert("Login Successful");
+            alert(
+                "Login Successful"
+            );
 
-            window.location.href =
-                "/admin/dashboard";
+            navigate(
+                "/admin/dashboard"
+            );
 
         } catch (error) {
 
             console.log(error);
 
-            alert("Invalid Credentials");
+            alert(
+                error?.response?.data?.message ||
+                "Invalid Credentials"
+            );
 
         } finally {
 
@@ -55,66 +92,186 @@ function Login() {
 
     return (
 
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex items-center justify-center px-4 py-8">
+        <div className="
+            min-h-screen
+            bg-[#FFFDF7]
+            flex
+            items-center
+            justify-center
+            px-4
+            py-8
+        ">
 
-            <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden grid lg:grid-cols-2">
+            <div className="
+                w-full
+                max-w-6xl
+                bg-white
+                rounded-[36px]
+                overflow-hidden
+                shadow-2xl
+                grid
+                lg:grid-cols-2
+            ">
 
                 {/* Left Side */}
 
-                <div className="hidden lg:flex flex-col justify-center bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-12">
+                <div className="
+                    hidden
+                    lg:flex
+                    flex-col
+                    justify-between
+                    bg-[#F4C430]
+                    p-12
+                ">
 
                     <div>
 
-                        <h1 className="text-5xl font-bold mb-6">
+                        <img
+                            src={logo}
+                            alt="Advonote"
+                            className="
+                                w-24
+                                h-24
+                                object-contain
+                            "
+                        />
 
-                            Advonote
+                        <h1 className="
+                            mt-6
+                            text-5xl
+                            font-bold
+                            text-[#2D1B14]
+                        ">
+
+                            Admin Portal
 
                         </h1>
 
-                        <p className="text-xl leading-relaxed text-blue-100">
+                        <p className="
+                            mt-4
+                            text-lg
+                            leading-relaxed
+                            text-[#5B4636]
+                        ">
 
-                            Secure access to the administrative
-                            control center of Advonote.
+                            Secure access to
+                            Advonote administration
+                            tools and analytics.
 
                         </p>
 
-                        <div className="mt-10 space-y-5">
+                    </div>
 
-                            <div className="flex items-center gap-3">
+                    <div className="space-y-6">
 
-                                <span className="text-2xl">
-                                    🔐
-                                </span>
+                        <div className="
+                            flex
+                            items-center
+                            gap-4
+                        ">
 
-                                <span>
-                                    Secure Authentication
-                                </span>
+                            <div className="
+                                w-14
+                                h-14
+                                rounded-2xl
+                                bg-white
+                                flex
+                                items-center
+                                justify-center
+                            ">
+
+                                <ShieldCheck
+                                    size={28}
+                                    className="
+                                        text-[#2D1B14]
+                                    "
+                                />
+
+                            </div>
+
+                            <span className="
+                                text-[#2D1B14]
+                                font-semibold
+                                text-lg
+                            ">
+
+                                Secure Authentication
+
+                            </span>
+
+                        </div>
+
+                        <div className="
+                            flex
+                            items-center
+                            gap-4
+                        ">
+
+                            <div className="
+                                w-14
+                                h-14
+                                rounded-2xl
+                                bg-white
+                                flex
+                                items-center
+                                justify-center
+                            ">
+
+                                <BarChart3
+                                    size={28}
+                                    className="
+                                        text-[#2D1B14]
+                                    "
+                                />
 
                             </div>
 
-                            <div className="flex items-center gap-3">
+                            <span className="
+                                text-[#2D1B14]
+                                font-semibold
+                                text-lg
+                            ">
 
-                                <span className="text-2xl">
-                                    📊
-                                </span>
+                                Dashboard Analytics
 
-                                <span>
-                                    Dashboard Analytics
-                                </span>
+                            </span>
+
+                        </div>
+
+                        <div className="
+                            flex
+                            items-center
+                            gap-4
+                        ">
+
+                            <div className="
+                                w-14
+                                h-14
+                                rounded-2xl
+                                bg-white
+                                flex
+                                items-center
+                                justify-center
+                            ">
+
+                                <Users
+                                    size={28}
+                                    className="
+                                        text-[#2D1B14]
+                                    "
+                                />
 
                             </div>
 
-                            <div className="flex items-center gap-3">
+                            <span className="
+                                text-[#2D1B14]
+                                font-semibold
+                                text-lg
+                            ">
 
-                                <span className="text-2xl">
-                                    👥
-                                </span>
+                                Lead Management
 
-                                <span>
-                                    Lead Management
-                                </span>
-
-                            </div>
+                            </span>
 
                         </div>
 
@@ -124,29 +281,74 @@ function Login() {
 
                 {/* Right Side */}
 
-                <div className="p-8 sm:p-12 flex flex-col justify-center">
+                <div className="
+                    p-8
+                    sm:p-10
+                    lg:p-14
+                    flex
+                    flex-col
+                    justify-center
+                ">
 
-                    <div className="text-center lg:text-left">
+                    {/* Mobile Logo */}
 
-                        <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">
+                    <div className="
+                        lg:hidden
+                        text-center
+                        mb-8
+                    ">
 
-                            Admin Login
+                        <img
+                            src={logo}
+                            alt="Advonote"
+                            className="
+                                w-20
+                                h-20
+                                mx-auto
+                            "
+                        />
+
+                    </div>
+
+                    <div>
+
+                        <h2 className="
+                            text-3xl
+                            sm:text-4xl
+                            font-bold
+                            text-[#2D1B14]
+                        ">
+
+                            Welcome Back
 
                         </h2>
 
-                        <p className="text-gray-500 mt-2">
+                        <p className="
+                            mt-2
+                            text-gray-500
+                        ">
 
-                            Sign in to continue to the Admin Dashboard.
+                            Sign in to continue to
+                            the Admin Dashboard.
 
                         </p>
 
                     </div>
 
-                    <div className="mt-8 space-y-5">
+                    <div className="
+                        mt-8
+                        space-y-6
+                    ">
 
                         <div>
 
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="
+                                block
+                                text-sm
+                                font-medium
+                                text-gray-700
+                                mb-2
+                            ">
 
                                 Email Address
 
@@ -161,20 +363,38 @@ function Login() {
                                         e.target.value
                                     )
                                 }
-                                className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                className="
+                                    w-full
+                                    border
+                                    border-gray-200
+                                    rounded-2xl
+                                    px-5
+                                    py-4
+                                    focus:outline-none
+                                    focus:ring-2
+                                    focus:ring-[#F4C430]
+                                "
                             />
 
                         </div>
 
                         <div>
 
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="
+                                block
+                                text-sm
+                                font-medium
+                                text-gray-700
+                                mb-2
+                            ">
 
                                 Password
 
                             </label>
 
-                            <div className="relative">
+                            <div className="
+                                relative
+                            ">
 
                                 <input
                                     type={
@@ -189,7 +409,29 @@ function Login() {
                                             e.target.value
                                         )
                                     }
-                                    className="w-full border border-gray-300 rounded-xl px-4 py-3 pr-14 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    onKeyDown={(e) => {
+
+                                        if (
+                                            e.key === "Enter"
+                                        ) {
+
+                                            handleLogin();
+
+                                        }
+
+                                    }}
+                                    className="
+                                        w-full
+                                        border
+                                        border-gray-200
+                                        rounded-2xl
+                                        px-5
+                                        py-4
+                                        pr-14
+                                        focus:outline-none
+                                        focus:ring-2
+                                        focus:ring-[#F4C430]
+                                    "
                                 />
 
                                 <button
@@ -199,12 +441,30 @@ function Login() {
                                             !showPassword
                                         )
                                     }
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"
+                                    className="
+                                        absolute
+                                        right-5
+                                        top-1/2
+                                        -translate-y-1/2
+                                        text-gray-500
+                                    "
                                 >
 
-                                    {showPassword
-                                        ? "🙈"
-                                        : "👁️"}
+                                    {
+
+                                        showPassword
+                                            ? (
+                                                <EyeOff
+                                                    size={22}
+                                                />
+                                            )
+                                            : (
+                                                <Eye
+                                                    size={22}
+                                                />
+                                            )
+
+                                    }
 
                                 </button>
 
@@ -215,24 +475,43 @@ function Login() {
                         <button
                             onClick={handleLogin}
                             disabled={loading}
-                            className={`w-full py-3 rounded-xl font-semibold text-white transition ${
-                                loading
-                                    ? "bg-gray-400 cursor-not-allowed"
-                                    : "bg-blue-600 hover:bg-blue-700"
-                            }`}
+                            className={`
+                                w-full
+                                py-4
+                                rounded-2xl
+                                font-bold
+                                text-lg
+                                transition
+                                ${
+                                    loading
+                                        ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                                        : "bg-[#F4C430] text-[#2D1B14] hover:bg-[#E5B521]"
+                                }
+                            `}
                         >
 
-                            {loading
-                                ? "Signing In..."
-                                : "Login"}
+                            {
+
+                                loading
+                                    ? "Signing In..."
+                                    : "Login"
+
+                            }
 
                         </button>
 
                     </div>
 
-                    <p className="mt-8 text-center text-sm text-gray-500">
+                    <p className="
+                        mt-10
+                        text-center
+                        text-sm
+                        text-gray-500
+                    ">
 
-                        © 2026 Advonote Admin Portal
+                        © {new Date().getFullYear()}
+                        {" "}
+                        Advonote Admin Portal
 
                     </p>
 

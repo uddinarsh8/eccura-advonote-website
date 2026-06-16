@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import api from "../../services/api";
 import AdminLayout from "../../components/AdminLayout";
 
 import {
@@ -23,29 +25,104 @@ import {
 
 function Analytics() {
 
-    const data = [
+    const [analytics, setAnalytics] = useState({
+
+        totalLeads: 0,
+        contactRequests: 0,
+        demoRequests: 0,
+        growthRate: 0,
+        sourceData: [],
+        statusData: []
+
+    });
+
+    const [loading, setLoading] =
+        useState(true);
+
+    useEffect(() => {
+
+        const fetchAnalytics = async () => {
+
+            try {
+
+                const response =
+                    await api.get(
+                        "/admin/analytics"
+                    );
+
+                setAnalytics(
+                    response.data
+                );
+
+            } catch (error) {
+
+                console.log(error);
+
+            } finally {
+
+                setLoading(false);
+
+            }
+
+        };
+
+        fetchAnalytics();
+
+    }, []);
+
+    if (loading) {
+
+        return (
+
+            <AdminLayout>
+
+                <div className="min-h-[60vh] flex items-center justify-center">
+
+                    <div className="text-center">
+
+                        <div className="w-16 h-16 border-4 border-[#F4C430] border-t-transparent rounded-full animate-spin mx-auto"></div>
+
+                        <p className="mt-4 text-[#2D1B14] font-semibold">
+
+                            Loading Analytics...
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </AdminLayout>
+
+        );
+
+    }
+
+    const chartData = [
 
         {
             name: "Leads",
-            value: 10
+            value: analytics.totalLeads
         },
 
         {
             name: "Contact",
-            value: 6
+            value: analytics.contactRequests
         },
 
         {
             name: "Demo",
-            value: 4
+            value: analytics.demoRequests
         }
 
     ];
 
     const COLORS = [
-        "#2563eb",
-        "#16a34a",
-        "#9333ea"
+
+        "#F4C430",
+        "#2D1B14",
+        "#D4A017"
+
     ];
 
     return (
@@ -56,15 +133,15 @@ function Analytics() {
 
                 {/* Header */}
 
-                <div className="bg-gradient-to-r from-indigo-600 to-blue-700 rounded-3xl p-8 text-white shadow-xl">
+                <div className="bg-[#F4C430] rounded-[32px] p-8 shadow-lg">
 
-                    <h1 className="text-3xl sm:text-4xl font-bold">
+                    <h1 className="text-3xl sm:text-4xl font-bold text-[#2D1B14]">
 
                         Analytics Dashboard
 
                     </h1>
 
-                    <p className="mt-2 text-blue-100">
+                    <p className="mt-2 text-[#5C4634]">
 
                         Monitor platform growth and customer engagement.
 
@@ -76,7 +153,9 @@ function Analytics() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
 
-                    <div className="bg-white rounded-3xl shadow-lg p-6">
+                    {/* Total Leads */}
+
+                    <div className="bg-white rounded-[32px] shadow-lg p-6">
 
                         <div className="flex justify-between items-center">
 
@@ -88,18 +167,18 @@ function Analytics() {
 
                                 </p>
 
-                                <h2 className="text-4xl font-bold mt-2">
+                                <h2 className="text-4xl font-bold mt-2 text-[#2D1B14]">
 
-                                    10
+                                    {analytics.totalLeads}
 
                                 </h2>
 
                             </div>
 
-                            <div className="bg-blue-100 p-4 rounded-2xl">
+                            <div className="bg-[#FFF4CC] p-4 rounded-2xl">
 
                                 <Users
-                                    className="text-blue-600"
+                                    className="text-[#2D1B14]"
                                     size={32}
                                 />
 
@@ -109,7 +188,9 @@ function Analytics() {
 
                     </div>
 
-                    <div className="bg-white rounded-3xl shadow-lg p-6">
+                    {/* Contact */}
+
+                    <div className="bg-white rounded-[32px] shadow-lg p-6">
 
                         <div className="flex justify-between items-center">
 
@@ -121,18 +202,18 @@ function Analytics() {
 
                                 </p>
 
-                                <h2 className="text-4xl font-bold mt-2">
+                                <h2 className="text-4xl font-bold mt-2 text-[#2D1B14]">
 
-                                    6
+                                    {analytics.contactRequests}
 
                                 </h2>
 
                             </div>
 
-                            <div className="bg-green-100 p-4 rounded-2xl">
+                            <div className="bg-[#FFF4CC] p-4 rounded-2xl">
 
                                 <Phone
-                                    className="text-green-600"
+                                    className="text-[#2D1B14]"
                                     size={32}
                                 />
 
@@ -142,7 +223,9 @@ function Analytics() {
 
                     </div>
 
-                    <div className="bg-white rounded-3xl shadow-lg p-6">
+                    {/* Demo */}
+
+                    <div className="bg-white rounded-[32px] shadow-lg p-6">
 
                         <div className="flex justify-between items-center">
 
@@ -154,18 +237,18 @@ function Analytics() {
 
                                 </p>
 
-                                <h2 className="text-4xl font-bold mt-2">
+                                <h2 className="text-4xl font-bold mt-2 text-[#2D1B14]">
 
-                                    4
+                                    {analytics.demoRequests}
 
                                 </h2>
 
                             </div>
 
-                            <div className="bg-purple-100 p-4 rounded-2xl">
+                            <div className="bg-[#FFF4CC] p-4 rounded-2xl">
 
                                 <MonitorPlay
-                                    className="text-purple-600"
+                                    className="text-[#2D1B14]"
                                     size={32}
                                 />
 
@@ -175,7 +258,9 @@ function Analytics() {
 
                     </div>
 
-                    <div className="bg-white rounded-3xl shadow-lg p-6">
+                    {/* Growth */}
+
+                    <div className="bg-white rounded-[32px] shadow-lg p-6">
 
                         <div className="flex justify-between items-center">
 
@@ -187,18 +272,18 @@ function Analytics() {
 
                                 </p>
 
-                                <h2 className="text-4xl font-bold mt-2">
+                                <h2 className="text-4xl font-bold mt-2 text-[#2D1B14]">
 
-                                    +18%
+                                    {analytics.growthRate}%
 
                                 </h2>
 
                             </div>
 
-                            <div className="bg-orange-100 p-4 rounded-2xl">
+                            <div className="bg-[#FFF4CC] p-4 rounded-2xl">
 
                                 <TrendingUp
-                                    className="text-orange-600"
+                                    className="text-[#2D1B14]"
                                     size={32}
                                 />
 
@@ -209,16 +294,15 @@ function Analytics() {
                     </div>
 
                 </div>
-
                 {/* Charts */}
 
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
 
                     {/* Bar Chart */}
 
-                    <div className="bg-white rounded-3xl shadow-lg p-6">
+                    <div className="bg-white rounded-[32px] shadow-lg p-6">
 
-                        <h2 className="text-2xl font-bold mb-6">
+                        <h2 className="text-2xl font-bold text-[#2D1B14] mb-6">
 
                             Lead Performance
 
@@ -226,22 +310,34 @@ function Analytics() {
 
                         <div className="h-80">
 
-                            <ResponsiveContainer>
+                            <ResponsiveContainer width="100%" height="100%">
 
-                                <BarChart data={data}>
+                                <BarChart data={chartData}>
 
-                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <CartesianGrid
+                                        strokeDasharray="3 3"
+                                        stroke="#F3F4F6"
+                                    />
 
-                                    <XAxis dataKey="name" />
+                                    <XAxis
+                                        dataKey="name"
+                                        tick={{
+                                            fill: "#2D1B14"
+                                        }}
+                                    />
 
-                                    <YAxis />
+                                    <YAxis
+                                        tick={{
+                                            fill: "#2D1B14"
+                                        }}
+                                    />
 
                                     <Tooltip />
 
                                     <Bar
                                         dataKey="value"
-                                        fill="#2563eb"
-                                        radius={[8, 8, 0, 0]}
+                                        fill="#F4C430"
+                                        radius={[10, 10, 0, 0]}
                                     />
 
                                 </BarChart>
@@ -254,9 +350,9 @@ function Analytics() {
 
                     {/* Pie Chart */}
 
-                    <div className="bg-white rounded-3xl shadow-lg p-6">
+                    <div className="bg-white rounded-[32px] shadow-lg p-6">
 
-                        <h2 className="text-2xl font-bold mb-6">
+                        <h2 className="text-2xl font-bold text-[#2D1B14] mb-6">
 
                             Lead Distribution
 
@@ -264,26 +360,36 @@ function Analytics() {
 
                         <div className="h-80">
 
-                            <ResponsiveContainer>
+                            <ResponsiveContainer width="100%" height="100%">
 
                                 <PieChart>
 
                                     <Pie
-                                        data={data}
+                                        data={chartData}
                                         dataKey="value"
                                         nameKey="name"
                                         outerRadius={100}
                                         label
                                     >
 
-                                        {data.map((entry, index) => (
+                                        {chartData.map(
+                                            (
+                                                entry,
+                                                index
+                                            ) => (
 
-                                            <Cell
-                                                key={index}
-                                                fill={COLORS[index]}
-                                            />
+                                                <Cell
+                                                    key={index}
+                                                    fill={
+                                                        COLORS[
+                                                        index %
+                                                        COLORS.length
+                                                        ]
+                                                    }
+                                                />
 
-                                        ))}
+                                            )
+                                        )}
 
                                     </Pie>
 
@@ -303,9 +409,9 @@ function Analytics() {
 
                 {/* Insights */}
 
-                <div className="bg-white rounded-3xl shadow-lg p-6">
+                <div className="bg-white rounded-[32px] shadow-lg p-6">
 
-                    <h2 className="text-2xl font-bold mb-6">
+                    <h2 className="text-2xl font-bold text-[#2D1B14] mb-6">
 
                         Insights
 
@@ -313,41 +419,55 @@ function Analytics() {
 
                     <div className="grid md:grid-cols-3 gap-6">
 
-                        <div className="bg-blue-50 rounded-2xl p-5">
+                        <div className="bg-[#FFF8E1] rounded-2xl p-5">
 
-                            <h3 className="font-bold text-blue-700">
+                            <h3 className="font-bold text-[#2D1B14]">
 
-                                Best Channel
-
-                            </h3>
-
-                            <p className="text-gray-600 mt-2">
-
-                                Contact forms generate the highest engagement.
-
-                            </p>
-
-                        </div>
-
-                        <div className="bg-green-50 rounded-2xl p-5">
-
-                            <h3 className="font-bold text-green-700">
-
-                                Conversion Opportunity
+                                Total Leads
 
                             </h3>
 
                             <p className="text-gray-600 mt-2">
 
-                                Demo requests show strong purchase intent.
+                                You have received{" "}
+
+                                <span className="font-semibold">
+
+                                    {analytics.totalLeads}
+
+                                </span>
+
+                                {" "}leads in total.
 
                             </p>
 
                         </div>
 
-                        <div className="bg-purple-50 rounded-2xl p-5">
+                        <div className="bg-[#FFF8E1] rounded-2xl p-5">
 
-                            <h3 className="font-bold text-purple-700">
+                            <h3 className="font-bold text-[#2D1B14]">
+
+                                Contact Requests
+
+                            </h3>
+
+                            <p className="text-gray-600 mt-2">
+
+                                Contact enquiries received:{" "}
+
+                                <span className="font-semibold">
+
+                                    {analytics.contactRequests}
+
+                                </span>
+
+                            </p>
+
+                        </div>
+
+                        <div className="bg-[#FFF8E1] rounded-2xl p-5">
+
+                            <h3 className="font-bold text-[#2D1B14]">
 
                                 Growth Trend
 
@@ -355,7 +475,13 @@ function Analytics() {
 
                             <p className="text-gray-600 mt-2">
 
-                                Overall lead acquisition is improving steadily.
+                                Current growth rate:{" "}
+
+                                <span className="font-semibold">
+
+                                    {analytics.growthRate}%
+
+                                </span>
 
                             </p>
 

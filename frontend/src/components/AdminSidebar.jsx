@@ -1,236 +1,333 @@
-import { useState } from "react";
 import {
-  Link,
-  useLocation
+    Link,
+    useLocation,
+    useNavigate
 } from "react-router-dom";
 
 import {
-  Menu,
-  X,
-  LayoutDashboard,
-  Users,
-  BarChart3,
-  LogOut,
-  Shield
+    LayoutDashboard,
+    Users,
+    BarChart3,
+    LogOut,
+    Shield
 } from "lucide-react";
+
+import logo from "../assets/advonote-logo.png";
 
 function AdminSidebar() {
 
-  const location = useLocation();
+    const location = useLocation();
+    const navigate = useNavigate();
 
-  const [isOpen, setIsOpen] =
-    useState(false);
+    const admin = JSON.parse(
+        localStorage.getItem("admin")
+    );
 
-  const handleLogout = () => {
+    const menus = [
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("admin");
+        {
+            title: "Dashboard",
+            path: "/admin/dashboard",
+            icon: LayoutDashboard
+        },
 
-    window.location.href = "/";
-  };
+        {
+            title: "Leads",
+            path: "/admin/leads",
+            icon: Users
+        },
 
-  const menus = [
+        {
+            title: "Analytics",
+            path: "/admin/analytics",
+            icon: BarChart3
+        }
 
-    {
-      title: "Dashboard",
-      path: "/admin/dashboard",
-      icon: LayoutDashboard
-    },
+    ];
 
-    {
-      title: "Leads",
-      path: "/admin/leads",
-      icon: Users
-    },
+    const handleLogout = () => {
 
-    {
-      title: "Analytics",
-      path: "/admin/analytics",
-      icon: BarChart3
-    }
+        localStorage.removeItem(
+            "adminToken"
+        );
 
-  ];
+        localStorage.removeItem(
+            "admin"
+        );
 
-  const admin = JSON.parse(
-    localStorage.getItem("admin")
-  );
+        navigate("/admin");
 
-  return (
+    };
 
-    <>
-      {/* Mobile Header */}
+    return (
 
-      <div className="lg:hidden bg-slate-900 text-white flex items-center justify-between px-4 py-4">
-
-        <h1 className="font-bold text-xl">
-
-          Advonote Admin
-
-        </h1>
-
-        <button
-          onClick={() =>
-            setIsOpen(!isOpen)
-          }
+        <aside
+            className="
+                w-72
+                h-screen
+                bg-[#2D1B14]
+                text-white
+                flex
+                flex-col
+                shadow-2xl
+            "
         >
 
-          {isOpen
-            ? <X size={28} />
-            : <Menu size={28} />}
+            {/* Logo */}
 
-        </button>
+            <div
+                className="
+                    px-6
+                    py-8
+                    border-b
+                    border-white/10
+                "
+            >
 
-      </div>
+                <div
+                    className="
+                        flex
+                        items-center
+                        gap-4
+                    "
+                >
 
-      {/* Mobile Overlay */}
+                    <img
+                        src={logo}
+                        alt="Advonote"
+                        className="
+                            w-14
+                            h-14
+                            object-contain
+                            bg-white
+                            rounded-2xl
+                            p-2
+                        "
+                    />
 
-      {isOpen && (
+                    <div>
 
-        <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-          onClick={() =>
-            setIsOpen(false)
-          }
-        />
+                        <h2
+                            className="
+                                text-2xl
+                                font-bold
+                            "
+                        >
 
-      )}
+                            Advonote
 
-      {/* Sidebar */}
+                        </h2>
 
-      <aside
-        className={`
-                    fixed lg:static top-0 left-0
-                    h-screen w-72
-                    w-[85%] max-w-[320px] lg:w-72
-                    bg-slate-900 text-white
-                    flex flex-col
-                    z-50
-                    transform transition-transform duration-300
+                        <p
+                            className="
+                                text-sm
+                                text-[#F4C430]
+                            "
+                        >
 
-                    ${isOpen
-            ? "translate-x-0"
-            : "-translate-x-full lg:translate-x-0"
-          }
-                `}
-      >
+                            Admin Portal
 
-        {/* Logo */}
+                        </p>
 
-        <div className="p-6 border-b border-slate-800">
+                    </div>
 
-          <div className="flex items-center gap-3">
-
-            <div className="bg-blue-600 p-3 rounded-2xl">
-
-              <Shield size={28} />
-
-            </div>
-
-            <div>
-
-              <h2 className="text-2xl font-bold">
-
-                Advonote
-
-              </h2>
-
-              <p className="text-sm text-gray-400">
-
-                Admin Portal
-
-              </p>
+                </div>
 
             </div>
 
-          </div>
+            {/* Admin Info */}
 
-        </div>
+            <div
+                className="
+                    px-6
+                    py-6
+                    border-b
+                    border-white/10
+                "
+            >
 
-        {/* Admin Profile */}
+                <div
+                    className="
+                        flex
+                        items-center
+                        gap-4
+                    "
+                >
 
-        <div className="p-6 border-b border-slate-800">
+                    <div
+                        className="
+                            w-14
+                            h-14
+                            rounded-2xl
+                            bg-[#F4C430]
+                            text-[#2D1B14]
+                            flex
+                            items-center
+                            justify-center
+                            font-bold
+                            text-xl
+                        "
+                    >
 
-          <p className="text-gray-400 text-sm">
+                        {
 
-            Logged in as
+                            admin?.name
+                                ?.charAt(0)
+                                ?.toUpperCase()
 
-          </p>
+                            || "A"
 
-          <h3 className="font-semibold text-lg mt-1">
+                        }
 
-            {admin?.name || "Admin"}
+                    </div>
 
-          </h3>
+                    <div>
 
-          <p className="text-sm text-gray-400">
+                        <p
+                            className="
+                                text-sm
+                                text-gray-400
+                            "
+                        >
 
-            {admin?.email}
+                            Logged in as
 
-          </p>
+                        </p>
 
-        </div>
+                        <h3
+                            className="
+                                font-semibold
+                            "
+                        >
 
-        {/* Navigation */}
+                            {
 
-        <nav className="flex-1 p-4 space-y-2">
+                                admin?.name
+                                || "Admin"
 
-          {menus.map((menu) => {
+                            }
 
-            const Icon =
-              menu.icon;
+                        </h3>
 
-            return (
+                        <p
+                            className="
+                                text-xs
+                                text-gray-400
+                                truncate
+                                max-w-[150px]
+                            "
+                        >
 
-              <Link
-                key={menu.path}
-                to={menu.path}
-                onClick={() =>
-                  setIsOpen(false)
-                }
-                className={`
-                                    flex items-center gap-4
-                                    px-4 py-3 rounded-xl
+                            {admin?.email}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {/* Navigation */}
+
+            <nav
+                className="
+                    flex-1
+                    p-4
+                    space-y-3
+                "
+            >
+
+                {
+
+                    menus.map((menu) => {
+
+                        const Icon =
+                            menu.icon;
+
+                        const active =
+                            location.pathname ===
+                            menu.path;
+
+                        return (
+
+                            <Link
+                                key={menu.path}
+                                to={menu.path}
+                                className={`
+                                    flex
+                                    items-center
+                                    gap-4
+                                    px-5
+                                    py-4
+                                    rounded-2xl
                                     transition
 
-                                    ${location.pathname === menu.path
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-slate-800"
-                  }
+                                    ${
+                                        active
+
+                                        ? "bg-[#F4C430] text-[#2D1B14] font-bold shadow-lg"
+
+                                        : "hover:bg-white/10 text-white"
+                                    }
                                 `}
-              >
+                            >
 
-                <Icon size={22} />
+                                <Icon
+                                    size={22}
+                                />
 
-                {menu.title}
+                                {menu.title}
 
-              </Link>
+                            </Link>
 
-            );
+                        );
 
-          })}
+                    })
 
-        </nav>
+                }
 
-        {/* Logout */}
+            </nav>
 
-        <div className="p-4 border-t border-slate-800">
+            {/* Logout */}
 
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-3 bg-red-600 hover:bg-red-700 py-3 rounded-xl transition"
-          >
+            <div
+                className="
+                    p-4
+                    border-t
+                    border-white/10
+                "
+            >
 
-            <LogOut size={20} />
+                <button
+                    onClick={handleLogout}
+                    className="
+                        w-full
+                        flex
+                        items-center
+                        justify-center
+                        gap-3
+                        bg-red-500
+                        hover:bg-red-600
+                        py-4
+                        rounded-2xl
+                        font-semibold
+                        transition
+                    "
+                >
 
-            Logout
+                    <LogOut size={20} />
 
-          </button>
+                    Logout
 
-        </div>
+                </button>
 
-      </aside>
-    </>
-  );
+            </div>
+
+        </aside>
+
+    );
+
 }
 
 export default AdminSidebar;

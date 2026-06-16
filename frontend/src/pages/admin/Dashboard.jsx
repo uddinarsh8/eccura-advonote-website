@@ -62,22 +62,44 @@ function Dashboard() {
 
                 {/* Welcome Banner */}
 
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl text-white p-8 shadow-xl">
+                <div
+                    className="
+                        bg-[#F4C430]
+                        rounded-[32px]
+                        p-6
+                        md:p-8
+                        shadow-lg
+                    "
+                >
 
-                    <h1 className="text-3xl sm:text-4xl font-bold">
+                    <h1
+                        className="
+                            text-3xl
+                            md:text-4xl
+                            font-bold
+                            text-[#2D1B14]
+                        "
+                    >
 
                         Welcome back,
                         {" "}
-                        {admin?.name}
-
+                        {admin?.name || "Admin"}
+                        {" "}
                         👋
 
                     </h1>
 
-                    <p className="mt-3 text-blue-100">
+                    <p
+                        className="
+                            mt-3
+                            text-[#5C4634]
+                            text-base
+                            md:text-lg
+                        "
+                    >
 
-                        Here's an overview of
-                        your Advonote platform.
+                        Here's an overview of your
+                        Advonote platform.
 
                     </p>
 
@@ -85,21 +107,55 @@ function Dashboard() {
 
                 {/* Stats */}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div
+                    className="
+                        grid
+                        grid-cols-1
+                        sm:grid-cols-2
+                        xl:grid-cols-3
+                        gap-6
+                    "
+                >
 
-                    <div className="bg-white rounded-3xl shadow-lg p-6">
+                    {/* Total Leads */}
 
-                        <div className="flex justify-between items-center">
+                    <div
+                        className="
+                            bg-[#F4C430]
+                            rounded-[32px]
+                            shadow-lg
+                            p-6
+                        "
+                    >
+
+                        <div
+                            className="
+                                flex
+                                justify-between
+                                items-center
+                            "
+                        >
 
                             <div>
 
-                                <p className="text-gray-500">
+                                <p
+                                    className="
+                                        text-[#5C4634]
+                                    "
+                                >
 
                                     Total Leads
 
                                 </p>
 
-                                <h2 className="text-4xl font-bold mt-2">
+                                <h2
+                                    className="
+                                        text-4xl
+                                        font-bold
+                                        mt-2
+                                        text-[#2D1B14]
+                                    "
+                                >
 
                                     {stats.totalLeads}
 
@@ -107,11 +163,19 @@ function Dashboard() {
 
                             </div>
 
-                            <div className="bg-blue-100 p-4 rounded-2xl">
+                            <div
+                                className="
+                                    bg-white
+                                    p-4
+                                    rounded-2xl
+                                "
+                            >
 
                                 <Users
                                     size={32}
-                                    className="text-blue-600"
+                                    className="
+                                        text-[#2D1B14]
+                                    "
                                 />
 
                             </div>
@@ -120,19 +184,45 @@ function Dashboard() {
 
                     </div>
 
-                    <div className="bg-white rounded-3xl shadow-lg p-6">
+                    {/* Contact Requests */}
 
-                        <div className="flex justify-between items-center">
+                    <div
+                        className="
+                            bg-[#F4C430]
+                            rounded-[32px]
+                            shadow-lg
+                            p-6
+                        "
+                    >
+
+                        <div
+                            className="
+                                flex
+                                justify-between
+                                items-center
+                            "
+                        >
 
                             <div>
 
-                                <p className="text-gray-500">
+                                <p
+                                    className="
+                                        text-[#5C4634]
+                                    "
+                                >
 
                                     Contact Requests
 
                                 </p>
 
-                                <h2 className="text-4xl font-bold mt-2">
+                                <h2
+                                    className="
+                                        text-4xl
+                                        font-bold
+                                        mt-2
+                                        text-[#2D1B14]
+                                    "
+                                >
 
                                     {stats.contactRequests}
 
@@ -140,11 +230,19 @@ function Dashboard() {
 
                             </div>
 
-                            <div className="bg-green-100 p-4 rounded-2xl">
+                            <div
+                                className="
+                                    bg-white
+                                    p-4
+                                    rounded-2xl
+                                "
+                            >
 
                                 <Phone
                                     size={32}
-                                    className="text-green-600"
+                                    className="
+                                        text-[#2D1B14]
+                                    "
                                 />
 
                             </div>
@@ -153,19 +251,45 @@ function Dashboard() {
 
                     </div>
 
-                    <div className="bg-white rounded-3xl shadow-lg p-6">
+                    {/* Demo Requests */}
 
-                        <div className="flex justify-between items-center">
+                    <div
+                        className="
+                            bg-[#F4C430]
+                            rounded-[32px]
+                            shadow-lg
+                            p-6
+                        "
+                    >
+
+                        <div
+                            className="
+                                flex
+                                justify-between
+                                items-center
+                            "
+                        >
 
                             <div>
 
-                                <p className="text-gray-500">
+                                <p
+                                    className="
+                                        text-[#5C4634]
+                                    "
+                                >
 
                                     Demo Requests
 
                                 </p>
 
-                                <h2 className="text-4xl font-bold mt-2">
+                                <h2
+                                    className="
+                                        text-4xl
+                                        font-bold
+                                        mt-2
+                                        text-[#2D1B14]
+                                    "
+                                >
 
                                     {stats.demoRequests}
 
@@ -173,11 +297,19 @@ function Dashboard() {
 
                             </div>
 
-                            <div className="bg-purple-100 p-4 rounded-2xl">
+                            <div
+                                className="
+                                    bg-white
+                                    p-4
+                                    rounded-2xl
+                                "
+                            >
 
                                 <MonitorPlay
                                     size={32}
-                                    className="text-purple-600"
+                                    className="
+                                        text-[#2D1B14]
+                                    "
                                 />
 
                             </div>
@@ -190,17 +322,46 @@ function Dashboard() {
 
                 {/* Recent Leads */}
 
-                <div className="bg-white rounded-3xl shadow-lg p-6">
+                <div
+                    className="
+                        bg-white
+                        rounded-[32px]
+                        shadow-lg
+                        p-6
+                    "
+                >
 
-                    <div className="flex justify-between items-center mb-6">
+                    <div
+                        className="
+                            flex
+                            flex-col
+                            sm:flex-row
+                            justify-between
+                            items-start
+                            sm:items-center
+                            gap-4
+                            mb-6
+                        "
+                    >
 
-                        <h2 className="text-2xl font-bold">
+                        <h2
+                            className="
+                                text-2xl
+                                md:text-3xl
+                                font-bold
+                                text-[#2D1B14]
+                            "
+                        >
 
                             Recent Leads
 
                         </h2>
 
-                        <span className="text-gray-500">
+                        <span
+                            className="
+                                text-[#5C4634]
+                            "
+                        >
 
                             Latest enquiries
 
@@ -210,7 +371,13 @@ function Dashboard() {
 
                     {loading ? (
 
-                        <div className="text-center py-12">
+                        <div
+                            className="
+                                text-center
+                                py-12
+                                text-[#5C4634]
+                            "
+                        >
 
                             Loading...
 
@@ -218,21 +385,38 @@ function Dashboard() {
 
                     ) : stats.recentLeads.length === 0 ? (
 
-                        <div className="text-center py-12">
+                        <div
+                            className="
+                                text-center
+                                py-12
+                            "
+                        >
 
-                            <div className="text-6xl mb-4">
+                            <div className="text-6xl">
 
                                 📭
 
                             </div>
 
-                            <h3 className="text-xl font-semibold">
+                            <h3
+                                className="
+                                    text-2xl
+                                    font-bold
+                                    mt-4
+                                    text-[#2D1B14]
+                                "
+                            >
 
                                 No Leads Found
 
                             </h3>
 
-                            <p className="text-gray-500 mt-2">
+                            <p
+                                className="
+                                    mt-2
+                                    text-[#5C4634]
+                                "
+                            >
 
                                 Leads will appear here.
 
@@ -242,94 +426,172 @@ function Dashboard() {
 
                     ) : (
 
-                        <div className="overflow-x-auto">
+                        <>
+                            {/* Desktop Table */}
 
-                            <table className="w-full">
+                            <div className="hidden md:block overflow-x-auto">
 
-                                <thead>
+                                <table className="w-full">
 
-                                    <tr className="border-b bg-gray-50">
-
-                                        <th className="text-left p-4">
-
-                                            Name
-
-                                        </th>
-
-                                        <th className="text-left p-4">
-
-                                            Email
-
-                                        </th>
-
-                                        <th className="text-left p-4">
-
-                                            Phone
-
-                                        </th>
-
-                                        <th className="text-left p-4">
-
-                                            Status
-
-                                        </th>
-
-                                    </tr>
-
-                                </thead>
-
-                                <tbody>
-
-                                    {stats.recentLeads.map((lead) => (
+                                    <thead>
 
                                         <tr
-                                            key={lead.id}
-                                            className="border-b hover:bg-gray-50"
+                                            className="
+                                                bg-[#FFF8E1]
+                                            "
                                         >
 
-                                            <td className="p-4">
+                                            <th className="p-4 text-left">
 
-                                                {lead.name}
+                                                Name
 
-                                            </td>
+                                            </th>
 
-                                            <td className="p-4">
+                                            <th className="p-4 text-left">
 
-                                                {lead.email}
+                                                Email
 
-                                            </td>
+                                            </th>
 
-                                            <td className="p-4">
+                                            <th className="p-4 text-left">
 
-                                                {lead.phone}
+                                                Phone
 
-                                            </td>
+                                            </th>
 
-                                            <td className="p-4">
+                                            <th className="p-4 text-left">
 
-                                                <span
-                                                    className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                                        lead.status === "New"
-                                                            ? "bg-green-100 text-green-700"
-                                                            : "bg-gray-100 text-gray-700"
-                                                    }`}
-                                                >
+                                                Status
 
-                                                    {lead.status}
-
-                                                </span>
-
-                                            </td>
+                                            </th>
 
                                         </tr>
 
-                                    ))}
+                                    </thead>
 
-                                </tbody>
+                                    <tbody>
 
-                            </table>
+                                        {stats.recentLeads.map((lead) => (
 
-                        </div>
+                                            <tr
+                                                key={lead.id}
+                                                className="
+                                                    border-b
+                                                    hover:bg-[#FFFDF7]
+                                                "
+                                            >
+
+                                                <td className="p-4">
+
+                                                    {lead.name}
+
+                                                </td>
+
+                                                <td className="p-4">
+
+                                                    {lead.email}
+
+                                                </td>
+
+                                                <td className="p-4">
+
+                                                    {lead.phone}
+
+                                                </td>
+
+                                                <td className="p-4">
+
+                                                    <span
+                                                        className="
+                                                            bg-[#F4C430]
+                                                            text-[#2D1B14]
+                                                            px-4
+                                                            py-1
+                                                            rounded-full
+                                                            text-sm
+                                                            font-semibold
+                                                        "
+                                                    >
+
+                                                        {lead.status}
+
+                                                    </span>
+
+                                                </td>
+
+                                            </tr>
+
+                                        ))}
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                            {/* Mobile Cards */}
+
+                            <div className="md:hidden space-y-4">
+
+                                {stats.recentLeads.map((lead) => (
+
+                                    <div
+                                        key={lead.id}
+                                        className="
+                                            border
+                                            rounded-2xl
+                                            p-4
+                                            space-y-2
+                                        "
+                                    >
+
+                                        <h3
+                                            className="
+                                                font-bold
+                                                text-[#2D1B14]
+                                            "
+                                        >
+
+                                            {lead.name}
+
+                                        </h3>
+
+                                        <p>
+
+                                            {lead.email}
+
+                                        </p>
+
+                                        <p>
+
+                                            {lead.phone}
+
+                                        </p>
+
+                                        <span
+                                            className="
+                                                inline-block
+                                                bg-[#F4C430]
+                                                text-[#2D1B14]
+                                                px-3
+                                                py-1
+                                                rounded-full
+                                                text-sm
+                                                font-semibold
+                                            "
+                                        >
+
+                                            {lead.status}
+
+                                        </span>
+
+                                    </div>
+
+                                ))}
+
+                            </div>
+
+                        </>
 
                     )}
 

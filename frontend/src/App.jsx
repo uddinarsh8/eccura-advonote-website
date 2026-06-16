@@ -35,7 +35,7 @@ import ViewProfile from "./pages/advocate/ViewProfile";
 import AdvocateProtectedRoute from "./components/AdvocateProtectedRoute";
 import CourtManagement from "./pages/advocate/CourtManagement";
 import ReferFriends from "./pages/advocate/ReferFriends";
-import Tutorials from "./pages/advocate/Tutorials";
+import Tutorials from "./components/Tutorials";
 import PrivacyPolicy from "./pages/advocate/Policy";
 function App() {
 
@@ -65,7 +65,7 @@ function App() {
         {/* Admin Routes */}
 
         <Route
-          path="/admin/login"
+          path="/admin"
           element={<Login />}
         />
 
@@ -257,7 +257,7 @@ function App() {
           path="/tutorials"
           element={<Tutorials />}
         />
-
+        {/* 
         <Route
           path="/advocate/tutorials"
           element={
@@ -267,7 +267,7 @@ function App() {
               </AdvocateLayout>
             </AdvocateProtectedRoute>
           }
-        />
+        /> */}
         <Route
           path="/advocate/policy"
           element={

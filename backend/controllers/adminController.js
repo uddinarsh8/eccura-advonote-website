@@ -152,42 +152,141 @@ exports.updateLeadStatus = async (req, res) => {
 };
 exports.getAnalytics = async (req, res) => {
 
-  try {
+    try {
 
-    const pool = await sql.connect(config);
+        const pool = await sql.connect(config);
 
-    const statusResult =
-      await pool.request()
-        .query(`
-        SELECT
-          status,
-          COUNT(*) AS count
-        FROM Leads
-        GROUP BY status
-      `);
+        /* Dashboard Counts */
 
-    const sourceResult =
-      await pool.request()
-        .query(`
-        SELECT
-          source,
-          COUNT(*) AS count
-        FROM Leads
-        GROUP BY source
-      `);
+        const totalLeadsResult =
+            await pool.request()
+                .query(`
+                    SELECT COUNT(*) AS total
+                    FROM Leads
+                `);
 
-    res.json({
-      statusData: statusResult.recordset,
-      sourceData: sourceResult.recordset
-    });
+        const contactResult =
+            await pool.request()
+                .query(`
+                    SELECT COUNT(*) AS total
+                    FROM ContactRequests
+                `);
 
-  } catch (error) {
+        const demoResult =
+            await pool.request()
+                .query(`
+                    SELECT COUNT(*) AS total
+                    FROM DemoRequests
+                `);
 
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+        /* Source Distribution */
 
-  }
+        const sourceResult =
+            await pool.request()
+                .query(`
+                    SELECT
+                        source,
+                        COUNT(*) AS count
+                    FROM Leads
+                    GROUP BY source
+                `);
+
+        /* Status Distribution */
+
+        const statusResult =
+            await pool.request()
+                .query(`
+                    SELECT
+                        status,
+                        COUNT(*) AS count
+                    FROM Leads
+                    GROUP BY status
+                `);
+
+        /* Growth Rate */
+
+        const currentMonthResult =
+            await pool.request()
+                .query(`
+                    SELECT COUNT(*) AS total
+                    FROM Leads
+                    WHERE
+                        MONTH(createdAt) = MONTH(GETDATE())
+                        AND YEAR(createdAt) = YEAR(GETDATE())
+                `);
+
+        const previousMonthResult =
+            await pool.request()
+                .query(`
+                    SELECT COUNT(*) AS total
+                    FROM Leads
+                    WHERE
+                        MONTH(createdAt)
+                            = MONTH(DATEADD(MONTH,-1,GETDATE()))
+                        AND YEAR(createdAt)
+                            = YEAR(DATEADD(MONTH,-1,GETDATE()))
+                `);
+
+        const currentMonth =
+            currentMonthResult.recordset[0].total;
+
+        const previousMonth =
+            previousMonthResult.recordset[0].total;
+
+        let growthRate = 0;
+
+        if (previousMonth === 0) {
+
+            growthRate =
+                currentMonth > 0 ? 100 : 0;
+
+        } else {
+
+            growthRate = Math.round(
+
+                (
+                    (
+                        currentMonth -
+                        previousMonth
+                    )
+                    /
+                    previousMonth
+                ) * 100
+
+            );
+
+        }
+
+        res.json({
+
+            totalLeads:
+                totalLeadsResult.recordset[0].total,
+
+            contactRequests:
+                contactResult.recordset[0].total,
+
+            demoRequests:
+                demoResult.recordset[0].total,
+
+            growthRate,
+
+            sourceData:
+                sourceResult.recordset,
+
+            statusData:
+                statusResult.recordset
+
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            success: false,
+            message: error.message
+
+        });
+
+    }
 
 };

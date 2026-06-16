@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import {
     Download,
     CalendarDays,
@@ -12,6 +11,24 @@ function Hero() {
 
     const playStoreLink =
         "https://play.google.com/store/apps/details?id=com.aamni.AdvoNote&pcampaignid=web_share";
+
+    const scrollToSection = (id) => {
+
+        const section =
+            document.getElementById(id);
+
+        if (section) {
+
+            section.scrollIntoView({
+
+                behavior: "smooth",
+                block: "start"
+
+            });
+
+        }
+
+    };
 
     return (
 
@@ -39,7 +56,9 @@ function Hero() {
                         ">
 
                             <span className="text-[#F4C430]">
+
                                 ⭐
+
                             </span>
 
                             Smart Legal Practice Management
@@ -57,19 +76,25 @@ function Hero() {
                         ">
 
                             <span className="text-[#2D1B14]">
+
                                 Manage Your Cases.
+
                             </span>
 
                             <br />
 
                             <span className="text-[#2D1B14]">
+
                                 Serve Your Clients.
+
                             </span>
 
                             <br />
 
                             <span className="text-[#F4C430]">
+
                                 Grow Your Practice.
+
                             </span>
 
                         </h1>
@@ -106,6 +131,8 @@ function Hero() {
                             lg:justify-start
                         ">
 
+                            {/* Download */}
+
                             <a
                                 href={playStoreLink}
                                 target="_blank"
@@ -135,8 +162,14 @@ function Hero() {
 
                             </a>
 
-                            <Link
-                                to="/demo"
+                            {/* Demo */}
+
+                            <button
+                                onClick={() =>
+                                    scrollToSection(
+                                        "contact-form"
+                                    )
+                                }
                                 className="
                                     border
                                     border-[#E5E7EB]
@@ -154,6 +187,7 @@ function Hero() {
                                     transition-all
                                     w-full
                                     sm:w-auto
+                                    cursor-pointer
                                 "
                             >
 
@@ -161,10 +195,16 @@ function Hero() {
 
                                 Request Demo
 
-                            </Link>
+                            </button>
 
-                            <Link
-                                to="/contact"
+                            {/* Contact */}
+
+                            <button
+                                onClick={() =>
+                                    scrollToSection(
+                                        "contact-form"
+                                    )
+                                }
                                 className="
                                     border
                                     border-[#E5E7EB]
@@ -182,6 +222,7 @@ function Hero() {
                                     transition-all
                                     w-full
                                     sm:w-auto
+                                    cursor-pointer
                                 "
                             >
 
@@ -189,7 +230,7 @@ function Hero() {
 
                                 Contact Us
 
-                            </Link>
+                            </button>
 
                         </div>
 
@@ -235,19 +276,12 @@ function Hero() {
                         relative
                         flex
                         justify-center
-                        items-end
-                        h-[300px]
-                        sm:h-[400px]
-                        md:h-[500px]
-                        lg:h-[650px]
-                        overflow-hidden
+                        items-center
+                        min-h-[300px]
+                        sm:min-h-[400px]
+                        md:min-h-[500px]
+                        lg:min-h-[650px]
                     ">
-
-                        {/* Yellow Curved Shape */}
-
-                    
-
-                        {/* Phones */}
 
                         <img
                             src={heroPhones}
@@ -259,9 +293,10 @@ function Hero() {
                                 max-w-[320px]
                                 sm:max-w-[420px]
                                 md:max-w-[520px]
-                                lg:max-w-[820px]
-                                xl:max-w-[900px]
+                                lg:max-w-[700px]
+                                xl:max-w-[780px]
                                 object-contain
+                                mx-auto
                                 drop-shadow-[0_30px_40px_rgba(0,0,0,0.15)]
                             "
                         />

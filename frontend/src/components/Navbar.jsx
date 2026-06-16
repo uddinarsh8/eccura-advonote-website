@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
     Calendar,
-    LogIn,
+    BookOpen,
     Menu,
     X
 } from "lucide-react";
@@ -25,27 +25,29 @@ function Navbar() {
     ];
 
     return (
-
-        <nav className="
-            sticky
-            top-0
-            z-50
-            bg-white
-            border-b
-            border-[#E5E7EB]
-            shadow-sm
-        ">
-
+        <nav
+            className="
+                sticky
+                top-0
+                z-50
+                bg-white
+                border-b
+                border-[#E5E7EB]
+                shadow-sm
+            "
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div className="
-                    flex
-                    items-center
-                    justify-between
-                    h-20
-                    lg:h-24
-                    relative
-                ">
+                <div
+                    className="
+                        flex
+                        items-center
+                        justify-between
+                        h-20
+                        lg:h-24
+                        relative
+                    "
+                >
 
                     {/* Logo */}
 
@@ -53,7 +55,6 @@ function Navbar() {
                         to="/"
                         className="flex items-center gap-3 shrink-0"
                     >
-
                         <img
                             src={logo}
                             alt="Advonote Logo"
@@ -67,43 +68,40 @@ function Navbar() {
                         />
 
                         <div className="leading-tight">
-
-                            <h1 className="
-                                text-xl
-                                lg:text-2xl
-                                font-bold
-                                text-[#2D1B14]
-                            ">
-
+                            <h1
+                                className="
+                                    text-xl
+                                    lg:text-2xl
+                                    font-bold
+                                    text-[#2D1B14]
+                                "
+                            >
                                 ADVONOTE
-
                             </h1>
 
-                            <p className="
-                                text-[10px]
-                                lg:text-[11px]
-                                text-[#9A7B4F]
-                            ">
-
+                            <p
+                                className="
+                                    text-[10px]
+                                    lg:text-[11px]
+                                    text-[#9A7B4F]
+                                "
+                            >
                                 Lawyer's Best Diary
-
                             </p>
-
                         </div>
-
                     </Link>
 
                     {/* Desktop Navigation */}
 
-                    <div className="
-                        hidden
-                        xl:flex
-                        items-center
-                        gap-6
-                    ">
-
+                    <div
+                        className="
+                            hidden
+                            xl:flex
+                            items-center
+                            gap-6
+                        "
+                    >
                         {navLinks.map((item) => (
-
                             <a
                                 key={item.name}
                                 href={item.path}
@@ -115,26 +113,26 @@ function Navbar() {
                                     transition
                                 "
                             >
-
                                 {item.name}
-
                             </a>
-
                         ))}
-
                     </div>
 
                     {/* Desktop Buttons */}
 
-                    <div className="
-                        hidden
-                        lg:flex
-                        items-center
-                        gap-3
-                    ">
+                    <div
+                        className="
+                            hidden
+                            lg:flex
+                            items-center
+                            gap-3
+                        "
+                    >
+
+                        {/* Tutorial Button */}
 
                         <Link
-                            to="/advocate/login"
+                            to="/tutorials"
                             className="
                                 flex
                                 items-center
@@ -150,12 +148,11 @@ function Navbar() {
                                 transition
                             "
                         >
-
-                            <LogIn size={18} />
-
-                            Login
-
+                            <BookOpen size={18} />
+                            Tutorial
                         </Link>
+
+                        {/* Request Demo Button */}
 
                         <a
                             href="#contact-demo"
@@ -174,11 +171,9 @@ function Navbar() {
                                 transition
                             "
                         >
-
                             Request Demo
 
                             <Calendar size={18} />
-
                         </a>
 
                     </div>
@@ -186,9 +181,7 @@ function Navbar() {
                     {/* Mobile Menu Button */}
 
                     <button
-                        onClick={() =>
-                            setMenuOpen(!menuOpen)
-                        }
+                        onClick={() => setMenuOpen(!menuOpen)}
                         className="
                             lg:hidden
                             p-2
@@ -197,23 +190,17 @@ function Navbar() {
                             transition
                         "
                     >
-
                         {menuOpen ? (
-
                             <X
                                 size={30}
                                 className="text-[#2D1B14]"
                             />
-
                         ) : (
-
                             <Menu
                                 size={30}
                                 className="text-[#2D1B14]"
                             />
-
                         )}
-
                     </button>
 
                     {/* Mobile Menu */}
@@ -239,21 +226,18 @@ function Navbar() {
                             }
                         `}
                     >
-
-                        <div className="
-                            px-6
-                            py-5
-                            space-y-2
-                        ">
-
+                        <div
+                            className="
+                                px-6
+                                py-5
+                                space-y-2
+                            "
+                        >
                             {navLinks.map((item) => (
-
                                 <a
                                     key={item.name}
                                     href={item.path}
-                                    onClick={() =>
-                                        setMenuOpen(false)
-                                    }
+                                    onClick={() => setMenuOpen(false)}
                                     className="
                                         block
                                         py-4
@@ -265,23 +249,22 @@ function Navbar() {
                                         transition
                                     "
                                 >
-
                                     {item.name}
-
                                 </a>
-
                             ))}
 
-                            <div className="
-                                pt-5
-                                space-y-3
-                            ">
+                            <div
+                                className="
+                                    pt-5
+                                    space-y-3
+                                "
+                            >
+
+                                {/* Tutorial Button */}
 
                                 <Link
-                                    to="/advocate/login"
-                                    onClick={() =>
-                                        setMenuOpen(false)
-                                    }
+                                    to="/tutorials"
+                                    onClick={() => setMenuOpen(false)}
                                     className="
                                         flex
                                         items-center
@@ -296,18 +279,15 @@ function Navbar() {
                                         font-semibold
                                     "
                                 >
-
-                                    <LogIn size={18} />
-
-                                    Login
-
+                                    <BookOpen size={18} />
+                                    Tutorial
                                 </Link>
+
+                                {/* Request Demo Button */}
 
                                 <a
                                     href="#contact-demo"
-                                    onClick={() =>
-                                        setMenuOpen(false)
-                                    }
+                                    onClick={() => setMenuOpen(false)}
                                     className="
                                         flex
                                         items-center
@@ -323,27 +303,20 @@ function Navbar() {
                                         transition
                                     "
                                 >
-
                                     Request Demo
 
                                     <Calendar size={18} />
-
                                 </a>
 
                             </div>
-
                         </div>
-
                     </div>
 
                 </div>
 
             </div>
-
         </nav>
-
     );
-
 }
 
 export default Navbar;

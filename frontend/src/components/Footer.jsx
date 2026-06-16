@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 
 import logo from "../assets/advonote-logo.png";
 import googlePlay from "../assets/google-play.png";
+import whatsappIcon from "../assets/whatsapp.png";
 
 function Footer() {
-
-    const playStoreLink =
-        "https://play.google.com/store/apps/details?id=YOUR_APP_PACKAGE";
 
     return (
 
@@ -221,6 +219,39 @@ function Footer() {
                                 </span>
 
                             </div>
+
+                            {/* WhatsApp Button */}
+
+                            <a
+                                href="https://wa.me/916398057980"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="
+                                    inline-flex
+                                    items-center
+                                    gap-3
+                                    bg-[#25D366]
+                                    hover:bg-[#1EBE5D]
+                                    text-white
+                                    px-4
+                                    py-3
+                                    rounded-xl
+                                    font-medium
+                                    transition
+                                    shadow-md
+                                    mt-2
+                                "
+                            >
+
+                                <img
+                                    src={whatsappIcon}
+                                    alt="WhatsApp"
+                                    className="w-6 h-6 object-contain"
+                                />
+
+                                WhatsApp Us
+
+                            </a>
 
                         </div>
 

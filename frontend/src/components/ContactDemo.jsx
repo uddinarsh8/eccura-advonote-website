@@ -9,8 +9,6 @@ import api from "../services/api";
 
 function ContactDemo() {
 
-    /* Contact Form */
-
     const [contactForm, setContactForm] = useState({
         name: "",
         email: "",
@@ -20,8 +18,6 @@ function ContactDemo() {
 
     const [contactLoading, setContactLoading] =
         useState(false);
-
-    /* Demo Form */
 
     const [demoForm, setDemoForm] = useState({
         name: "",
@@ -34,35 +30,23 @@ function ContactDemo() {
     const [demoLoading, setDemoLoading] =
         useState(false);
 
-    /* Contact Change */
-
     const handleContactChange = (e) => {
 
         setContactForm({
-
             ...contactForm,
-
             [e.target.name]: e.target.value
-
         });
 
     };
-
-    /* Demo Change */
 
     const handleDemoChange = (e) => {
 
         setDemoForm({
-
             ...demoForm,
-
             [e.target.name]: e.target.value
-
         });
 
     };
-
-    /* Contact Submit */
 
     const handleContactSubmit = async (e) => {
 
@@ -72,30 +56,25 @@ function ContactDemo() {
 
             setContactLoading(true);
 
-            const response =
-                await api.post(
-                    "/contact",
-                    contactForm
-                );
+            const response = await api.post(
+                "/contact",
+                contactForm
+            );
 
             alert(response.data.message);
 
             setContactForm({
-
                 name: "",
                 email: "",
                 phone: "",
                 message: ""
-
             });
 
         } catch (error) {
 
             console.error(error);
 
-            alert(
-                "Error submitting contact form."
-            );
+            alert("Error submitting contact form.");
 
         } finally {
 
@@ -105,8 +84,6 @@ function ContactDemo() {
 
     };
 
-    /* Demo Submit */
-
     const handleDemoSubmit = async (e) => {
 
         e.preventDefault();
@@ -115,31 +92,26 @@ function ContactDemo() {
 
             setDemoLoading(true);
 
-            const response =
-                await api.post(
-                    "/demo",
-                    demoForm
-                );
+            const response = await api.post(
+                "/demo",
+                demoForm
+            );
 
             alert(response.data.message);
 
             setDemoForm({
-
                 name: "",
                 email: "",
                 phone: "",
                 company: "",
                 message: ""
-
             });
 
         } catch (error) {
 
             console.error(error);
 
-            alert(
-                "Error submitting demo request."
-            );
+            alert("Error submitting demo request.");
 
         } finally {
 
@@ -153,22 +125,23 @@ function ContactDemo() {
 
         <section
             id="contact-demo"
-            className="bg-[#FFFDF7] py-20"
+            className="bg-[#FFFDF7] py-16 lg:py-24"
         >
 
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
-                    {/* CONTACT FORM */}
+                    {/* CONTACT */}
 
                     <div
+                        id="contact-form"
                         className="
                             bg-white
                             rounded-[32px]
                             shadow-lg
-                            p-8 lg:p-10
                             border border-[#EFE7DA]
+                            p-6 sm:p-8 lg:p-10
                         "
                     >
 
@@ -180,19 +153,20 @@ function ContactDemo() {
                                     rounded-2xl
                                     bg-[#FFF4CC]
                                     flex items-center justify-center
+                                    shrink-0
                                 "
                             >
 
                                 <Scale
-                                    className="text-[#F4C430]"
                                     size={28}
+                                    className="text-[#F4C430]"
                                 />
 
                             </div>
 
                             <div>
 
-                                <h2 className="text-3xl font-bold text-[#2D1B14]">
+                                <h2 className="text-2xl sm:text-3xl font-bold text-[#2D1B14]">
 
                                     Get in Touch
 
@@ -213,7 +187,7 @@ function ContactDemo() {
                             className="space-y-5"
                         >
 
-                            <div className="grid md:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
                                 <input
                                     type="text"
@@ -221,6 +195,7 @@ function ContactDemo() {
                                     placeholder="Your Name"
                                     value={contactForm.name}
                                     onChange={handleContactChange}
+                                    required
                                     className="
                                         w-full
                                         px-5 py-4
@@ -230,7 +205,6 @@ function ContactDemo() {
                                         focus:ring-2
                                         focus:ring-[#F4C430]
                                     "
-                                    required
                                 />
 
                                 <input
@@ -239,6 +213,7 @@ function ContactDemo() {
                                     placeholder="Email Address"
                                     value={contactForm.email}
                                     onChange={handleContactChange}
+                                    required
                                     className="
                                         w-full
                                         px-5 py-4
@@ -248,7 +223,6 @@ function ContactDemo() {
                                         focus:ring-2
                                         focus:ring-[#F4C430]
                                     "
-                                    required
                                 />
 
                                 <input
@@ -257,6 +231,7 @@ function ContactDemo() {
                                     placeholder="Phone Number"
                                     value={contactForm.phone}
                                     onChange={handleContactChange}
+                                    required
                                     className="
                                         w-full
                                         px-5 py-4
@@ -266,7 +241,6 @@ function ContactDemo() {
                                         focus:ring-2
                                         focus:ring-[#F4C430]
                                     "
-                                    required
                                 />
 
                             </div>
@@ -277,17 +251,17 @@ function ContactDemo() {
                                 placeholder="Your Message"
                                 value={contactForm.message}
                                 onChange={handleContactChange}
+                                required
                                 className="
                                     w-full
                                     px-5 py-4
                                     rounded-xl
                                     border border-gray-200
+                                    resize-none
                                     focus:outline-none
                                     focus:ring-2
                                     focus:ring-[#F4C430]
-                                    resize-none
                                 "
-                                required
                             />
 
                             <button
@@ -309,13 +283,12 @@ function ContactDemo() {
 
                                 <Send size={18} />
 
-                                {
-                                    contactLoading
-                                        ? "Sending..."
-                                        : "Send Message"
-                                }
+                                {contactLoading
+                                    ? "Sending..."
+                                    : "Send Message"}
 
                             </button>
+
 
                         </form>
 

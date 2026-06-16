@@ -10,13 +10,15 @@ import FAQ from "../components/FAQ";
 import Security from "../components/Security";
 import Testimonials from "../components/Testimonials";
 import ContactDemo from "../components/ContactDemo";
-// import Eccura from "../components/Eccura";
-import Footer from "../components/Footer";
-// import Screenshots from "../components/Screenshots";
 import AboutEccura from "../components/AboutEccura";
+import Footer from "../components/Footer";
+
 function Home() {
+
     return (
+
         <>
+
             <Navbar />
 
             <Hero />
@@ -39,14 +41,17 @@ function Home() {
 
             <Testimonials />
 
+            {/* Demo + Contact Forms */}
             <ContactDemo />
+
             <AboutEccura />
 
             <Footer />
 
-
         </>
+
     );
+
 }
 
 export default Home;
