@@ -3,29 +3,100 @@ import {
     Quote
 } from "lucide-react";
 
+
 function Testimonials() {
 
     const testimonials = [
 
         {
-            name: "Adv. Rahul Sharma",
-            role: "Criminal Advocate",
+            name: "Adv. Adil Kamal",
+            role: "Advocate",
             review:
-                "Advonote has completely transformed the way I manage my cases and clients. The hearing reminders are a lifesaver."
+                "Advonote has simplified my daily practice. Managing cases, clients and hearing dates is now effortless."
         },
 
         {
-            name: "Adv. Priya Mehta",
-            role: "Corporate Lawyer",
+            name: "Adv. Shahbaz Khan",
+            role: "Advocate",
             review:
-                "The client and case management system is incredibly intuitive. It has significantly improved my productivity."
+                "The platform is easy to use and helps me stay organized. The reminders feature is extremely useful."
         },
 
         {
-            name: "Adv. Arjun Verma",
-            role: "Family Law Specialist",
+            name: "Adv. Mustajeebur Rehman",
+            role: "Advocate",
             review:
-                "I can access all my case information from anywhere. Advonote is now an essential part of my practice."
+                "Advonote saves significant time and allows me to focus more on my clients and legal work."
+        },
+
+        {
+            name: "Adv. Fariyad Hussain",
+            role: "Advocate",
+            review:
+                "A reliable solution for case tracking and client management. Highly recommended for advocates."
+        },
+
+        {
+            name: "Adv. Sultan Khan",
+            role: "Advocate",
+            review:
+                "The hearing management and document organization features are excellent."
+        },
+
+        {
+            name: "Adv. Pramod Kumar",
+            role: "Advocate",
+            review:
+                "Advonote has improved productivity across my practice and reduced manual work."
+        },
+
+        {
+            name: "Adv. Anuj Kumar Yadav",
+            role: "Advocate",
+            review:
+                "Everything I need for managing cases and clients is available in one platform."
+        },
+
+        {
+            name: "Adv. Pramod Sagar",
+            role: "Advocate",
+            review:
+                "A modern legal practice management tool that helps me stay organized every day."
+        },
+
+        {
+            name: "Adv. Shikhar Shrivastav",
+            role: "Advocate",
+            review:
+                "The interface is clean, professional and very easy to navigate."
+        },
+
+        {
+            name: "Adv. Feroz Ali Khan",
+            role: "Advocate",
+            review:
+                "Advonote has become an important part of my legal practice workflow."
+        },
+
+        {
+            name: "Adv. Anjali",
+            role: "Advocate",
+            review:
+                "Managing clients, hearings and case details is now much more efficient."
+        },
+
+        {
+            name: "Adv. Ayesha Shaikh",
+            role: "Advocate",
+            review:
+                "The platform is secure, reliable and designed perfectly for legal professionals."
+        },
+
+        {
+            name: "Adv. Devendra Kumar",
+            role: "Advocate",
+            review:
+                "Advonote helps me manage my practice professionally and efficiently."
         }
 
     ];
@@ -79,134 +150,132 @@ function Testimonials() {
                 </div>
 
                 {/* Testimonial Cards */}
+                {/* Testimonial Cards */}
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="relative">
 
-                    {testimonials.map((testimonial, index) => (
+                    <div className="flex gap-8 overflow-x-auto scrollbar-hide pb-4">
 
-                        <div
-                            key={index}
-                            className="
-                                relative
-                                bg-white
-                                border border-[#E5E7EB]
-                                rounded-3xl
-                                p-8
-                                shadow-[0_4px_20px_rgba(0,0,0,0.08)]
-                                transition-all
-                                duration-300
-                                hover:-translate-y-2
-                                hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)]
-                            "
-                        >
-
-                            {/* Quote Icon */}
+                        {testimonials.map((testimonial, index) => (
 
                             <div
+                                key={index}
                                 className="
-                                    absolute
-                                    top-6
-                                    right-6
-                                    text-[#F4C430]
-                                "
+                    flex-shrink-0
+                    w-[340px]
+                "
                             >
-
-                                <Quote size={32} />
-
-                            </div>
-
-                            {/* Stars */}
-
-                            <div className="flex gap-1 mb-6">
-
-                                {[...Array(5)].map((_, i) => (
-
-                                    <Star
-                                        key={i}
-                                        size={18}
-                                        fill="#F4C430"
-                                        color="#F4C430"
-                                    />
-
-                                ))}
-
-                            </div>
-
-                            {/* Review */}
-
-                            <p
-                                className="
-                                    text-[#6B7280]
-                                    leading-relaxed
-                                    mb-8
-                                "
-                            >
-
-                                "{testimonial.review}"
-
-                            </p>
-
-                            {/* User */}
-
-                            <div className="flex items-center gap-4">
-
-                                {/* Avatar */}
 
                                 <div
                                     className="
-                                        w-14
-                                        h-14
-                                        rounded-full
-                                        bg-[#FFF4CC]
-                                        flex
-                                        items-center
-                                        justify-center
-                                        text-[#2D1B14]
-                                        font-bold
-                                        text-lg
-                                    "
+                        relative
+                        bg-white
+                        border border-[#E5E7EB]
+                        rounded-3xl
+                        p-8
+                        shadow-[0_4px_20px_rgba(0,0,0,0.08)]
+                        transition-all
+                        duration-300
+                        hover:-translate-y-2
+                        hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)]
+                        h-full
+                    "
                                 >
 
-                                    {testimonial.name
-                                        .split(" ")
-                                        .slice(-2)
-                                        .map(name => name[0])
-                                        .join("")}
-
-                                </div>
-
-                                <div>
-
-                                    <h3
+                                    <div
                                         className="
-                                            text-lg
-                                            font-bold
-                                            text-[#1F1F1F]
-                                        "
+                            absolute
+                            top-6
+                            right-6
+                            text-[#F4C430]
+                        "
                                     >
+                                        <Quote size={32} />
+                                    </div>
 
-                                        {testimonial.name}
+                                    <div className="flex gap-1 mb-6">
 
-                                    </h3>
+                                        {[...Array(5)].map((_, i) => (
+
+                                            <Star
+                                                key={i}
+                                                size={18}
+                                                fill="#F4C430"
+                                                color="#F4C430"
+                                            />
+
+                                        ))}
+
+                                    </div>
 
                                     <p
                                         className="
-                                            text-sm
-                                            text-[#6B7280]
-                                        "
+                            text-[#6B7280]
+                            leading-relaxed
+                            mb-8
+                            min-h-[120px]
+                        "
                                     >
-
-                                        {testimonial.role}
-
+                                        "{testimonial.review}"
                                     </p>
+
+                                    <div className="flex items-center gap-4">
+
+                                        <div
+                                            className="
+                                w-14
+                                h-14
+                                rounded-full
+                                bg-[#FFF4CC]
+                                flex
+                                items-center
+                                justify-center
+                                text-[#2D1B14]
+                                font-bold
+                                text-lg
+                            "
+                                        >
+
+                                            {testimonial.name
+                                                .split(" ")
+                                                .slice(-2)
+                                                .map(name => name[0])
+                                                .join("")}
+
+                                        </div>
+
+                                        <div>
+
+                                            <h3
+                                                className="
+                                    text-lg
+                                    font-bold
+                                    text-[#1F1F1F]
+                                "
+                                            >
+                                                {testimonial.name}
+                                            </h3>
+
+                                            <p
+                                                className="
+                                    text-sm
+                                    text-[#6B7280]
+                                "
+                                            >
+                                                {testimonial.role}
+                                            </p>
+
+                                        </div>
+
+                                    </div>
 
                                 </div>
 
                             </div>
 
-                        </div>
+                        ))}
 
-                    ))}
+                    </div>
 
                 </div>
 

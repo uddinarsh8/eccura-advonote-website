@@ -6,6 +6,7 @@ import {
 
 import heroPhones from "../assets/hero-phones.png";
 import googlePlay from "../assets/google-play.png";
+import appStore from "../assets/app-store-png-logo-33116.png";
 
 function Hero() {
 
@@ -234,14 +235,21 @@ function Hero() {
 
                         </div>
 
-                        {/* GOOGLE PLAY BADGE */}
+                        {/* APP DOWNLOAD BUTTONS */}
 
-                        <div className="
-                            mt-8
-                            flex
-                            justify-center
-                            lg:justify-start
-                        ">
+                        <div
+                            className="
+        mt-8
+        flex
+        flex-wrap
+        gap-4
+        justify-center
+        lg:justify-start
+        items-center
+    "
+                        >
+
+                            {/* Google Play */}
 
                             <a
                                 href={playStoreLink}
@@ -253,18 +261,45 @@ function Hero() {
                                     src={googlePlay}
                                     alt="Get it on Google Play"
                                     className="
-                                        h-12
-                                        sm:h-14
-                                        md:h-16
-                                        lg:h-20
-                                        w-auto
-                                        hover:scale-105
-                                        transition-transform
-                                        duration-300
-                                    "
+                h-12
+                sm:h-14
+                md:h-16
+                lg:h-20
+                w-auto
+                hover:scale-105
+                transition-transform
+                duration-300
+            "
                                 />
 
                             </a>
+
+                            {/* Apple App Store */}
+
+                            <a
+                                href="#"
+                                onClick={(e) => e.preventDefault()}
+                                rel="noopener noreferrer"
+                            >
+
+                                <img
+                                    src={appStore}
+                                    alt="Download on the App Store"
+                                    className="
+            h-12
+            sm:h-14
+            md:h-16
+            lg:h-20
+            w-auto
+            hover:scale-105
+            transition-transform
+            duration-300
+        "
+                                />
+
+                            </a>
+
+
 
                         </div>
 

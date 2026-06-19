@@ -2,15 +2,15 @@ function Stats() {
 
     const stats = [
         {
-            number: "100+",
+            number: "500+",
             label: "Active Advocates"
         },
         {
-            number: "500+",
+            number: "5000+",
             label: "Cases Managed"
         },
         {
-            number: "1000+",
+            number: "8000+",
             label: "Clients Served"
         },
         {

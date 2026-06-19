@@ -1,65 +1,79 @@
 require("dotenv").config();
 
-
 const express = require("express");
 const cors = require("cors");
 
-
 const app = express();
 
-app.use(cors());
+/* CORS Configuration */
+
+app.use(
+    cors({
+        origin: [
+            "http://localhost:5173",
+            "https://eccura-advonote-website.vercel.app"
+        ],
+        credentials: true
+    })
+);
+
+/* Middleware */
+
 app.use(express.json());
 
+/* Health Check */
+
 app.get("/", (req, res) => {
-  res.send("Advonote API Running");
+
+    res.send("Advonote API Running");
+
 });
 
+/* Routes */
+
 const contactRoutes =
-  require("./routes/contactRoutes");
+    require("./routes/contactRoutes");
 
 const demoRoutes =
-  require("./routes/demoRoutes");
+    require("./routes/demoRoutes");
 
 const authRoutes =
-  require("./routes/authRoutes");
+    require("./routes/authRoutes");
 
 const adminRoutes =
-  require("./routes/adminRoutes");
-const advocateRoutes =
-  require("./routes/advocateRoutes");
-const caseRoutes =
-  require("./routes/caseRoutes");
-const clientRoutes =
-  require("./routes/clientRoutes");
-const todoRoutes =
-  require("./routes/todoRoutes");
-const notificationRoutes =
-  require("./routes/notificationRoutes");
+    require("./routes/adminRoutes");
+
+/* Route Registration */
 
 app.use(
-  "/api/cases",
-  caseRoutes
+    "/api",
+    contactRoutes
 );
-app.use(
-  "/api/clients",
-  clientRoutes
-);
-app.use("/api", contactRoutes);
-app.use("/api", demoRoutes);
 
-app.use("/api/auth", authRoutes);
+app.use(
+    "/api",
+    demoRoutes
+);
 
-app.use("/api/admin", adminRoutes);
 app.use(
-  "/api/advocates",
-  advocateRoutes
+    "/api/auth",
+    authRoutes
 );
+
 app.use(
-  "/api/todos", todoRoutes);
-app.use(
-  "/api/notifications",
-  notificationRoutes
+    "/api/admin",
+    adminRoutes
 );
-app.listen(5000, () => {
-  console.log("Server Running on Port 5000");
+
+/* Start Server */
+
+const PORT =
+    process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+
+    console.log(
+        `Server Running on Port ${PORT}`
+    );
+
 });

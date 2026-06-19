@@ -13,17 +13,17 @@ function AboutEccura() {
     const stats = [
         {
             icon: Briefcase,
-            number: "5+",
+            number: "8+",
             label: "Years of Experience"
         },
         {
             icon: Users,
-            number: "100+",
+            number: "200+",
             label: "Happy Clients"
         },
         {
             icon: Package,
-            number: "20+",
+            number: "50+",
             label: "Products Delivered"
         },
         {
@@ -50,17 +50,17 @@ function AboutEccura() {
                         <div className="p-8 border-b lg:border-b-0 lg:border-r border-[#EFE7DA]">
 
                             <h2 className="text-3xl font-bold text-[#2D1B14] mb-5">
-                                About ECCURA Technologies
+                                About Eccura Technologies
                             </h2>
 
                             <p className="text-gray-600 leading-relaxed">
-                                ECCURA Technologies Pvt. Ltd. is a software
-                                development company focused on building
-                                innovative, reliable and user-friendly
-                                solutions for businesses and professionals.
-                                Our mission is to empower legal professionals
-                                with technology that simplifies their daily
-                                practice.
+                                Eccura Technologies Pvt. Ltd. is a forward-thinking
+                                technology company based in Bareilly, dedicated to
+                                transforming complex business challenges into seamless
+                                digital experiences. From automating institutions with
+                                ERP solutions to empowering legal professionals through
+                                Advonote, our mission is to build intelligent software
+                                that drives productivity, innovation, and growth.
                             </p>
 
                         </div>
@@ -106,10 +106,12 @@ function AboutEccura() {
                         <div className="p-8">
 
                             <h3 className="text-4xl font-bold text-[#F4C430] mb-6">
-                                ECCURA
+                                Eccura Technologies Pvt. Ltd.
                             </h3>
 
                             <div className="space-y-4 text-gray-700">
+
+                                {/* Email */}
 
                                 <div className="flex items-center gap-3">
 
@@ -118,9 +120,16 @@ function AboutEccura() {
                                         className="text-[#F4C430]"
                                     />
 
-                                    support@eccuratech.com
+                                    <a
+                                        href="mailto:eccuratech@gmail.com"
+                                        className="hover:text-[#F4C430] transition"
+                                    >
+                                        eccuratech@gmail.com
+                                    </a>
 
                                 </div>
+
+                                {/* Phone */}
 
                                 <div className="flex items-center gap-3">
 
@@ -129,18 +138,35 @@ function AboutEccura() {
                                         className="text-[#F4C430]"
                                     />
 
-                                    +91 12345 67890
+                                    <a
+                                        href="tel:+916398057980"
+                                        className="hover:text-[#F4C430] transition"
+                                    >
+                                        +91 6398057980
+                                    </a>
 
                                 </div>
 
-                                <div className="flex items-center gap-3">
+                                {/* Address */}
+
+                                <div className="flex items-start gap-3">
 
                                     <MapPin
-                                        size={18}
-                                        className="text-[#F4C430]"
+                                        size={28}
+                                        className="
+                                            text-[#F4C430]
+                                            flex-shrink-0
+                                            mt-1
+                                        "
                                     />
 
-                                    Ahmedabad, Gujarat, India
+                                    <span className="leading-relaxed">
+                                        Near Hotel Grand Nirvana,
+                                        Karampur Chaudhary,
+                                        Nainital Road,
+                                        Bareilly - 243202,
+                                        Uttar Pradesh, India
+                                    </span>
 
                                 </div>
 

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import logo from "../assets/advonote-logo.png";
 import googlePlay from "../assets/google-play.png";
+import appStore from "../assets/app-store-png-logo-33116.png";
 import whatsappIcon from "../assets/whatsapp.png";
 
 function Footer() {
@@ -136,38 +137,39 @@ function Footer() {
 
                             <li>
 
-                                <Link
-                                    to="/privacy-policy"
+                                <a
+                                    href="https://lyrbookapi.etsoft.co.in/Home/PrivacyPolicy"
                                     className="hover:text-[#F4C430] transition"
                                 >
 
                                     Privacy Policy
 
-                                </Link>
-
-                            </li>
-
-                            <li>
-
-                                <Link
-                                    to="/terms-and-conditions"
-                                    className="hover:text-[#F4C430] transition"
-                                >
-
-                                    Terms & Conditions
-
-                                </Link>
+                                </a>
 
                             </li>
 
                             <li>
 
                                 <a
-                                    href="#"
+                                    href="https://lyrbookapi.etsoft.co.in/Home/TermConditions"
                                     className="hover:text-[#F4C430] transition"
                                 >
 
-                                    Blog
+                                    Terms & Conditions
+
+                                </a>
+
+
+                            </li>
+
+                            <li>
+
+                                <a
+                                    href="https://lyrbookapi.etsoft.co.in/Home/ReturnRefund"
+                                    className="hover:text-[#F4C430] transition"
+                                >
+
+                                    Return & Refund
 
                                 </a>
 
@@ -212,12 +214,12 @@ function Footer() {
                                     className="text-[#F4C430] mt-0.5 shrink-0"
                                 />
 
-                                <span>
-
-                                    support@eccuratech.com
-
-                                </span>
-
+                                <a
+                                    href="mailto:eccuratech@gmail.com"
+                                    className="hover:text-[#F4C430] transition"
+                                >
+                                    eccuratech@gmail.com
+                                </a>
                             </div>
 
                             {/* WhatsApp Button */}
@@ -266,29 +268,51 @@ function Footer() {
                             Download Advonote
 
                         </h4>
+                        <div className="flex flex-col gap-3">
 
-                        <a
-                            href="https://play.google.com/store/apps/details?id=com.aamni.AdvoNote&pcampaignid=web_share"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block"
-                        >
+                            <a
+                                href="https://play.google.com/store/apps/details?id=com.aamni.AdvoNote&pcampaignid=web_share"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-block"
+                            >
 
-                            <img
-                                src={googlePlay}
-                                alt="Get it on Google Play"
-                                className="
-                                    h-12
-                                    sm:h-14
-                                    w-auto
-                                    hover:scale-105
-                                    transition-transform
-                                    duration-300
-                                "
-                            />
+                                <img
+                                    src={googlePlay}
+                                    alt="Get it on Google Play"
+                                    className="
+                h-12
+                sm:h-14
+                w-auto
+                hover:scale-105
+                transition-transform
+                duration-300
+            "
+                                />
 
-                        </a>
+                            </a>
 
+                            <a
+                                href="#"
+                                className="inline-block"
+                            >
+
+                                <img
+                                    src={appStore}
+                                    alt="Download on the App Store"
+                                    className="
+                h-12
+                sm:h-14
+                w-auto
+                hover:scale-105
+                transition-transform
+                duration-300
+            "
+                                />
+
+                            </a>
+
+                        </div>
                     </div>
 
                 </div>
