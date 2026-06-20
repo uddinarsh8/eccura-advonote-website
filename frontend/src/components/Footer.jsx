@@ -293,7 +293,7 @@ function Footer() {
                             </a>
 
                             <a
-                                href="#"
+                                href="https://apps.apple.com/in/app/advonote/id6759081218"
                                 className="inline-block"
                             >
 

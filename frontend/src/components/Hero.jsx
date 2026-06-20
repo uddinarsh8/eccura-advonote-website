@@ -12,6 +12,8 @@ function Hero() {
 
     const playStoreLink =
         "https://play.google.com/store/apps/details?id=com.aamni.AdvoNote&pcampaignid=web_share";
+    const appStoreLink =
+        "https://apps.apple.com/in/app/advonote/id6759081218";
 
     const scrollToSection = (id) => {
 
@@ -277,8 +279,8 @@ function Hero() {
                             {/* Apple App Store */}
 
                             <a
-                                href="#"
-                                onClick={(e) => e.preventDefault()}
+                                href={appStoreLink}
+                                target="_blank"
                                 rel="noopener noreferrer"
                             >
 
@@ -298,7 +300,6 @@ function Hero() {
                                 />
 
                             </a>
-
 
 
                         </div>
