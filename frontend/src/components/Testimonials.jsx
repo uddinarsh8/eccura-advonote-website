@@ -1,8 +1,14 @@
 import {
     Star,
-    Quote
+    Quote,
+    ChevronLeft,
+    ChevronRight
 } from "lucide-react";
 
+import {
+    useState,
+    useEffect
+} from "react";
 
 function Testimonials() {
 
@@ -48,80 +54,60 @@ function Testimonials() {
             role: "Advocate",
             review:
                 "Advonote has improved productivity across my practice and reduced manual work."
-        },
-
-        {
-            name: "Adv. Anuj Kumar Yadav",
-            role: "Advocate",
-            review:
-                "Everything I need for managing cases and clients is available in one platform."
-        },
-
-        {
-            name: "Adv. Pramod Sagar",
-            role: "Advocate",
-            review:
-                "A modern legal practice management tool that helps me stay organized every day."
-        },
-
-        {
-            name: "Adv. Shikhar Shrivastav",
-            role: "Advocate",
-            review:
-                "The interface is clean, professional and very easy to navigate."
-        },
-
-        {
-            name: "Adv. Feroz Ali Khan",
-            role: "Advocate",
-            review:
-                "Advonote has become an important part of my legal practice workflow."
-        },
-
-        {
-            name: "Adv. Anjali",
-            role: "Advocate",
-            review:
-                "Managing clients, hearings and case details is now much more efficient."
-        },
-
-        {
-            name: "Adv. Ayesha Shaikh",
-            role: "Advocate",
-            review:
-                "The platform is secure, reliable and designed perfectly for legal professionals."
-        },
-
-        {
-            name: "Adv. Devendra Kumar",
-            role: "Advocate",
-            review:
-                "Advonote helps me manage my practice professionally and efficiently."
         }
 
     ];
+
+    const [current, setCurrent] = useState(0);
+
+    useEffect(() => {
+
+        const interval = setInterval(() => {
+
+            setCurrent((prev) =>
+                prev === testimonials.length - 1
+                    ? 0
+                    : prev + 1
+            );
+
+        }, 4000);
+
+        return () => clearInterval(interval);
+
+    }, []);
+
+    const prevSlide = () => {
+
+        setCurrent(
+            current === 0
+                ? testimonials.length - 1
+                : current - 1
+        );
+
+    };
+
+    const nextSlide = () => {
+
+        setCurrent(
+            current === testimonials.length - 1
+                ? 0
+                : current + 1
+        );
+
+    };
 
     return (
 
         <section
             id="testimonials"
-            className="bg-[#FAF7F0] py-20"
+            className="bg-[#FAF7F0] py-20 overflow-hidden"
         >
 
             <div className="max-w-7xl mx-auto px-6">
 
-                {/* Heading */}
-
                 <div className="text-center mb-16">
 
-                    <h2
-                        className="
-                            text-4xl
-                            lg:text-5xl
-                            font-bold
-                            text-[#1F1F1F]
-                        "
-                    >
+                    <h2 className="text-4xl lg:text-5xl font-bold text-[#1F1F1F]">
 
                         What
 
@@ -149,121 +135,195 @@ function Testimonials() {
 
                 </div>
 
-                {/* Testimonial Cards */}
-                {/* Testimonial Cards */}
-
                 <div className="relative">
 
-                    <div className="flex gap-8 overflow-x-auto scrollbar-hide pb-4">
+                    <button
+                        onClick={prevSlide}
+                        className="
+                            absolute
+                            left-0
+                            md:left-4
+                            top-1/2
+                            -translate-y-1/2
+                            z-30
+                            bg-white
+                            shadow-xl
+                            rounded-full
+                            p-3
+                            hover:bg-[#F4C430]
+                            transition-all
+                        "
+                    >
 
-                        {testimonials.map((testimonial, index) => (
+                        <ChevronLeft />
 
-                            <div
-                                key={index}
-                                className="
-                    flex-shrink-0
-                    w-[340px]
-                "
-                            >
+                    </button>
+
+                    <div
+                        className="
+                            relative
+                            h-[420px]
+                            flex
+                            items-center
+                            justify-center
+                        "
+                    >
+
+                        {testimonials.map((testimonial, index) => {
+
+                            const offset =
+                                (index - current + testimonials.length) %
+                                testimonials.length;
+
+                            let position = offset;
+
+                            if (
+                                offset >
+                                testimonials.length / 2
+                            ) {
+
+                                position =
+                                    offset -
+                                    testimonials.length;
+
+                            }
+
+                            const isActive =
+                                position === 0;
+
+                            return (
 
                                 <div
+                                    key={index}
                                     className="
-                        relative
-                        bg-white
-                        border border-[#E5E7EB]
-                        rounded-3xl
-                        p-8
-                        shadow-[0_4px_20px_rgba(0,0,0,0.08)]
-                        transition-all
-                        duration-300
-                        hover:-translate-y-2
-                        hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)]
-                        h-full
-                    "
+                                        absolute
+                                        transition-all
+                                        duration-700
+                                    "
+                                    style={{
+                                        transform: `
+                                            translateX(${position * 380}px)
+                                            scale(${isActive ? 1 : 0.85})
+                                        `,
+                                        opacity:
+                                            Math.abs(position) > 2
+                                                ? 0
+                                                : isActive
+                                                    ? 1
+                                                    : 0.5,
+                                        zIndex:
+                                            100 -
+                                            Math.abs(position)
+                                    }}
                                 >
 
                                     <div
                                         className="
-                            absolute
-                            top-6
-                            right-6
-                            text-[#F4C430]
-                        "
+                                            relative
+                                            bg-white
+                                            border
+                                            border-[#E5E7EB]
+                                            rounded-3xl
+                                            p-8
+                                            shadow-[0_8px_30px_rgba(0,0,0,0.10)]
+                                            w-[340px]
+                                        "
                                     >
-                                        <Quote size={32} />
-                                    </div>
-
-                                    <div className="flex gap-1 mb-6">
-
-                                        {[...Array(5)].map((_, i) => (
-
-                                            <Star
-                                                key={i}
-                                                size={18}
-                                                fill="#F4C430"
-                                                color="#F4C430"
-                                            />
-
-                                        ))}
-
-                                    </div>
-
-                                    <p
-                                        className="
-                            text-[#6B7280]
-                            leading-relaxed
-                            mb-8
-                            min-h-[120px]
-                        "
-                                    >
-                                        "{testimonial.review}"
-                                    </p>
-
-                                    <div className="flex items-center gap-4">
 
                                         <div
                                             className="
-                                w-14
-                                h-14
-                                rounded-full
-                                bg-[#FFF4CC]
-                                flex
-                                items-center
-                                justify-center
-                                text-[#2D1B14]
-                                font-bold
-                                text-lg
-                            "
+                                                absolute
+                                                top-6
+                                                right-6
+                                                text-[#F4C430]
+                                            "
                                         >
 
-                                            {testimonial.name
-                                                .split(" ")
-                                                .slice(-2)
-                                                .map(name => name[0])
-                                                .join("")}
+                                            <Quote size={32} />
 
                                         </div>
 
-                                        <div>
+                                        <div className="flex gap-1 mb-5">
 
-                                            <h3
-                                                className="
-                                    text-lg
-                                    font-bold
-                                    text-[#1F1F1F]
-                                "
-                                            >
-                                                {testimonial.name}
-                                            </h3>
+                                            {[...Array(5)].map((_, i) => (
 
-                                            <p
+                                                <Star
+                                                    key={i}
+                                                    size={18}
+                                                    fill="#F4C430"
+                                                    color="#F4C430"
+                                                />
+
+                                            ))}
+
+                                        </div>
+
+                                        <p
+                                            className="
+                                                text-[#6B7280]
+                                                leading-relaxed
+                                                mb-8
+                                                min-h-[120px]
+                                            "
+                                        >
+
+                                            "{testimonial.review}"
+
+                                        </p>
+
+                                        <div className="flex items-center gap-4">
+
+                                            <div
                                                 className="
-                                    text-sm
-                                    text-[#6B7280]
-                                "
+                                                    w-14
+                                                    h-14
+                                                    rounded-full
+                                                    bg-[#FFF4CC]
+                                                    flex
+                                                    items-center
+                                                    justify-center
+                                                    text-[#2D1B14]
+                                                    font-bold
+                                                "
                                             >
-                                                {testimonial.role}
-                                            </p>
+
+                                                {testimonial.name
+                                                    .split(" ")
+                                                    .slice(-2)
+                                                    .map(
+                                                        name =>
+                                                            name[0]
+                                                    )
+                                                    .join("")}
+
+                                            </div>
+
+                                            <div>
+
+                                                <h3
+                                                    className="
+                                                        text-lg
+                                                        font-bold
+                                                        text-[#1F1F1F]
+                                                    "
+                                                >
+
+                                                    {testimonial.name}
+
+                                                </h3>
+
+                                                <p
+                                                    className="
+                                                        text-sm
+                                                        text-[#6B7280]
+                                                    "
+                                                >
+
+                                                    {testimonial.role}
+
+                                                </p>
+
+                                            </div>
 
                                         </div>
 
@@ -271,11 +331,33 @@ function Testimonials() {
 
                                 </div>
 
-                            </div>
+                            );
 
-                        ))}
+                        })}
 
                     </div>
+
+                    <button
+                        onClick={nextSlide}
+                        className="
+                            absolute
+                            right-0
+                            md:right-4
+                            top-1/2
+                            -translate-y-1/2
+                            z-30
+                            bg-white
+                            shadow-xl
+                            rounded-full
+                            p-3
+                            hover:bg-[#F4C430]
+                            transition-all
+                        "
+                    >
+
+                        <ChevronRight />
+
+                    </button>
 
                 </div>
 
