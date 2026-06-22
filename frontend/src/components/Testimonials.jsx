@@ -54,6 +54,20 @@ function Testimonials() {
             role: "Advocate",
             review:
                 "Advonote has improved productivity across my practice and reduced manual work."
+        },
+
+        {
+            name: "Adv. Anuj Kumar Yadav",
+            role: "Advocate",
+            review:
+                "Everything I need for managing cases and clients is available in one platform."
+        },
+
+        {
+            name: "Adv. Pramod Sagar",
+            role: "Advocate",
+            review:
+                "A modern legal practice management tool that helps me stay organized every day."
         }
 
     ];
@@ -96,6 +110,10 @@ function Testimonials() {
 
     };
 
+    const isMobile =
+        typeof window !== "undefined" &&
+        window.innerWidth < 768;
+
     return (
 
         <section
@@ -103,11 +121,20 @@ function Testimonials() {
             className="bg-[#FAF7F0] py-20 overflow-hidden"
         >
 
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-4 md:px-6">
+
+                {/* Heading */}
 
                 <div className="text-center mb-16">
 
-                    <h2 className="text-4xl lg:text-5xl font-bold text-[#1F1F1F]">
+                    <h2
+                        className="
+                            text-4xl
+                            lg:text-5xl
+                            font-bold
+                            text-[#1F1F1F]
+                        "
+                    >
 
                         What
 
@@ -135,37 +162,47 @@ function Testimonials() {
 
                 </div>
 
+                {/* Carousel */}
+
                 <div className="relative">
+
+                    {/* Left Arrow */}
 
                     <button
                         onClick={prevSlide}
                         className="
+                            hidden md:flex
                             absolute
-                            left-0
-                            md:left-4
+                            left-4
                             top-1/2
                             -translate-y-1/2
-                            z-30
+                            z-50
                             bg-white
                             shadow-xl
                             rounded-full
                             p-3
                             hover:bg-[#F4C430]
                             transition-all
+                            items-center
+                            justify-center
                         "
                     >
 
-                        <ChevronLeft />
+                        <ChevronLeft size={22} />
 
                     </button>
+
+                    {/* Slides */}
 
                     <div
                         className="
                             relative
-                            h-[420px]
+                            h-[480px]
+                            md:h-[430px]
                             flex
                             items-center
                             justify-center
+                            overflow-hidden
                         "
                     >
 
@@ -199,18 +236,27 @@ function Testimonials() {
                                         absolute
                                         transition-all
                                         duration-700
+                                        ease-in-out
                                     "
                                     style={{
                                         transform: `
-                                            translateX(${position * 380}px)
+                                            translateX(${
+                                                isMobile
+                                                    ? position * 250
+                                                    : position * 380
+                                            }px)
                                             scale(${isActive ? 1 : 0.85})
                                         `,
                                         opacity:
-                                            Math.abs(position) > 2
-                                                ? 0
-                                                : isActive
+                                            isMobile
+                                                ? position === 0
                                                     ? 1
-                                                    : 0.5,
+                                                    : 0
+                                                : Math.abs(position) > 2
+                                                    ? 0
+                                                    : isActive
+                                                        ? 1
+                                                        : 0.5,
                                         zIndex:
                                             100 -
                                             Math.abs(position)
@@ -224,9 +270,12 @@ function Testimonials() {
                                             border
                                             border-[#E5E7EB]
                                             rounded-3xl
-                                            p-8
+                                            p-6
+                                            md:p-8
                                             shadow-[0_8px_30px_rgba(0,0,0,0.10)]
-                                            w-[340px]
+                                            w-[260px]
+                                            sm:w-[320px]
+                                            md:w-[340px]
                                         "
                                     >
 
@@ -239,7 +288,7 @@ function Testimonials() {
                                             "
                                         >
 
-                                            <Quote size={32} />
+                                            <Quote size={30} />
 
                                         </div>
 
@@ -263,7 +312,10 @@ function Testimonials() {
                                                 text-[#6B7280]
                                                 leading-relaxed
                                                 mb-8
-                                                min-h-[120px]
+                                                min-h-[140px]
+                                                md:min-h-[120px]
+                                                text-sm
+                                                md:text-base
                                             "
                                         >
 
@@ -275,8 +327,10 @@ function Testimonials() {
 
                                             <div
                                                 className="
-                                                    w-14
-                                                    h-14
+                                                    w-12
+                                                    h-12
+                                                    md:w-14
+                                                    md:h-14
                                                     rounded-full
                                                     bg-[#FFF4CC]
                                                     flex
@@ -302,7 +356,8 @@ function Testimonials() {
 
                                                 <h3
                                                     className="
-                                                        text-lg
+                                                        text-base
+                                                        md:text-lg
                                                         font-bold
                                                         text-[#1F1F1F]
                                                     "
@@ -337,25 +392,29 @@ function Testimonials() {
 
                     </div>
 
+                    {/* Right Arrow */}
+
                     <button
                         onClick={nextSlide}
                         className="
+                            hidden md:flex
                             absolute
-                            right-0
-                            md:right-4
+                            right-4
                             top-1/2
                             -translate-y-1/2
-                            z-30
+                            z-50
                             bg-white
                             shadow-xl
                             rounded-full
                             p-3
                             hover:bg-[#F4C430]
                             transition-all
+                            items-center
+                            justify-center
                         "
                     >
 
-                        <ChevronRight />
+                        <ChevronRight size={22} />
 
                     </button>
 
